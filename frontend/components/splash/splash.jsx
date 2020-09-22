@@ -19,7 +19,7 @@ export default function Splash({errors}) {
                 </div>
                 
             </div>
-            <div className="footer fine-print">
+            <div className="etc-footer fine-print">
                 <div> English (US) </div>
                 <div className="separator" />
             </div>

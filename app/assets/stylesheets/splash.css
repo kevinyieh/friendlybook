@@ -100,12 +100,12 @@
     margin-top: 100px;
     width: 500px;
 }
-.splash .footer {
+.splash .etc-footer {
     width: 1000px;
     height: 100px;
     background: white;
     margin: 20px auto;
 }
-.splash-container .footer .separator{
+.splash-container .etc-footer .separator{
     width: 50%;
 }
