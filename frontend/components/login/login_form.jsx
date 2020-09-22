@@ -1,5 +1,6 @@
 import React from "react";
 import SignUpModal from "../modal/sign_up_modal";
+import { Redirect } from "react-router-dom";
 
 export default class LoginForm extends React.Component{
     constructor(props){

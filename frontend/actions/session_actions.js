@@ -1,4 +1,5 @@
 import * as UserUtil from "../util/users";
+// import { Redirect } from "react-router-dom";
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
@@ -28,7 +29,9 @@ const receiveErrors = errors => {
 export const login = user => dispatch => {
     UserUtil.login(user)
         .then(payload => dispatch(receiveCurrentUser(payload)),
-            errors => dispatch(receiveErrors(errors))
+            errors => {
+                dispatch(receiveErrors(errors));
+            }
         )
 };
 

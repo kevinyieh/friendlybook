@@ -31,3 +31,7 @@ h1,p {
     padding: 1px 0 0 0;
     background-color: lightgray;
 }
+
+button {
+    outline: none;
+}

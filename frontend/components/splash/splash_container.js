@@ -5,9 +5,9 @@ import { openModal, closeModal } from "../../actions/modal_actions";
 import Splash from "./splash";
 
 const mSTP = state => {
-    const modal = state.ui.modal;
+    const errors = state.errors.session;
     return {
-        modal
+        errors
     }
 }
 

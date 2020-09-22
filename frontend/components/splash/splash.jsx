@@ -1,7 +1,10 @@
 import React from "react";
 import LoginFormContainer from "../login/login_form_container";
+import { Redirect } from "react-router-dom";
 
-export default function Splash() {
+export default function Splash({errors}) {
+    if(errors.length > 0) return <Redirect to="/login" />
+    
     return (
         <div className="splash">
             <div className="splash-container">
