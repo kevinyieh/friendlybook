@@ -1,6 +1,10 @@
 import React from "react";
 const months = {Jan:31,Feb:28, Mar:31, Apr:30, May:31, Jun:30, Jul:31, Aug:31, Sep:30, Oct:31, Nov:30, Dec:31}
-
+const pronouns = {"she/her": 'She: "Wish her a happy birthday!"',"he/him": 'He: "Wish him a happy birthday"', "they/them": 'They: "Wish them a happy birthday!"'}
+const defaultPronouns = {
+    male: "he/him",
+    female: "she/her"
+}
 export default class SignUpModal extends React.Component{
     constructor(props){
         super(props);
@@ -13,7 +17,8 @@ export default class SignUpModal extends React.Component{
             month: Object.keys(months)[currDate.getMonth()],
             day: currDate.getDate(),
             year: currDate.getFullYear(),
-            gender: ""
+            gender: "",
+            pronoun: ""
         }
         this.closeModalEvent = this.closeModalEvent.bind(this);
         this.customGender = false;
@@ -39,13 +44,17 @@ export default class SignUpModal extends React.Component{
 
     handleRadio(field){
         return e => {
-            this.customGender = e.target.value === "custom" ? true : false;
+            this.customGender = e.target.value === "non-binary" ? true : false;
             this.update(field)(e);
+            if(e.target.value !== "non-binary"){
+                this.update("pronoun")(defaultPronouns[e.target.value])
+            }
         }
     }
 
     render(){
         if(!(this.props.modal === "signup")) return null;
+        console.log(this.state);
         return(
             <div className="modal">
                 <div className="signup-modal-backdrop">
@@ -107,14 +116,31 @@ export default class SignUpModal extends React.Component{
                                         <div className="radio-container">
                                             <label className="gender-label" htmlFor="custom-radio">Custom</label>
                                             <input id="custom-radio" 
-                                                type="radio" name="custom" value="custom" 
+                                                type="radio" name="custom" value="non-binary" 
                                                 checked={this.customGender}/>
                                         </div>
                                     </div>
+                                    <div className={`${this.customGender ? "" : "hidden"} non-binary-form`}>
+                                        <select value={this.state.pronoun ? this.state.pronoun : "default-option"} onChange={this.update("pronoun")}>
+                                            <option key="default-option" disabled="disabled" value="default-option"> Select your pronoun </option>
+                                            {Object.keys(pronouns).map( pronoun => {
+                                                return (
+                                                    <option key={pronoun} value={pronoun}> 
+                                                        {pronouns[pronoun]} 
+                                                    </option>
+                                                )
+                                            })}
+                                        </select>
+                                        <div className="fine-print"> Your pronoun is visible to everyone </div>
+                                        <input onChange={this.update("gender")} className="custom-gender-input" type="text" placeholder="Gender (optional)"/>
+                                    </div>
                                 </div>
-                                <p className="fine-print">
-                                    By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.
-                                </p>
+                                <div className="footer">
+                                    <div className="fine-print">
+                                        By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.
+                                    </div>
+                                </div>
+                                    
                             </div>
                             <button>Sign Up</button>
                         </form>

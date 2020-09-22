@@ -46,7 +46,8 @@ export const signup = user => dispatch => {
         email: user.email,
         password: user.password,
         birthdate: `${user.year}/${user.month}/${user.day}`,
-        gender: user.gender
+        gender: user.gender,
+        pronoun: user.pronoun
     };
     UserUtil.signup(userParams)
         .then(payload => {

@@ -11,5 +11,6 @@ usr = User.create({
     email: "demo@demo.com",
     password: "password",
     birthdate: "2000/01/01",
-    gender: "female"
+    gender: "female",
+    pronoun: "she/her"
 })
