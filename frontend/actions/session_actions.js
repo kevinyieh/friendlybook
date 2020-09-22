@@ -26,21 +26,29 @@ const receiveErrors = errors => {
 }
 
 export const login = user => dispatch => {
-    APIUtil.login(user)
+    UserUtil.login(user)
         .then(payload => dispatch(receiveCurrentUser(payload)),
             errors => dispatch(receiveErrors(errors))
         )
 };
 
 export const logout = () => dispatch => {
-    APIUtil.logout()
+    UserUtil.logout()
         .then(payload => dispatch(logoutCurrentUser(payload)),
             errors => dispatch(receiveErrors(errors))
         )
 };
 
 export const signup = user => dispatch => {
-    APIUtil.signup(user)
+    const userParams = {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+        password: user.password,
+        birthdate: `${user.year}/${user.month}/${user.day}`,
+        gender: user.gender
+    };
+    UserUtil.signup(userParams)
         .then(payload => {
             return dispatch(receiveCurrentUser(payload))
         },
