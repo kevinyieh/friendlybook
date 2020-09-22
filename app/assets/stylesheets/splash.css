@@ -1,6 +1,6 @@
 .splash-container {
     background-color: #f2f2f2;
-    height: 1084px;
+    height: 880px;
     position: relative;
 }
 .splash-container .login-form-container {
@@ -9,11 +9,7 @@
     padding: 20px 0 28px;
     display: block;
     box-sizing: border-box;
-    position: absolute;
-    right: 250px;
-    top: 175px;
 }
-
 
 .login-form {
     background-color: white;
@@ -86,11 +82,29 @@
 .login-form a:hover {
     cursor: pointer;
 }
-.separator {
-    padding: 1px 0 0 0;
-    background-color: lightgray;
-}
 .login-form-container .separator {
     margin: 20px 0px;
     width: 95%;
 }
+.splash-main{
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1100px;
+}
+.splash-greeting {
+    width: 500px;
+}
+.splash .footer {
+    width: 1000px;
+    height: 100px;
+    background: white;
+    margin: 20px auto;
+}
+.splash-container .footer .separator{
+    width: 50%;
+}
+
