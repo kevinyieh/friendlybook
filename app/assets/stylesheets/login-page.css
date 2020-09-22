@@ -1,0 +1,17 @@
+.login-page .login-form-container {
+    min-width:396px;
+    min-height: 456px;
+    width: 28%;
+    height: 30%;
+    padding: 20px 0 28px;
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    right: 36%;
+    top: 20%;
+}
+
+.login-header{
+    font-size: 18px;
+    padding: 20px;
+}

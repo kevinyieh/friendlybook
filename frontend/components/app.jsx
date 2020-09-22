@@ -1,13 +1,15 @@
 import React from "react";
 import { Route,Switch } from "react-router-dom";
 import SplashOrPass from "./splash_or_pass"
-import LoginFormContainer from "./login/login_form_container";
+import LoginPage from "./login/login";
 
 export default function App(){
     return (
         <div>
-            {/* <Route path="/login" component={LoginFormContainer}/> */}
-            <Route path="/" component={SplashOrPass} />
+            <Switch>
+                <Route path="/login" component={LoginPage}/>
+                <Route path="/" component={SplashOrPass} />
+            </Switch>
         </div>
     )
 }
