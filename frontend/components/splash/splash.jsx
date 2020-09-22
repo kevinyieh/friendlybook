@@ -46,8 +46,7 @@ export default class Splash extends React.Component{
                             <a onClick={this.openModalEvent} >Create New Account</a>
                         </form>
                 </div>
-            </div>
-            
+            </div>  
         )
     }
         
