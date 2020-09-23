@@ -180,6 +180,7 @@
 }
 .signup-form button:hover {
     cursor: pointer;
+    background-color: #3ba626;
 }
 .custom-gender-input {
     width: 100%;
