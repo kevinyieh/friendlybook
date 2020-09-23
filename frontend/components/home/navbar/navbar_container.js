@@ -10,9 +10,9 @@ const mSTP = state => {
 const mDTP  = dispatch => {
     return {
         logout: () => {
-            return dispatch(logout);
+            return dispatch(logout());
         }
     }
 }
 
-return connect(undefined,mDTP)(NavBar);
+export default connect(undefined,mDTP)(NavBar);
