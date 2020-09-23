@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded",() => {
         store = configureStore({
             session: {
                 id: currentUser.id,
-                pronoun: currentUser.pronoun.split("/")
+                pronoun: currentUser.pronoun.split("/"),
+                firstName: currentUser.firstName,
+                lastName: currentUser.lastName
             }
         })
     }else {

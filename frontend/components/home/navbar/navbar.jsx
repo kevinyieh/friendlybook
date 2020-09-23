@@ -1,22 +1,129 @@
 import React from "react";
-import AccountDropdown from "./right-side/account_dropdown";
+import AccountDropdown from "./side-nav/account_dropdown";
+import NotificationsDropdown from "./side-nav/notifications_dropdown";
+import MessengerDropdown from "./side-nav/messenger_dropdown";
+import CreateDropdown from "./side-nav/create_dropdown";
+import Search from "./search-nav/search-nav";
 
-export default function NavBar({ logout }){
-    return (
-        <div className="navbar">
-            <div className="search">
-                <img className="small-logo" src={window.smallLogoUrl}></img>
-            </div>
+const elementClickIsOutside = (allDropIcons,clicked) => {
+    return !allDropIcons.some( element => element.contains(clicked))
+}
 
-            <div className="main-nav">
-                <div>
-                    Middle Stuff
+export default class NavBar extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            drop: null,
+            currentDropList: null
+        }
+        this.droplists = {};
+        this.allDropIcons = {};
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+    handleClickOutside(e) {
+        if (elementClickIsOutside(Object.values(this.allDropIcons),e.target) &&
+            this.state.currentDropList && 
+            !this.state.currentDropList.dropdownList.contains(e.target)){
+            this.setState({
+                drop: null,
+                currentDropList: null
+            });
+        }
+    }
+    dropdown(clickedDrop){
+        return e => {
+            if(this.state.drop === clickedDrop){
+                this.setState({
+                    drop: null,
+                    currentDropList: null
+                })
+            }else{
+                this.setState({
+                    drop: clickedDrop,
+                    currentDropList: this.droplists[clickedDrop]
+                })
+            }
+            
+        }
+    }
+
+    render(){
+        console.log(this.props.currentUser.firstName)
+        return (
+            <div className="navbar">
+                <div className="search-nav">
+                    <img className="small-logo" src={window.smallLogoUrl}></img>
+                    <Search />
                 </div>
+    
+                <div className="main-nav">
+                    <div>
+                        Middle Stuff
+                    </div>
+                </div>
+                
+                <div className="side-nav">
+                    <div className="small-profile">
+                        <div>
+                            {this.props.currentUser.firstName}
+                        </div>
+                    </div>
+                    <div className="create">
+                        <div onClick={this.dropdown("create")} 
+                            className="drop-create"
+                            ref={node => this.allDropIcons["create"] = node}>
+                            <i className="fas fa-plus"></i>
+                        </div>
+                        <CreateDropdown
+                            drop={this.state.drop}
+                            ref={node => this.droplists["create"] = node}
+                        />
+                    </div>
+                    <div className="messenger">
+                        <div onClick={this.dropdown("messenger")} 
+                            className="drop-messenger"
+                            ref={node => this.allDropIcons["messenger"] = node}>
+                            <i className="fas fa-comment-dots" />
+                        </div>
+                        <MessengerDropdown 
+                            drop={this.state.drop}
+                            ref={node => this.droplists["messenger"] = node}
+                        />
+                    </div>
+                    <div className="notifications">
+                        <div onClick={this.dropdown("notifications")} 
+                            className="drop-bell"
+                            ref={node => this.allDropIcons["notifications"] = node}>
+                            <i className="fas fa-bell" />
+                        </div>
+                        <NotificationsDropdown 
+                            drop={this.state.drop}
+                            ref={node => this.droplists["notifications"] = node}
+                        />
+                    </div>
+                    <div className="account">
+                        <div onClick={this.dropdown("account")} 
+                            className="drop-carrot"
+                            ref={node => this.allDropIcons["account"] = node}>
+                            <i className="fas fa-caret-down" />
+                        </div>
+                        <AccountDropdown 
+                                logout={this.props.logout} 
+                                drop={this.state.drop}
+                                ref={node => this.droplists["account"] = node}
+                        />
+                    </div>
+                </div>
+                    
             </div>
-
-            <div className="tools">
-                <AccountDropdown logout={logout}/>
-            </div>
-        </div>
-    )
+        )
+    }
+    
 }

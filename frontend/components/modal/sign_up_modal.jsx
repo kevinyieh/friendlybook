@@ -54,7 +54,6 @@ export default class SignUpModal extends React.Component{
 
     render(){
         if(!(this.props.modal === "signup")) return null;
-        console.log(this.state);
         return(
             <div className="modal">
                 <div className="signup-modal-backdrop">

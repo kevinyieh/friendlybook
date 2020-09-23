@@ -7,8 +7,11 @@
     position: relative;
 }
 
-.small-logo:hover, .drop-carrot:hover {
+.small-logo:hover, [class^="drop-"]:hover {
     cursor: pointer;
+}
+[class^="drop-"]:hover {
+    background-color: #d9d9d9;
 }
 .navbar {
     display: flex;
@@ -24,45 +27,41 @@
     align-items: center;
     border: 1px solid #e6e6e6;
 }
-.drop-carrot {
-    font-size: 25px;
-    background-color: #e6e6e6;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    position: relative;
+
+.side-nav, .search-nav {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
 }
-.fa-caret-down {
-    position: absolute;
-    top: 7px;
-    left: 12px;
-}
-.drop-carrot:hover {
-    background-color: #d9d9d9;
+.side-nav {
+    width: 280px;
+    justify-content: space-evenly;
 }
 
-.drop-list {
+.dropdown-list {
     position: absolute;
-    top: 43px;
-    left: -270px;
+    top: 49px;
+    right: 25px;
     width: 300px;
-    height: 300px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .2), 0 8px 16px rgba(0, 0, 0, .2);
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     box-sizing: border-box;
     padding: 5px;
 }
-.drop-list .separator {
+
+.dropdown-list  h1 {
+    font-size: 24px;
+}
+
+.dropdown-list .separator {
     width: 90%;
     align-self: center;
 }
 
-.drop-list li {
+.dropdown-list li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -72,56 +71,42 @@
     padding: 5px;
 }
 
-.drop-list li:hover {
+.dropdown-list li:hover {
     background-color: #d9d9d9;
     cursor: pointer;
 }
-[class^="dropdown-"]{
-    position: relative;
-}
-.drop-list .fa-angle-right {
+
+.dropdown-list .fa-angle-right {
     font-size: 25px;
-    position: absolute;
-    top: 8px;
-    right: 10px;
 }
 
 div[class^="drop-"] {
-    font-size: 25px;
+    font-size: 20px;
     background-color: #e6e6e6;
     border-radius: 50%;
     height: 40px;
     width: 40px;
-    text-align: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-[class^="drop-icon"] .fa-cog,
+/* [class^="drop-icon"] .fa-cog,
 [class^="drop-icon"] .fa-question-circle,
 [class^="drop-icon"] .fa-moon,
 [class^="drop-icon"] .fa-door-open {
-    position: absolute;
-    top: 10px;
     font-size: 20px;
-}
-
-[class^="drop-icon"] .fa-cog {
-    left: 10px;
-}
-[class^="drop-icon"] .fa-question-circle {
-    left: 10px;
-}
-[class^="drop-icon"] .fa-moon {
-    left: 9px;
-}
-[class^="drop-icon"] .fa-door-open {
-    left: 8px;
-    top: 9px;
-}
-
+} */
 .label-dropdown {
     width: 80%;
     text-align: left;
     font-weight: 700;
     font-size: 15px;
+}
+
+.small-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
