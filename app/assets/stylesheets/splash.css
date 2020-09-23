@@ -1,7 +1,9 @@
 .splash-container {
     background-color: #f2f2f2;
-    height: 880px;
+    height: 720px;
     position: relative;
+    padding: 50px;
+    box-sizing: border-box;
 }
 .splash-container .login-form-container {
     width: 396px;
@@ -87,25 +89,23 @@
     width: 95%;
 }
 .splash-main{
-    position: absolute;
-    top: 15%;
-    left: 15%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 1100px;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 .splash-greeting {
     margin-top: 100px;
     width: 500px;
 }
 .splash .etc-footer {
-    width: 1000px;
-    height: 100px;
+    width: 1100px;
+    height: 156px;
     background: white;
     margin: 20px auto;
 }
-.splash-container .etc-footer .separator{
+.etc-footer .separator{
     width: 50%;
+    margin-top: 15px;
 }
