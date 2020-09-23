@@ -5,12 +5,13 @@
 }
 .search-container input {
     border-radius: 60px;
-    height: 40px;
+    height: 35px;
     width: 100%;
     outline: none;
     text-indent: 28px;
     font-size: 15px;
-    transition: text-indent 0.2s
+    padding: 0;
+    transition: text-indent 0.2s, width 0.2s;
 }
 
 .search-icon {
@@ -27,3 +28,4 @@
     left: 1px;
     opacity: 0;
 }
+
