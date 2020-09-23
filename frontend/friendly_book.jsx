@@ -5,7 +5,19 @@ import configureStore from "./store/store";
 
 document.addEventListener("DOMContentLoaded",() => {
     const root = document.getElementById("root");
-    const store = configureStore();
+    const currentUser = window.currentUser;
+    let store = null;
+    if (currentUser){
+        store = configureStore({
+            session: {
+                id: currentUser.id,
+                pronoun: currentUser.pronoun.split("/")
+            }
+        })
+    }else {
+        store = configureStore();
+    }
     window.getState = store.getState;
+    delete window.currentUser;
     ReactDOM.render(<Root store={store}/>, root );
 })
