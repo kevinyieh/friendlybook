@@ -59,6 +59,7 @@ div[class^="drop-"] {
 .search-nav {
     justify-content: center;
     align-items: center;
+    width: 350px;
 }
 
 .side-nav {
@@ -97,6 +98,7 @@ div[class^="drop-"] {
     align-items: center;
     box-sizing: border-box;
     padding: 5px;
+    justify-content: flex-start;
     transition: background-color 0.5s;
 }
 
@@ -114,6 +116,7 @@ div[class^="drop-"] {
     text-align: left;
     font-weight: 700;
     font-size: 15px;
+    text-indent: 10px;
 }
 
 .small-profile {

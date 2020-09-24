@@ -5,6 +5,7 @@ class Api::SearchesController < ApplicationController
             @search_results = User.select("users.*")
                                 .where("CONCAT(LOWER(users.first_name),' ',LOWER(users.last_name)) LIKE ? ",
                                 "%#{search_params["query"].downcase}%")
+                                .limit(8)
         end
         render :index
     end
