@@ -21,7 +21,7 @@ export default class Search extends React.Component{
         fetchSearch(this.state.searchContent).then( (searchResults) => {
             this.setState({
                 searchResults
-            },console.log(searchResults))
+            })
         })   
     }
 

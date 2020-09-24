@@ -51,19 +51,23 @@ div[class^="drop-"] {
     border: 1px solid #e6e6e6;
 }
 
+.spacer {
+    height: 55px;
+    width: 100%;
+}
+
 .side-nav, .search-nav {
     display: flex;
     flex-direction: row;
     padding: 3px;
+    min-width: 300px;
 }
 .search-nav {
     justify-content: center;
     align-items: center;
-    width: 350px;
 }
 
 .side-nav {
-    width: 265px;
     justify-content: space-evenly;
 }
 

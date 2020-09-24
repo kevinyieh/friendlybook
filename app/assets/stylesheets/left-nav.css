@@ -1,0 +1,40 @@
+.left-nav {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 300px;
+    position: fixed;
+}
+
+.left-spacer {
+    height: 100vh;
+    min-width: 300px;
+}
+
+.left-nav a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 11px 5px;
+    transition: background-color 0.1s;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin: 2px;
+}
+.left-nav a:hover{
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+.left-nav a i {
+    font-size: 26px;
+}
+
+.left-nav a p {
+    width: 80%;
+    text-align: left;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
