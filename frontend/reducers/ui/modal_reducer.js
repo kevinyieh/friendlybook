@@ -8,6 +8,6 @@ export default function modalReducer(state= null , action){
         case CLOSE_MODAL:
             return null;
         default:
-            return null;
+            return state;
     }
 }

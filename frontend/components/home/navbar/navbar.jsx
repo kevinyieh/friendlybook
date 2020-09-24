@@ -55,7 +55,6 @@ export default class NavBar extends React.Component{
     }
 
     render(){
-        console.log(this.props.currentUser.firstName)
         return (
             <div className="navbar">
                 <div className="search-nav">

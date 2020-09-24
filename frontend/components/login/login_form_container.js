@@ -19,7 +19,7 @@ const mDTP = dispatch => {
             return dispatch(login(user));
         },
         signup: (user) => {
-            return dispatch(signup(user));
+            return signup(user)(dispatch);
         },
         openModal: (modal) => {
             return dispatch(openModal(modal));

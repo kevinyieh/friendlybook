@@ -1,0 +1,28 @@
+.input-pending {
+    border: 1px solid lightgray;
+}
+    
+.input-error {
+    border: 1px solid red;
+}
+
+.error-message {
+    font-size: 13px;
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.error-icon {
+    color: red;
+    position: absolute;
+}
+
+.login-form-container .error-icon {
+    top: 32px;
+    right: 16px;
+}
+
+.signup-form .error-message{
+    margin-left: 6px;
+}

@@ -20,6 +20,12 @@ const logoutCurrentUser = () => {
 
 const receiveErrors = errors => {
     errors = errors.responseJSON;
+    if (errors.signup){
+        errors.signup.firstName = errors.signup.first_name;
+        errors.signup.lastName = errors.signup.last_name;
+        delete errors.signup.first_name;
+        delete errors.signup.last_name;
+    }
     return {
         type: RECEIVE_SESSION_ERRORS,
         errors
@@ -52,10 +58,14 @@ export const signup = user => dispatch => {
         gender: user.gender,
         pronoun: user.pronoun
     };
-    UserUtil.signup(userParams)
+    return UserUtil.signup(userParams)
         .then(payload => {
-            return dispatch(receiveCurrentUser(payload))
+            dispatch(receiveCurrentUser(payload))
+            return true
         },
-            errors => dispatch(receiveErrors(errors))
+        errors => {
+                dispatch(receiveErrors(errors))
+                return false
+            }
         )
 };
