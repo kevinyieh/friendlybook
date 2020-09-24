@@ -12,6 +12,7 @@ export default class LoginForm extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.openModalEvent = this.openModalEvent.bind(this);
         this.demoLogin = this.demoLogin.bind(this);
+        this.refreshInputs = this.refreshInputs.bind(this);
     }
     update(field){
         return e => {
@@ -21,14 +22,22 @@ export default class LoginForm extends React.Component{
             })
         }  
     }
-    handleSubmit(e){
-        e.preventDefault();
-        this.props.login(this.state).then(()=>{},()=> {
+    refreshInputs(){
+        if(this.props.errors.login.email){
             this.setState({
                 email: "",
                 password: ""
             })
-        });
+        }else{
+            this.setState({
+                password: ""
+            })
+        }
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        
+        this.props.login(this.state).then(()=>{},this.refreshInputs);
     }
     openModalEvent(e){
         e.preventDefault();
