@@ -16,7 +16,7 @@ const mSTP = state => {
 const mDTP = dispatch => {
     return {
         login: (user) => {
-            return dispatch(login(user));
+            return login(user)(dispatch);
         },
         signup: (user) => {
             return signup(user)(dispatch);

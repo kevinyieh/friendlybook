@@ -33,9 +33,10 @@ const receiveErrors = errors => {
 }
 
 export const login = user => dispatch => {
-    UserUtil.login(user)
-        .then(payload => dispatch(receiveCurrentUser(payload)),
-            errors => {
+    return UserUtil.login(user)
+        .then(payload => {
+            dispatch(receiveCurrentUser(payload));
+        },errors => {
                 dispatch(receiveErrors(errors));
             }
         )
@@ -61,11 +62,9 @@ export const signup = user => dispatch => {
     return UserUtil.signup(userParams)
         .then(payload => {
             dispatch(receiveCurrentUser(payload))
-            return true
         },
         errors => {
                 dispatch(receiveErrors(errors))
-                return false
             }
         )
 };
