@@ -76,7 +76,7 @@ export default class NavBar extends React.Component{
                     </div>
                     <div className="create">
                         <div onClick={this.dropdown("create")} 
-                            className="drop-create"
+                            className={`drop-create ${this.state.drop === "create" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["create"] = node}>
                             <i className="fas fa-plus"></i>
                         </div>
@@ -87,7 +87,7 @@ export default class NavBar extends React.Component{
                     </div>
                     <div className="messenger">
                         <div onClick={this.dropdown("messenger")} 
-                            className="drop-messenger"
+                            className={`drop-messenger ${this.state.drop === "messenger" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["messenger"] = node}>
                             <i className="fas fa-comment-dots" />
                         </div>
@@ -98,7 +98,7 @@ export default class NavBar extends React.Component{
                     </div>
                     <div className="notifications">
                         <div onClick={this.dropdown("notifications")} 
-                            className="drop-bell"
+                            className={`drop-bell ${this.state.drop === "notifications" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["notifications"] = node}>
                             <i className="fas fa-bell" />
                         </div>
@@ -109,7 +109,7 @@ export default class NavBar extends React.Component{
                     </div>
                     <div className="account">
                         <div onClick={this.dropdown("account")} 
-                            className="drop-carrot"
+                            className={`drop-carrot ${this.state.drop === "account" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["account"] = node}>
                             <i className="fas fa-caret-down" />
                         </div>

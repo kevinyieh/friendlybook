@@ -1,16 +1,28 @@
 import React from "react";
-
+import { fetchSearch } from "../../../../util/search_util";
+import SearchItem from "./search-item";
+// CURRENTLY DOUBLE RENDERING FOR EACH TIME SEARCH INPUT CHANGES 
+// (bc double state change, one for searchContents and one for searchResults)
+// CONSIDER REFACTORING TO ONLY CHANGE STATE ONCE PER INPUT CHANGE
 export default class Search extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             searchContent: "",
-            dropped: null
+            dropped: null,
+            searchResults: null
         }
         this.updateSearch = this.updateSearch.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.closeSearch = this.closeSearch.bind(this);
+    }
+    getSearchResults(){
+        fetchSearch(this.state.searchContent).then( (searchResults) => {
+            this.setState({
+                searchResults
+            },console.log(searchResults))
+        })   
     }
 
     componentDidMount(){
@@ -24,11 +36,11 @@ export default class Search extends React.Component{
     updateSearch(e){
         this.setState({
             searchContent: e.currentTarget.value
-        })
+        }, this.getSearchResults);
     }
 
     handleMouseUp(e){
-        if(this.searchInput.contains(e.target)){
+        if(this.searchInput && this.searchInput.contains(e.target)){
             this.setState({
                 dropped: true
             })
@@ -48,6 +60,20 @@ export default class Search extends React.Component{
             dropped: null
         })
     }
+
+    allSearchResults() {
+        if(this.state.searchResults){
+            return Object.values(this.state.searchResults).map( searchResult => {
+                return <SearchItem 
+                    key={`${searchResult.id}`}
+                    searchResult={searchResult} 
+                    searchQuery={this.state.searchContent} />
+            } )
+        }else{
+            return null;
+        }
+    }
+    
     render(){
         return(
             <div className={`${this.state.dropped ? "dropped" : ""} search-container`} ref={node => this.searchContainer = node}>
@@ -69,8 +95,8 @@ export default class Search extends React.Component{
                     </div>
                 </div>
                     
-                <ul className={`${this.state.dropped ? "" : "hidden"} search-query`}>
-                    
+                <ul className={`${this.state.dropped ? "" : "hidden"} search-results-list`}>
+                    {this.allSearchResults()}
                 </ul>
             </div>
         )

@@ -1,7 +1,11 @@
 class Api::SearchesController < ApplicationController
     def index
-        @search_results = User.select("users.*")
-                            .where("CONCAT(users.first_name,' ',users.last_name) LIKE ? ","%#{search_params["query"]}%")
+        @search_results = {};
+        if search_params["query"].length > 0
+            @search_results = User.select("users.*")
+                                .where("CONCAT(LOWER(users.first_name),' ',LOWER(users.last_name)) LIKE ? ",
+                                "%#{search_params["query"].downcase}%")
+        end
         render :index
     end
 

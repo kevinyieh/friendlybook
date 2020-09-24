@@ -14,3 +14,33 @@ usr = User.create({
     gender: "female",
     pronoun: "she/her"
 })
+
+usr = User.create({
+    first_name: "John",
+    last_name: "Smith",
+    email: "johnsmith@demo.com",
+    password: "password",
+    birthdate: "1997/03/10",
+    gender: "male",
+    pronoun: "he/him"
+})
+
+usr = User.create({
+    first_name: "Joanne",
+    last_name: "Daggers",
+    email: "joannedaggers@demo.com",
+    password: "password",
+    birthdate: "1999/05/18",
+    gender: "female",
+    pronoun: "she/her"
+})
+
+usr = User.create({
+    first_name: "Jordan",
+    last_name: "Samuel",
+    email: "jordansamuel@demo.com",
+    password: "password",
+    birthdate: "1990/12/29",
+    gender: "male",
+    pronoun: "he/him"
+})
