@@ -19,7 +19,7 @@ export default class SignUpModal extends React.Component{
             month: Object.keys(months)[currDate.getMonth()],
             day: currDate.getDate(),
             year: currDate.getFullYear(),
-            gender: "",
+            gender: null,
             pronoun: ""
         }
         this.closeModalEvent = this.closeModalEvent.bind(this);
@@ -42,7 +42,7 @@ export default class SignUpModal extends React.Component{
 
     cleanedParams(){
         let {firstName, lastName, email, password, month, day, year, gender, pronoun} = this.state;
-        gender = gender ? gender : "non-binary";
+        gender = gender ? gender : gender === null ? null : "non-binary";
         if(gender !== "non-binary") pronoun = pronoun ? pronoun : defaultPronouns[gender]
         return {firstName, lastName, email, password, month, day, year, gender, pronoun};
     }
