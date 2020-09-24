@@ -8,6 +8,9 @@ export default class Search extends React.Component{
             dropped: null
         }
         this.updateSearch = this.updateSearch.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.closeSearch = this.closeSearch.bind(this);
     }
 
     componentDidMount(){
@@ -25,7 +28,7 @@ export default class Search extends React.Component{
     }
 
     handleMouseUp(e){
-        if(e.target === this.searchContainer){
+        if(this.searchInput.contains(e.target)){
             this.setState({
                 dropped: true
             })
@@ -39,17 +42,33 @@ export default class Search extends React.Component{
             })
         }
     }
+
+    closeSearch(e) {
+        this.setState({
+            dropped: null
+        })
+    }
     render(){
         return(
             <div className={`${this.state.dropped ? "dropped" : ""} search-container`} ref={node => this.searchContainer = node}>
-                <input 
-                    onChange={this.updateSearch}
-                    type="input" 
-                    placeholder="Search Friendlybook" 
-                    value={this.state.searchContent} />
-                <div className="search-icon">
-                    <i className="fas fa-search"></i>
+                <div className="header-search-container">
+                    <div className="back-arrow">
+                        <i onClick={this.closeSearch} className={`${this.state.dropped ? "" : "hidden"} fas fa-arrow-left`} />
+                    </div>
+                    
+                    <div className="search-bar">
+                        <input 
+                            ref={node => this.searchInput = node}
+                            onChange={this.updateSearch}
+                            type="input" 
+                            placeholder="Search Friendlybook" 
+                            value={this.state.searchContent} />
+                        <div className="search-icon">
+                            <i className="fas fa-search" />
+                        </div>
+                    </div>
                 </div>
+                    
                 <ul className={`${this.state.dropped ? "" : "hidden"} search-query`}>
                     
                 </ul>

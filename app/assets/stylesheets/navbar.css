@@ -10,20 +10,25 @@
 .small-logo:hover, [class^="drop-"]:hover {
     cursor: pointer;
 }
+div[class^="drop-"] {
+    font-size: 17px;
+    background-color:hsl(0, 0%, 91%);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 [class^="drop-"] {
-    transition: background-color 0.2s;
+    /* transition: background-color 0.2s; */
+    transition: filter 0.5s;
 }
 
-[class^="drop-"]:active {
-    background: #e5e5e5;
-    outline: none;
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-            box-shadow: inset 0px 0px 5px #c1c1c1;
-  }
-
 [class^="drop-"]:hover {
-    background-color: #d9d9d9;
+    /* background-color: #d9d9d9; */
+    filter: brightness(85%)
 }
 .navbar {
     display: flex;
@@ -45,9 +50,13 @@
     flex-direction: row;
     padding: 3px;
 }
+.search-nav {
+    justify-content: center;
+    align-items: center;
+}
+
 .side-nav {
     width: 280px;
-    justify-content: space-evenly;
 }
 
 .dropdown-list {
@@ -81,6 +90,7 @@
     align-items: center;
     box-sizing: border-box;
     padding: 5px;
+    transition: background-color 0.5s;
 }
 
 .dropdown-list li:hover {
@@ -90,18 +100,6 @@
 
 .dropdown-list .fa-angle-right {
     font-size: 25px;
-}
-
-div[class^="drop-"] {
-    font-size: 20px;
-    background-color: #e6e6e6;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* [class^="drop-icon"] .fa-cog,
