@@ -10,7 +10,6 @@ export default function sessionReducer(state=_nullState, action){
     switch(action.type){
         case RECEIVE_CURRENT_USER:
             return { id: action.user.id, 
-                pronoun: action.user.pronoun.split("/"), 
                 firstName: action.user.firstName, 
                 lastName: action.user.lastName 
             }

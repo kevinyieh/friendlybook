@@ -52,6 +52,7 @@ div[class^="drop-"] {
     align-items: center;
     border: 1px solid #e6e6e6;
     z-index: 9;
+    /* box-sizing: border-box; */
 }
 
 .spacer {
@@ -63,7 +64,8 @@ div[class^="drop-"] {
     display: flex;
     flex-direction: row;
     padding: 3px;
-    min-width: 300px;
+    width: 300px;
+    /* box-sizing: border-box; */
 }
 .search-nav {
     justify-content: center;
@@ -72,7 +74,7 @@ div[class^="drop-"] {
 
 .side-nav {
     justify-content: space-evenly;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding-left: 10px;
 }
 
@@ -86,7 +88,7 @@ div[class^="drop-"] {
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding: 5px;
 }
 
@@ -109,7 +111,7 @@ div[class^="drop-"] {
     justify-content: space-between;
     border-radius: 6px;
     align-items: center;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding: 5px;
     justify-content: flex-start;
     transition: background-color 0.5s;

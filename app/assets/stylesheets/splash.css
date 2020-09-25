@@ -10,7 +10,7 @@
     height: 456px;
     padding: 20px 0 28px;
     display: block;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 .splash-main{

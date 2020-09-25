@@ -45,3 +45,20 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.profile-pic-icon {
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    font-size: 26px;
+}
+
+div, a, form, li, ul, input, label {
+    box-sizing: border-box;
+}
+
+.fa-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
