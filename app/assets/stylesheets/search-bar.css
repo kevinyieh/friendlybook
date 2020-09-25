@@ -9,6 +9,7 @@
     padding-right: 15px;
     transition-property: height, border-radius, box-shadow, left;
     transition-duration: 0.5s;
+    z-index: 1;
 }
 
 .search-container.dropped {
