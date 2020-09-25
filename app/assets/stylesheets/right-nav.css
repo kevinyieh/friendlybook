@@ -11,8 +11,8 @@
     position: fixed;
     z-index: 0;
     padding: 3px;
-    overflow-y:scroll;
     overflow: visible;
+    overflow-y:auto;
     box-sizing: border-box;
 }
 .right-nav::-webkit-scrollbar{
