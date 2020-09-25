@@ -6,6 +6,17 @@ class User < ApplicationRecord
     attr_reader :password
     
     after_initialize :ensure_session_token
+
+    def friends()
+        User.find_by_sql(["
+                            SELECT
+                                users.*
+                            FROM users
+                            LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
+                            LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
+                            WHERE (f1.friend_id = ? OR f2.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE) AND users.id != ?
+                            ORDER BY users.id ASC", self.id,self.id,self.id])         
+    end
     
     def password=(pw)
         @password = pw

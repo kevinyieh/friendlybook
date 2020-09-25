@@ -2,3 +2,94 @@
     min-width: 300px;
     height: 100%;
 }
+
+.right-nav {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 300px;
+    position: fixed;
+    z-index: 0;
+    padding: 3px;
+    overflow-y:scroll;
+    overflow: visible;
+    box-sizing: border-box;
+}
+.right-nav::-webkit-scrollbar{
+    background-color: transparent;
+}
+.right-nav::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+.right-nav:hover::-webkit-scrollbar  {
+    display: block;
+    width: 10px;   
+}
+.right-nav:hover::-webkit-scrollbar-thumb {
+    background-color: #cccccc;  
+    border-radius: 7px;   
+    width: 4px; 
+}
+
+.right-nav .contact-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 11px 5px 11px 10px;
+    transition: background-color 0.1s;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin: 2px;
+    z-index: 1;
+    position: relative;
+}
+
+.right-nav .contact {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.right-nav .contact-container:hover{
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+.right-nav .contact-container i {
+    font-size: 26px;
+}
+
+.right-nav .contact-container p {
+    width: 80%;
+    text-align: left;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+.contact-container .contact-description {
+    height: 200px;
+    width: 300px;
+    background-color: white;
+    position: absolute;
+    left: -310px;
+    top: -70px;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    cursor: auto;
+    transition: visibility 0s, opacity 0.2s linear;
+    transition-delay: 0.25s;
+}
+
+.contact-container:hover .contact-description{
+    visibility: visible;
+    opacity: 1;
+}
+
+.right-nav h3 {
+    font-size: 16px;
+    color: #737373;
+}

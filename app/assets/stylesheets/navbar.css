@@ -1,6 +1,7 @@
 .small-logo {
     width: 40px;
     height: 40px;
+    padding-left: 10px;
 }
 
 .settings-dropdown {
@@ -71,6 +72,8 @@ div[class^="drop-"] {
 
 .side-nav {
     justify-content: space-evenly;
+    box-sizing: border-box;
+    padding-left: 10px;
 }
 
 .dropdown-list {

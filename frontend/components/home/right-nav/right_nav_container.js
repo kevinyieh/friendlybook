@@ -1,12 +1,21 @@
 import { connect } from "react-redux";
 import RightNav from "./right_nav";
 import { withRouter } from "react-router-dom";
+import { fetchAllFriends } from "../../../actions/friend_actions";
 
 const mSTP = state => {
-    const currentUser = state.session
     return {
-        currentUser
+        currentUser: state.session,
+        friends: state.entities.friends
     }
 }
 
-export default withRouter(connect(mSTP)(RightNav));
+const mDTP = dispatch => {
+    return {
+        fetchAllFriends: (userId) => {
+            dispatch(fetchAllFriends(userId))
+        }
+    }
+}
+
+export default withRouter(connect(mSTP,mDTP)(RightNav));

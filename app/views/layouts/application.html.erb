@@ -9,6 +9,19 @@
     <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4afd7e25b4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      window.logoUrl = "<%= image_url('logo.png') %>";
+      window.smallLogoUrl = "<%= image_url('small-logo.png') %>";
+    </script>
+    <% if logged_in? %>
+        <script type="text/javascript">
+            window.currentUser = <%= render(
+                "api/users/user.json.jbuilder",
+                user: current_user
+            ).html_safe %>
+        </script>
+    <% end %>
+    <link rel="icon" href="<%= image_url('small-logo.png') %>">
   </head>
 
   <body>

@@ -16,9 +16,9 @@ const links = {
 export default function MainNav(){
     return (
         <ul className="main-nav-list">
-            {Object.values(links).map( (link,i) => {
-                return <a className={i===0 ? "selected" : "unselected"} href={link.url}>
-                    {link.icon}
+            {Object.keys(links).map( (key,i) => {
+                return <a key={key} className={i===0 ? "selected" : "unselected"} href={links[key].url}>
+                    {links[key].icon}
                 </a>
             })}
         </ul>
