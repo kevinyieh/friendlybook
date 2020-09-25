@@ -4,6 +4,7 @@ import NotificationsDropdown from "./side-nav/notifications_dropdown";
 import MessengerDropdown from "./side-nav/messenger_dropdown";
 import CreateDropdown from "./side-nav/create_dropdown";
 import Search from "./search-nav/search-nav";
+import MainNav from "./main-nav/main_nav";
 
 const elementClickIsOutside = (allDropIcons,clicked) => {
     return !allDropIcons.some( element => element.contains(clicked))
@@ -63,9 +64,7 @@ export default class NavBar extends React.Component{
                 </div>
     
                 <div className="main-nav">
-                    <div>
-                        Middle Stuff
-                    </div>
+                    <MainNav />
                 </div>
                 
                 <div className="side-nav">

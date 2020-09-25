@@ -5,6 +5,7 @@
     min-width: 300px;
     position: fixed;
     z-index: 0;
+    padding: 3px;
 }
 
 .left-spacer {
@@ -19,7 +20,7 @@
     flex-direction: row;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 11px 5px;
+    padding: 11px 5px 11px 10px;
     transition: background-color 0.1s;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;

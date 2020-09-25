@@ -26,11 +26,25 @@ export default class LeftNav extends React.Component {
     allRedirects(){
         const full_name = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`
         return {    
-                    [full_name]: {  url: `/users/${this.props.currentUser.id}`,
-                                icon: <i className="fas fa-user left-nav-icon" />},
-                    Friends: {  url: "/friends",
-                                icon: <i className="fas fa-user-friends" />}
-                }
+                    [full_name]: {  url: `#/users/${this.props.currentUser.id}`,
+                                icon: <i className="fas fa-user left-nav-icon" />,
+                                newPage: false},
+                    Friends: {  url: "#/friends",
+                                icon: <i className="fas fa-user-friends" />,
+                                newPage: false},
+                    Github: {url: "//github.com/kevinyieh/friendlybook",
+                                icon: <i className="fab fa-github" />,
+                                newPage: true},
+                    LinkedIn: {url: "#",
+                                icon: <i className="fab fa-linkedin-in" />,
+                                newPage: true},
+                    Angel: {url: "#",
+                                icon: <i className="fab fa-angellist" />,
+                                newPage: true},
+                    GithubIO: {url: "#",
+                                icon: <i className="far fa-user" />,
+                                newPage: true}
+                        }
     }
 
     render(){
@@ -39,12 +53,14 @@ export default class LeftNav extends React.Component {
             <div className="left-spacer">
                 <ul className="left-nav">
                     {Object.keys(redirects).map( label => {
-                        return <Link to={redirects[label].url} key={label}> 
+                            return (
+                                <a href={redirects[label].url} key={label}> 
                                     <div className="left-nav-icon">
                                         {redirects[label].icon}
                                     </div>
                                     <p> {label} </p> 
-                                </Link>
+                                </a>
+                            )
                     })}
                 </ul>
             </div>
