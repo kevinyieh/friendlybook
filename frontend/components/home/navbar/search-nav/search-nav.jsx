@@ -78,8 +78,8 @@ export default class Search extends React.Component{
         return(
             <div className={`${this.state.dropped ? "dropped" : ""} search-container`} ref={node => this.searchContainer = node}>
                 <div className="header-search-container">
-                    <div className="back-arrow">
-                        <i onClick={this.closeSearch} className={`${this.state.dropped ? "" : "hidden"} fas fa-arrow-left`} />
+                    <div className={`${this.state.dropped ? "" : "hidden"} back-arrow`}>
+                        <i onClick={this.closeSearch} className="fas fa-arrow-left" />
                     </div>
                     
                     <div className="search-bar">

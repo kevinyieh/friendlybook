@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // href={`/users/${this.props.id}`}
 export default class SearchItem extends React.Component{
     matchUsers(searchQuery, searchResult){
@@ -23,7 +24,7 @@ export default class SearchItem extends React.Component{
     render(){
         const wordSplit = this.matchUsers(this.props.searchQuery,`${this.props.searchResult.firstName} ${this.props.searchResult.lastName}`);
         return (
-            <li className="search-item">
+            <Link to={`/users/${this.props.searchResult.id}`} className="search-item">
                 <div className="search-icon">
                     <i className="fas fa-search" />
                 </div>
@@ -32,7 +33,8 @@ export default class SearchItem extends React.Component{
                         {wordSplit.matching}<strong>{wordSplit.notMatching}</strong>
                     </div>
                 </a>
-            </li>
+            </Link>
+
         )
     }
 }

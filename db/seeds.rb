@@ -44,3 +44,5 @@ Friend.create([{user_id:1,friend_id:2,pending:true},{user_id:1,friend_id:3,pendi
 ])
 
 Post.create([{post:"This is my very first post!",user_id:1,wall_id:1},{post:"I'm posting to your wall :)!",user_id:1,wall_id:3},{post:"I'm posting to your wall as well (:!",user_id:3,wall_id:1}])
+
+Comment.create([{comment: "Nice first post!",user_id:5,post_id:1},{comment: "Thanks, means a lot :')",user_id:1,post_id:1,parent_comment_id:1,source:1},{comment: "You deserve it friend <3",user_id:5,post_id:1,parent_comment_id:2,source:1}])
