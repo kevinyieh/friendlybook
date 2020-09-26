@@ -74,7 +74,7 @@ export default class SignUpModal extends React.Component{
         if(!(this.props.modal === "signup")) return null;
         return(
             <div className="modal">
-                <div className="signup-modal-backdrop">
+                <div className="modal-backdrop">
                     <div className="signup-form-container">
                         <form className="signup-form" onSubmit={this.handleSubmit}>
                             <div className="signup-header">

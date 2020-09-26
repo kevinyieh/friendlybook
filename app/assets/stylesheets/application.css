@@ -18,6 +18,15 @@ body {
     margin: 0;
     letter-spacing: 1px;
 }
+#backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #f2f2f2;
+    z-index: -1;
+}
 h1,p {
     margin: 0;
     padding: 0;
@@ -53,7 +62,7 @@ a {
     font-size: 26px;
 }
 
-div, a, form, li, ul, input, label {
+div, a, form, li, ul, input, label, button {
     box-sizing: border-box;
 }
 
@@ -61,4 +70,14 @@ div, a, form, li, ul, input, label {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(236, 236, 236, 0.8);
+    z-index: 10;
 }

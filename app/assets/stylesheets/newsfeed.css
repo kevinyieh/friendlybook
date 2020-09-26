@@ -3,5 +3,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+}
+.newsfeed > div {
+    margin-top: 13px;
 }

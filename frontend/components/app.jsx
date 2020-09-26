@@ -8,6 +8,7 @@ import Profile from "./profile/profile"
 function App(){
     return (
         <div>
+            <div id="backdrop" />
             <Switch>
                 <ProtectedRoute path="/users/:userId" component={Profile} />
                 <AuthRoute path="/login" component={LoginPage}/>

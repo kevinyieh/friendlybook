@@ -6,7 +6,7 @@ class Api::PostsController < ApplicationController
         if @post.save 
             render :show
         else
-            render json: {post: @post.errors.messages}, status 401
+            render json: {post: @post.errors.messages}, status: 401
         end
     end
 

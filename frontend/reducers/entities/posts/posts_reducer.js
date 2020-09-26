@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS } from "../../../actions/post_actions"
+import { RECEIVE_POSTS, RECEIVE_POST } from "../../../actions/post_actions"
 
 export default function postsReducer(state=[],action){
     Object.freeze(state);
