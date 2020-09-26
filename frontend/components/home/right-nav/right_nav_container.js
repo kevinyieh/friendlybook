@@ -6,7 +6,7 @@ import { fetchAllFriends } from "../../../actions/friend_actions";
 const mSTP = state => {
     return {
         currentUser: state.session,
-        friends: state.entities.friends
+        friends: Object.values(state.entities.friends)
     }
 }
 

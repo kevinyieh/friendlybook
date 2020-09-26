@@ -7,7 +7,8 @@ export default class Comment extends React.Component{
         this.state = {
             fullName: "",
             subCommentInc: 7,
-            showReply: false
+            showReply: false,
+            showReplyInput: false
         }
         this.handleLike = this.handleLike.bind(this);
         this.handleReply = this.handleReply.bind(this);
@@ -36,6 +37,7 @@ export default class Comment extends React.Component{
         if(!subComments) return null;
         let listState = this.state.showReply ? "" : "hidden";
         let rotateArrow = this.state.showReply ? "" : "fa-rotate-180";
+        let showReplyInput = this.state.showReplyInput ? "" : "hidden";
         return(
             <div>
                 <div className={`show-reply`} onClick={this.toggleReplyState()}>
@@ -55,8 +57,8 @@ export default class Comment extends React.Component{
                             )
                         })
                     }
+                    <input className={`showReplyInput`} />
                 </ul>
-
             </div>
 
         )
@@ -104,12 +106,3 @@ export default class Comment extends React.Component{
             
     }
 }
-
-        // poster={
-        //     id: post.userId,
-        //     fullName: `${this.props.users[post.userId].firstName} ${this.props.users[post.userId].lastName}`
-        // }
-        // postee={
-        //     id: post.wallId,
-        //     fullName: `${this.props.users[post.wallId].firstName} ${this.props.users[post.wallId].lastName}`
-        // }
