@@ -1,4 +1,4 @@
-import * as UserUtil from "../util/users";
+import * as UserUtil from "../util/users_util";
 // import { Redirect } from "react-router-dom";
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';

@@ -33,9 +33,15 @@
 }
 
 .post-user {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 650;
 }
 .post-time {
     font-size: 10px;
+}
+
+.likes-comments{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

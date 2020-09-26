@@ -20,3 +20,11 @@ export const signup = user => {
         data: {user}
     })
 } 
+
+export const fetchUsers = users => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/users",
+        data: {users}
+    })
+}

@@ -17,7 +17,12 @@ class Comment < ApplicationRecord
         foreign_key: :source,
         class_name: :Comment,
         dependent: :destroy
-        
+    
+    has_many :comments,
+        primary_key: :id,
+        foreign_key: :parent_comment_id,
+        class_name: :Comment,
+        dependent: :destroy
 
     belongs_to :parent_comment,
         primary_key: :id,
@@ -30,4 +35,12 @@ class Comment < ApplicationRecord
         foreign_key: :source,
         class_name: :Comment,
         optional: true
+
+    def get_comments(post_id,num_comments)
+        Post.find_by(id: post_id)
+            .comments
+            .limit(num_comments)
+            .includes(:sub_comments)
+            .select()
+    end
 end

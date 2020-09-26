@@ -1,0 +1,23 @@
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 6px;
+}
+.comment-container .profile-pic-icon{
+    font-size: 20px;
+}
+.comment-details {
+    font-size: 13px;
+}
+
+.comment-content-container {
+    padding: 6px;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+}
+
+.comment-like-reply {
+    display: flex;
+    flex-direction: row;
+    padding-left: 6px;
+}

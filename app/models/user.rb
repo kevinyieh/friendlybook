@@ -21,33 +21,43 @@ class User < ApplicationRecord
     
     def wall_posts()
         User.find_by_sql(["
-                            SELECT
-                                posts.*
-                            FROM posts
-                            WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
+            SELECT
+                posts.*
+            FROM posts
+            WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
     end
 
-    def news_feed_posts()   
-        Post.find_by_sql([" 
-                                    SELECT DISTINCT
-                                        posts.id, posts.post,posts.wall_id, users.id as user_id , users.first_name, users.last_name, posts.created_at
-                                    FROM posts
-                                    JOIN users ON users.id = posts.user_id
-                                    LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
-                                    LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
-                                    WHERE (f1.friend_id = ? OR f2.user_id = ? OR users.id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
-                                    ORDER BY posts.created_at DESC", self.id,self.id,self.id])       
+    def news_feed_posts(load=10)  
+        posts = Post.find_by_sql([" 
+            SELECT DISTINCT
+                posts.id
+            FROM posts
+            LEFT OUTER JOIN friends as f1 ON f1.user_id =  posts.user_id
+            LEFT OUTER JOIN friends as f2 ON f2.friend_id =  posts.user_id
+            WHERE (f1.friend_id = ? OR f2.user_id = ? OR posts.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
+            GROUP BY posts.id
+            LIMIT ?", self.id,self.id,self.id,load])
+        
+        post_ids = posts.map { |post| post.id }
+
+        Post.select("posts.id, posts.post, posts.user_id,
+            posts.wall_id, posts.created_at, 
+            COUNT(DISTINCT comments.id) as total_comments")
+            .left_outer_joins(:comments)
+            .group("posts.id")
+            .order("posts.created_at DESC")
+            .where("posts.id IN (?)",post_ids).includes(comments: :sub_comments)
     end
 
     def friends()
         User.find_by_sql(["
-                            SELECT
-                                users.*
-                            FROM users
-                            LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
-                            LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
-                            WHERE (f1.friend_id = ? OR f2.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE) AND users.id != ?
-                            ORDER BY users.id ASC", self.id,self.id,self.id])         
+            SELECT
+                users.*
+            FROM users
+            LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
+            LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
+            WHERE (f1.friend_id = ? OR f2.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE) AND users.id != ?
+            ORDER BY users.id ASC", self.id,self.id,self.id])         
     end
     
     def password=(pw)
@@ -77,3 +87,19 @@ class User < ApplicationRecord
     end
 
 end
+
+
+# def news_feed_posts(num_posts=10)  
+#     posts = Post.find_by_sql([" 
+#         SELECT DISTINCT
+#             posts.id, posts.post, posts.user_id, posts.wall_id, posts.created_at, 
+#             COUNT(DISTINCT comments.id) as total_comments
+#         FROM posts
+#         JOIN users ON users.id = posts.user_id
+#         LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
+#         LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
+#         LEFT OUTER JOIN comments ON comments.post_id = posts.id
+#         WHERE (f1.friend_id = ? OR f2.user_id = ? OR users.id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
+#         GROUP BY posts.id
+#         ORDER BY posts.created_at DESC
+#         LIMIT ?", self.id,self.id,self.id,num_posts])

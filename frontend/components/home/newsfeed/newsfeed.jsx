@@ -6,8 +6,26 @@ export default class Newsfeed extends React.Component{
         super(props)
         this.renderPostItem = this.renderPostItem.bind(this);
     }
+    allUserIdsFromComments(posts){
+        let allUsers = {};
+        posts.forEach( (post) => {
+            if(post.comments){
+                Object.values(post.comments).forEach( (comment) => {
+                    if(comment.subComments){
+                        Object.values(comment.subComments).forEach( (subComment) => {
+                            allUsers[subComment.userId] = true;
+                        })
+                    }
+                    allUsers[comment.userId] = true;
+                })
+            }
+        })
+        return Object.keys(allUsers);
+    }
     componentDidMount(){
-        this.props.fetchNewsfeed();
+        this.props.fetchNewsfeed().then(() => {
+            this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+        });
     }
     renderPostItem(post){
         if(this.props.users[post.userId] && this.props.users[post.wallId]){

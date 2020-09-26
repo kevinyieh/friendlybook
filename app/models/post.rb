@@ -15,7 +15,7 @@ class Post < ApplicationRecord
     # def organized_comments
     #     Comment.find_by_sql(["
     #         SELECT
-    #             comments.*
+    #             comments.*, 
     #         FROM comments
     #         WHERE comments.post_id = ? AND comments.source IS NULL", self.id])
     # end

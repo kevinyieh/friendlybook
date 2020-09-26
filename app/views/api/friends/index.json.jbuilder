@@ -3,4 +3,4 @@
 #     json.firstName friend.first_name
 #     json.lastName friend.last_name
 # end
-json.partial! "/api/users/index", users: @friends
+json.partial! "/api/users/index_help", users: @friends
