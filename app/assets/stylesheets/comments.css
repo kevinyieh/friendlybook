@@ -1,3 +1,10 @@
+.comment-chain {
+    display: flex;
+    flex-direction: column;
+}
+.comment-chain ul {
+    margin-left: 28px;
+}
 .comment-container {
     display: flex;
     flex-direction: row;
@@ -20,4 +27,16 @@
     display: flex;
     flex-direction: row;
     padding-left: 6px;
+}
+.show-reply {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.show-reply, .hide-reply{
+    font-size: 13px;
+}
+.show-reply:hover p, .hide-reply:hover, .comment-container a:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
