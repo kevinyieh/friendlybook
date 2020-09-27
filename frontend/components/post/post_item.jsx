@@ -82,9 +82,9 @@ export default class PostItem extends React.Component{
     }
     render(){
         const ownPost = this.props.currentUser.id === this.props.post.userId;
-        const allComments = Object.values(this.props.post.comments)
-        const sortedComments = allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1)
-        const commentsToRender = sortedComments.slice(allComments.length-this.state.showComments,allComments.length)
+        const allComments = this.props.post.comments ? Object.values(this.props.post.comments) : null;
+        const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;
+        const commentsToRender = sortedComments ? sortedComments.slice(allComments.length-this.state.showComments,allComments.length) : null;
         return(
             <div className="post-container">
                     <div className="post-header">
