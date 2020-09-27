@@ -4,7 +4,7 @@ class Api::PostsController < ApplicationController
         new_post_params[:user_id] = current_user.id
         @post = Post.new(new_post_params)
         if @post.save 
-            render :show
+            render :basic_show
         else
             render json: {post: @post.errors.messages}, status: 401
         end
@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
         if @post
             if current_user.id === @post.user_id
                 @post.destroy!
-                render :show
+                render json: {id: @post.id}
             else
                 render json: ["Unathorized user"], status: 401
             end
