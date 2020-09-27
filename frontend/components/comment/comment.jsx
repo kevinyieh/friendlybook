@@ -36,7 +36,6 @@ export default class Comment extends React.Component{
         }
     }
     renderSubComments(subComments){
-        debugger;
         if(!subComments) return null;
         let listState = this.state.showReply ? "" : "hidden";
         let rotateArrow = this.state.showReply ? "" : "fa-rotate-180";
@@ -74,7 +73,6 @@ export default class Comment extends React.Component{
         e.preventDefault();
     }
     render(){
-        debugger;
         if (!this.state.fullName) return null;
         return(
             <div className="comment-chain">

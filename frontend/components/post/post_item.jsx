@@ -55,7 +55,6 @@ export default class PostItem extends React.Component{
         this.setState({
             dropdownOptions: false
         })
-        console.log(this.props.post.id);
         this.props.deletePost(this.props.post.id);
     }
     update(field){
