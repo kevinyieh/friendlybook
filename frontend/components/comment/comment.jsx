@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 export default class Comment extends React.Component{
     constructor(props){
         super(props);
+        const commenter = this.props.users[this.props.comment.userId]
+        const fullName = commenter ? `${commenter.firstName} ${commenter.lastName}` : ""
         this.state = {
-            fullName: "",
+            fullName,
             subCommentInc: 7,
             showReply: false,
-            showReplyInput: false
+            showReplyInput: false,
         }
         this.handleLike = this.handleLike.bind(this);
         this.handleReply = this.handleReply.bind(this);
@@ -34,6 +36,7 @@ export default class Comment extends React.Component{
         }
     }
     renderSubComments(subComments){
+        debugger;
         if(!subComments) return null;
         let listState = this.state.showReply ? "" : "hidden";
         let rotateArrow = this.state.showReply ? "" : "fa-rotate-180";
@@ -71,6 +74,7 @@ export default class Comment extends React.Component{
         e.preventDefault();
     }
     render(){
+        debugger;
         if (!this.state.fullName) return null;
         return(
             <div className="comment-chain">

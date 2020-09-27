@@ -19,10 +19,18 @@ export default class CreatePostForm extends React.Component{
         }
     }
     componentDidUpdate(prevProp){
-        if(this.props.postId && prevProp.postId !== this.props.postId){
+        if (this.inputBox) this.inputBox.focus();
+        if (!prevProp.postId && !this.props.postId) return null;
+        if (prevProp.postId === this.props.postId) return null;
+        if(this.props.postId){
             this.setState({
                 post: this.props.posts[this.props.postId].post,
                 postId: this.props.postId
+            })
+        }else{
+            this.setState({
+                post: "",
+                postId: null
             })
         }
     }
@@ -69,7 +77,11 @@ export default class CreatePostForm extends React.Component{
                             <p>{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</p>
                         </div>
                     </div>
-                    <textarea value={this.state.post} onChange={this.update("post")} placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
+                    <textarea 
+                        ref={node => this.inputBox = node}
+                        value={this.state.post} 
+                        onChange={this.update("post")} 
+                        placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
                     <button className={fieldEmpty ? "not-ready" : "ready"} onClick={this.handleSubmit(action)}> 
                         <p>{postButton}</p>
                     </button>

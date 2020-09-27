@@ -12,12 +12,14 @@ class Post < ApplicationRecord
         class_name: :Comment,
         dependent: :destroy
     
-    # def organized_comments
-    #     Comment.find_by_sql(["
-    #         SELECT
-    #             comments.*, 
-    #         FROM comments
-    #         WHERE comments.post_id = ? AND comments.source IS NULL", self.id])
-    # end
+    def self.retrieve_post(post_id)
+        Post.select("posts.id, posts.post, posts.user_id,
+            posts.wall_id, posts.created_at, 
+            COUNT(DISTINCT comments.id) as total_comments")
+            .left_outer_joins(:comments)
+            .group("posts.id")
+            .order("posts.created_at DESC")
+            .where("posts.id = (?)",post_id).includes(comments: :sub_comments)
+    end
     
 end

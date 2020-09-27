@@ -41,10 +41,26 @@
     font-size: 10px;
 }
 
-.likes-comments{
+.like-comment{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 3px;
+}
+
+.like-comment .like, .like-comment .comment {
+    display: flex;
+    flex-direction: row;
+    width:50%;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.like-comment .like:hover, .like-comment .comment:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
 }
 
 .post-header .meatball {
@@ -88,3 +104,32 @@
     background-color: #f2f2f2;
     cursor: pointer;
 }
+
+.post-container .comment-input-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    align-items: center;
+}
+.comment-input-container .profile-pic-icon {
+    font-size: 25px;
+}
+.comment-input-container form {
+    width: 100%;
+}
+.comment-input-container .comment-input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    padding: 6px;
+    margin-left: 6px;
+    text-indent: 8px;
+    font-size: 14px;
+}
+
+.comment-input-container .comment-input:focus::-webkit-input-placeholder {
+    color: #bfbfbf;
+} 

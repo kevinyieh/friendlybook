@@ -8,7 +8,7 @@
 .comment-container {
     display: flex;
     flex-direction: row;
-    padding-top: 6px;
+    padding-top: 8px;
 }
 .comment-container .profile-pic-icon{
     font-size: 20px;
@@ -19,6 +19,7 @@
 
 .comment-content-container {
     padding: 6px;
+    padding-right: 10px;
     background-color: #f2f2f2;
     border-radius: 6px;
 }
@@ -27,6 +28,7 @@
     display: flex;
     flex-direction: row;
     padding-left: 6px;
+    font-size: 11px;
 }
 .show-reply {
     display: flex;

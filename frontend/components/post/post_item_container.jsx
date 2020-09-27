@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import PostItem from "./post_item";
 import { openModal } from "../../actions/modal_actions";
 import { deletePost } from "../../actions/post_actions";
+import { createComment } from "../../actions/comment_actions";
 
 const mSTP = (state,ownProps) => {
     return {
@@ -15,7 +16,8 @@ const mSTP = (state,ownProps) => {
 const mDTP = dispatch => {
     return {
         openModal: (modal) => dispatch(openModal(modal)),
-        deletePost: (id) => dispatch(deletePost(id))
+        deletePost: (id) => dispatch(deletePost(id)),
+        createComment: (comment) => dispatch(createComment(comment))
     }
 }
 

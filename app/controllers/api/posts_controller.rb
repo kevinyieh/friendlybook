@@ -2,7 +2,7 @@ class Api::PostsController < ApplicationController
     def create
         new_post_params = posts_params
         new_post_params[:user_id] = current_user.id
-        @post = Post.new(new_post_params);
+        @post = Post.new(new_post_params)
         if @post.save 
             render :show
         else
@@ -35,6 +35,15 @@ class Api::PostsController < ApplicationController
             end
         else
             render json: ["Couldn't find post."]
+        end
+    end
+
+    def show 
+        @post = Post.retrieve_post(params[:id])[0]
+        if @post
+            render :show
+        else
+            render json: ["Couldn't find post"]
         end
     end
 

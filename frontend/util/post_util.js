@@ -21,7 +21,6 @@ export const deletePost = (id) => {
 }
 
 export const editPost = (post) => {
-    debugger;
     return $.ajax({
         method:"PUT",
         url:`/api/posts/${post.id}`,

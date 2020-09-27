@@ -1,38 +1,28 @@
 import React from "react";
 import { timeRender } from "../../util/time_util";
 import { Link } from "react-router-dom";
-import CommentContainer from "../comment/comment_container";
+// import CommentContainer from "../comment/comment_container";
+import CommentSection from "../comment/comment_section";
 
 
 export default class PostItem extends React.Component{
     constructor(props){
         super(props);
-        const comments = this.props.post.comments ? Math.min(Object.values(this.props.post.comments).length, 2) : 0
+        const showComments = this.props.post.comments ? Math.min(Object.values(this.props.post.comments).length, 2) : 0
         this.state = {
-            comments: comments,
-            dropdownOptions: false
+            showComments,
+            dropdownOptions: false,
+            comment: "",
         }
         this.showInc = Math.min(10,this.props.post.totalComments - this.state.comments)
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleEditPost = this.handleEditPost.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleDeletePost = this.handleDeletePost.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCommentClick = this.handleCommentClick.bind(this);
     }
-    renderComments(){
-        if(!this.props.post.comments) return null;
-        let comments = Object.values(this.props.post.comments);
-        let allComments = [];
-        for(let i=0; i<this.state.comments; i++){
-            allComments.push(
-                <CommentContainer 
-                    key={`comment-${comments[i].id}`} 
-                    comment={comments[i]}
-                    subComments={comments[i].subComments}
-                    />
-            )    
-        }
-        return allComments;
-    }
+
     handleClickOutside(e){
         // e.preventDefault();
         if(this.dropdownOptions && !this.dropdownOptions.contains(e.target))
@@ -68,11 +58,36 @@ export default class PostItem extends React.Component{
         console.log(this.props.post.id);
         this.props.deletePost(this.props.post.id);
     }
+    update(field){
+        return e => {
+            e.preventDefault();
+            this.setState({
+                [field]: e.target.value
+            })
+        }
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        this.props.createComment({
+            post_id: this.props.post.id,
+            comment: this.state.comment,
+        })
+        this.setState({
+            showComments: this.state.showComments +1,
+            comment: ""
+        })
+    }
+    handleCommentClick(e){
+        e.preventDefault();
+        this.commentInput.focus();
+    }
     render(){
         const ownPost = this.props.currentUser.id === this.props.post.userId;
+        const allComments = Object.values(this.props.post.comments)
+        const sortedComments = allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1)
+        const commentsToRender = sortedComments.slice(allComments.length-this.state.showComments,allComments.length)
         return(
             <div className="post-container">
-                
                     <div className="post-header">
                         <div className="profile-pic-icon">
                             <i className="fas fa-user" />
@@ -121,10 +136,8 @@ export default class PostItem extends React.Component{
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
-                            
                     </div>
                     <div className="post-body">
                         {this.props.post.post}
@@ -135,15 +148,39 @@ export default class PostItem extends React.Component{
                                 `${this.props.post.totalComments} ${this.props.post.totalComments > 1 ? "Comments" : "Comment"}` : null}</div>
                     </div>
                     <div className="separator" />
-                        <div className="likes-comments">
-                            <div className="likes"> Like </div>
-                            <div className="comments"> Comment </div>
+                        <div className="like-comment">
+                            <div className="like"> 
+                                <div className="like-icon">
+                                    <i className="far fa-thumbs-up" />
+                                </div>
+                                &nbsp;
+                                <p> Like </p>
+                            </div>
+                            <div onClick={this.handleCommentClick} className="comment"> 
+                                <div className="like-icon">
+                                    <i className="far fa-comment-alt" />
+                                </div>
+                                &nbsp;
+                                <p> Comment </p>
+                            </div>
                         </div>
                     <div className="separator" />
-                    <div className="comments">
-                        {
-                            this.renderComments()
-                        }
+                    {<CommentSection  
+                        comments={commentsToRender}
+                        showComments={this.state.showComments}
+                    />}
+                    <div className="comment-input-container">
+                        <div className="profile-pic-icon">
+                            <i className="fas fa-user" />
+                        </div>
+                        <form onSubmit={this.handleSubmit}>
+                            <input 
+                                ref= { node => this.commentInput = node}
+                                onChange={this.update("comment")}
+                                value={this.state.comment}
+                                className="comment-input" 
+                                placeholder="Write a comment..."/>
+                        </form>
                     </div>
             </div>
         )
