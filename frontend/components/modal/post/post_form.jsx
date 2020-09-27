@@ -5,9 +5,9 @@ export default class CreatePostForm extends React.Component{
         super(props);
         this.state = {
             post: "",
-            wallId: this.props.wallId
+            wallId: this.props.wallId,
+            postId: this.props.postId
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
     }
     update(field){
@@ -18,15 +18,26 @@ export default class CreatePostForm extends React.Component{
             })
         }
     }
-    handleSubmit(e){
-        e.preventDefault();
-        if(!this.state.post) return;
-        const postParams = {
-            post: this.state.post,
-            wall_id: this.state.wallId
+    componentDidUpdate(prevProp){
+        if(this.props.postId && prevProp.postId !== this.props.postId){
+            this.setState({
+                post: this.props.posts[this.props.postId].post,
+                postId: this.props.postId
+            })
         }
-        this.props.closeModal();
-        this.props.createPost(postParams);
+    }
+    handleSubmit(action){
+        return e => {
+            e.preventDefault();
+            if(!this.state.post) return;
+            const postParams = {
+                post: this.state.post,
+                wall_id: this.state.wallId,
+                id: this.state.postId
+            }
+            this.props.closeModal();
+            action(postParams);
+        }
     }
 
     handleCloseModal(e){
@@ -35,9 +46,12 @@ export default class CreatePostForm extends React.Component{
     }
 
     render(){
-        if (this.props.modal !== "create-post") return null
-
+        if (!(this.props.modal === "create-post" || this.props.modal === "edit-post" )) return null;
+        const postTitle = this.props.modal === "create-post" ? "Create Post" : "Edit Post";
+        const postButton = this.props.modal === "create-post" ? "Post" : "Edit";
+        const action = this.props.modal === "create-post" ? this.props.createPost : this.props.editPost;
         const fieldEmpty = !this.state.post;
+        
         return (
             <div className="modal-backdrop">
                 <div className="create-post-container">
@@ -46,7 +60,7 @@ export default class CreatePostForm extends React.Component{
                     </div>
                         
                     <div className="create-post-header">
-                        <h2> Create Post </h2>
+                        <h2> {postTitle} </h2>
                         <div className="separator" />
                         <div className="create-post-user">
                             <div className="profile-pic-icon">
@@ -55,9 +69,9 @@ export default class CreatePostForm extends React.Component{
                             <p>{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</p>
                         </div>
                     </div>
-                    <textarea onChange={this.update("post")} placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
-                    <button className={fieldEmpty ? "not-ready" : "ready"} onClick={this.handleSubmit}> 
-                        <p>Post</p>
+                    <textarea value={this.state.post} onChange={this.update("post")} placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
+                    <button className={fieldEmpty ? "not-ready" : "ready"} onClick={this.handleSubmit(action)}> 
+                        <p>{postButton}</p>
                     </button>
                 </div>
             </div>

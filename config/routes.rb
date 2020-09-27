@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     resources :searches, only: [:index]
     resources :friends, only: [:index]
     resources :newsfeed, only: [:index]
-    resources :posts, only: [:create]
+    resources :posts, only: [:create,:destroy,:update]
   end
 end

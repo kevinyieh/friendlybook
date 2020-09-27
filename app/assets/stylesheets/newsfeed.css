@@ -4,6 +4,6 @@
     display: flex;
     flex-direction: column;
 }
-.newsfeed > div {
+.newsfeed > .post-container, .open-post-form-container {
     margin-top: 13px;
 }

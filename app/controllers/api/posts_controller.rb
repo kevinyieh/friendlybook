@@ -10,6 +10,34 @@ class Api::PostsController < ApplicationController
         end
     end
 
+    def destroy
+        @post = Post.find_by(id: params[:id])
+        if @post
+            if current_user.id === @post.user_id
+                @post.destroy!
+                render :show
+            else
+                render json: ["Unathorized user"], status: 401
+            end
+        else
+            render json: ["Couldn't find post."], status: 404
+        end
+    end
+
+    def update
+        @post = Post.find_by(id: params[:id])
+        if @post
+            if current_user.id === @post.user_id
+                @post.update(posts_params)
+                render :show
+            else
+                render json: ["Unathorized user"]
+            end
+        else
+            render json: ["Couldn't find post."]
+        end
+    end
+
     private
     def posts_params
         params.require(:post).permit(:wall_id,:post)

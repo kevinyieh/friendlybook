@@ -1,6 +1,6 @@
 import React from "react";
-import PostItem from "../../post/post_item";
-import CreatPostFormContainer from "../../modal/create_post/create_post_form_container";
+import PostItemContainer from "../../post/post_item_container";
+import CreatPostFormContainer from "../../modal/post/post_form_container";
 
 export default class Newsfeed extends React.Component{
     constructor(props){
@@ -31,7 +31,8 @@ export default class Newsfeed extends React.Component{
     }
     renderPostItem(post){
         if(this.props.users[post.userId] && this.props.users[post.wallId]){
-            return (<PostItem key={post.id} 
+            return (<PostItemContainer 
+                key={post.id} 
                 post={post} 
                 poster={{
                             id: post.userId,
@@ -40,7 +41,8 @@ export default class Newsfeed extends React.Component{
                 postee={{
                     id: post.wallId,
                     fullName: `${this.props.users[post.wallId].firstName} ${this.props.users[post.wallId].lastName}`
-                }}/>
+                }}
+                />
             )
         }
         return null;
@@ -48,7 +50,7 @@ export default class Newsfeed extends React.Component{
 
     handleOpenModal(e){
         e.preventDefault();
-        this.props.openModal("create-post");
+        this.props.openModal({type: "create-post", post: ""});
     }
 
     render(){

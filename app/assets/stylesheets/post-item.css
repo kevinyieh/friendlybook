@@ -8,6 +8,7 @@
     border-radius: 10px;
     padding: 10px 13px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    position: relative;
 }
 .post-header {
     flex-direction: row;
@@ -23,13 +24,13 @@
     flex-direction: column;
     padding-left: 9px;
     height: 100%;
+    width: 100%;
     justify-content: space-evenly;
 }
 
 .post-user-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
 
 .post-user {
@@ -44,4 +45,46 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.post-header .meatball {
+    justify-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.post-header .meatball:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.post-header .post-options{
+    position: absolute;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    display:flex;
+    flex-direction: column;
+    padding: 9px;
+    z-index: 10;
+    width: 170px;
+}
+
+.post-header .post-options ul li {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    padding-left: 5px;
+    border-radius: 6px;
+}
+
+.post-header .post-options ul li:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
 }

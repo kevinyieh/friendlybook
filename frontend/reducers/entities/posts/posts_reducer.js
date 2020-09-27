@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, RECEIVE_POST } from "../../../actions/post_actions"
+import { RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST } from "../../../actions/post_actions"
 
 export default function postsReducer(state=[],action){
     Object.freeze(state);
@@ -7,6 +7,10 @@ export default function postsReducer(state=[],action){
             return action.posts;
         case RECEIVE_POST:
             return Object.assign({},state,{[action.post.id]: action.post})
+        case REMOVE_POST:
+            let new_state = Object.assign({},state)
+            delete new_state[action.id]
+            return new_state
         default:
             return state;
     }

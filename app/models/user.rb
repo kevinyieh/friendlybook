@@ -27,15 +27,16 @@ class User < ApplicationRecord
             WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
     end
 
-    def news_feed_posts(load=10)  
+    def news_feed_posts(load=25)  
         posts = Post.find_by_sql([" 
             SELECT DISTINCT
-                posts.id
+                posts.id, posts.created_at
             FROM posts
             LEFT OUTER JOIN friends as f1 ON f1.user_id =  posts.user_id
             LEFT OUTER JOIN friends as f2 ON f2.friend_id =  posts.user_id
             WHERE (f1.friend_id = ? OR f2.user_id = ? OR posts.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
             GROUP BY posts.id
+            ORDER BY posts.created_at DESC
             LIMIT ?", self.id,self.id,self.id,load])
         
         post_ids = posts.map { |post| post.id }
