@@ -35,7 +35,7 @@ export const createPost = post => dispatch => {
 
 export const deletePost = id => dispatch => {
     return PostUtils.deletePost(id)
-        .then( fetchedId => dispatch(removePost(fetchedId)))
+        .then( post => dispatch(removePost(post.id)))
 }
 
 export const editPost = id => dispatch => {

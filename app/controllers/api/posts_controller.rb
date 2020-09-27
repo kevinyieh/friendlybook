@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
         if @post
             if current_user.id === @post.user_id
                 @post.destroy!
-                render json: {id: @post.id}
+                render :basic_show
             else
                 render json: ["Unathorized user"], status: 401
             end
