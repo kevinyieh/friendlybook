@@ -25,6 +25,7 @@ export default class Comment extends React.Component{
         this.handleEditComment = this.handleEditComment.bind(this);
         this.renderDropDown = this.renderDropDown.bind(this);
         this.handleCreateReply = this.handleCreateReply.bind(this);
+        this.activateReplyInput = this.activateReplyInput.bind(this);
     }
 
     componentDidMount(){
@@ -60,6 +61,14 @@ export default class Comment extends React.Component{
             })
         }
     }
+
+    activateReplyInput(e){
+        e.preventDefault();
+        this.setState({
+            showReply: true
+        },() => this.commentInput.focus())
+    }
+
     handleLike(e){
         e.preventDefault();
     }
@@ -110,32 +119,46 @@ export default class Comment extends React.Component{
         })
     }
 
-    renderSubComments(subComments){
-        if(!subComments) return null;
-        let listState = this.state.showReply ? "" : "hidden";
+    subCommentsRenderHelper(subComments){
+        if (!subComments) return null;
+        return (
+            Object.values(subComments).map( subComment => {
+                return (
+                    <Comment 
+                        key={`comment-${subComment.id}`} 
+                        comment={subComment}
+                        users={this.props.users}
+                        currentUser={this.props.currentUser}
+                        posts={this.props.posts}
+                        deleteComment={this.props.deleteComment}
+                    />
+                )
+            })
+        )
+    }
+    showReplyHelper(subsExists){
+        if(!subsExists) return null;
         let rotateArrow = this.state.showReply ? "" : "fa-rotate-180";
-        let showReplyInput = this.state.showReplyInput ? "" : "hidden";
+        return (
+            <div className={`show-reply`} onClick={this.toggleReplyState()}>
+                <i className={`fas fa-reply ${rotateArrow}`} />
+                &nbsp;
+                <p> { this.state.showReply ? "Hide replies" : "Show replies"} </p>
+            </div>
+        )
+    }
+    renderSubComments(subComments){
+        // if(!subComments) return null;
+        let listState = this.state.showReply ? "" : "hidden";
+        // let showReplyInput = this.state.showReplyInput ? "" : "hidden";
         return(
             <div>
-                <div className={`show-reply`} onClick={this.toggleReplyState()}>
-                    <i className={`fas fa-reply ${rotateArrow}`} />
-                    &nbsp;
-                    <p> { this.state.showReply ? "Hide replies" : "Show replies"} </p>
-                </div>
+                {
+                    this.showReplyHelper(!!subComments)
+                }
                 <ul className={`sub-comments-container ${listState}`}>
                     {
-                        Object.values(subComments).map( subComment => {
-                            return (
-                                <Comment 
-                                    key={`comment-${subComment.id}`} 
-                                    comment={subComment}
-                                    users={this.props.users}
-                                    currentUser={this.props.currentUser}
-                                    posts={this.props.posts}
-                                    deleteComment={this.props.deleteComment}
-                                />
-                            )
-                        })
+                        this.subCommentsRenderHelper(subComments)
                     }
                     <div className="comment-input-container">
                         <div className="profile-pic-icon">
@@ -210,11 +233,14 @@ export default class Comment extends React.Component{
                             
                         <div className="comment-like-reply">
                             <div className="comment-like">
-                                Like
+                                <p>Like</p>
                             </div>
                             &nbsp;
-                            <div className="comment-reply">
-                                Reply
+                            <div 
+                                onClick={this.activateReplyInput}
+                                className="comment-reply">
+                                <p>Reply</p>
+                                
                             </div>
                             &nbsp;
                             <div>

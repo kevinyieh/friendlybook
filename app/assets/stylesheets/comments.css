@@ -138,3 +138,7 @@
 .sub-comments-container .comment-input-container .profile-pic-icon{
     font-size: 20px;
 }
+
+.comment-reply:hover {
+    cursor: pointer;
+}
