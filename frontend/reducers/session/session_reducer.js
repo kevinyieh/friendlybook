@@ -11,7 +11,8 @@ export default function sessionReducer(state=_nullState, action){
         case RECEIVE_CURRENT_USER:
             return { id: action.user.id, 
                 firstName: action.user.firstName, 
-                lastName: action.user.lastName 
+                lastName: action.user.lastName,
+                pfp: action.user.pfp
             }
         case LOGOUT_CURRENT_USER:
             return _nullState

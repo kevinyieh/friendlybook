@@ -19,7 +19,7 @@ const logoutCurrentUser = () => {
 }
 
 const receiveErrors = errors => {
-    errors = errors.responseJSON;
+    errors = errors.responseJSON ? errors.responseJSON : errors;
     if (errors.signup){
         errors.signup.firstName = errors.signup.first_name;
         errors.signup.lastName = errors.signup.last_name;
