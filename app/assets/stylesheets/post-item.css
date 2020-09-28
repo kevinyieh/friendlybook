@@ -134,3 +134,7 @@
 .comment-input-container .comment-input:focus::-webkit-input-placeholder {
     color: #bfbfbf;
 } 
+
+.show-comments:hover {
+    cursor: pointer;
+}

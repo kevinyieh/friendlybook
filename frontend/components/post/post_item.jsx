@@ -41,10 +41,9 @@ export default class PostItem extends React.Component{
     }
     componentDidUpdate(prevProp,prevState){
         if(prevProp.post.totalComments !== this.props.post.totalComments){
-            const rootComments = Object.values(this.props.post.comments).filter( comment => !comment.source);
+            const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
             const showComments = this.state.showComments + (rootComments.length - prevState.rootComments.length);
             const showInc = Math.min(10,rootComments.length - showComments);
-            debugger;
             this.setState({
                 rootComments,
                 showComments,
@@ -195,7 +194,7 @@ export default class PostItem extends React.Component{
                             </div>
                         </div>
                     <div className="separator" />
-                    <div onClick={this.handleShowMore} className={allCommentsShown ? "hidden" : ""}> <p> {`Show ${this.state.showInc} more comments`} </p></div>
+                    <div onClick={this.handleShowMore} className={allCommentsShown ? "hidden" : "show-comments"}> <p> {`Show ${this.state.showInc} more comments`} </p></div>
                     {<CommentSection  
                         comments={commentsToRender}
                     />}
@@ -214,6 +213,5 @@ export default class PostItem extends React.Component{
                     </div>
             </div>
         )
-            
     }
 }
