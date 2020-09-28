@@ -41,7 +41,7 @@ const convertToTime = (hours,minutes) => {
 export const timeRender = (createDate) => {
     const now = new Date();
     const postDate = new Date(createDate);
-    const msDiff = now - postDate;
+    const msDiff = Math.abs(now - postDate);
     if(msToDays(msDiff) > 1){
         return `${months[postDate.getMonth()]} ${postDate.getDay()} at ${convertToTime(postDate.getHours(),postDate.getMinutes())}}`
     }else if(msToDays(msDiff) == 1){
@@ -58,7 +58,7 @@ export const timeRender = (createDate) => {
 export const commentTimeRender = (createDate) => {
     const now = new Date();
     const postDate = new Date(createDate);
-    const msDiff = now - postDate;
+    const msDiff = Math.abs(now - postDate);
     if(msToYears(msDiff) >= 1){
         return `${msToYears(msDiff)}y`
     }else if(msToWeeks(msDiff) >= 1){
