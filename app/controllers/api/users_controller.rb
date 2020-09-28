@@ -2,6 +2,7 @@ class Api::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
+            user.pfp.attach(io: File.open(Rails.root.join("app","assets","images","default_pfp.png").to_s), filename: "default_pfp.png")
             login!(@user)
             render :show
         else

@@ -9,6 +9,7 @@ class Api::SessionsController < ApplicationController
                 render json: {login: {password: "The password you've entered is incorrect."}, signup: {}}, status: 401
             end
         else
+            @user = @user.with_attached_pfp
             login!(@user)
             render "/api/users/show"
         end
