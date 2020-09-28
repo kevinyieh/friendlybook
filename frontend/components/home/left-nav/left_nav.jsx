@@ -27,7 +27,9 @@ export default class LeftNav extends React.Component {
         const full_name = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`
         return {    
                     [full_name]: {  url: `#/users/${this.props.currentUser.id}`,
-                                icon: <i className="fas fa-user left-nav-icon" />,
+                                icon: <div className="profile-pic-icon">
+                                            <img src={this.props.currentUser.pfp} />
+                                        </div>,
                                 newPage: false},
                     Friends: {  url: "#/friends",
                                 icon: <i className="fas fa-user-friends" />,

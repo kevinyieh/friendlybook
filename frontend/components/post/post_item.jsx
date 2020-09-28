@@ -1,39 +1,67 @@
 import React from "react";
 import { timeRender } from "../../util/time_util";
 import { Link } from "react-router-dom";
-// import CommentContainer from "../comment/comment_container";
 import CommentSection from "../comment/comment_section";
 
 
 export default class PostItem extends React.Component{
     constructor(props){
         super(props);
-        const showComments = this.props.post.comments ? Math.min(Object.values(this.props.post.comments).length, 2) : 0
+        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
+        const showComments = this.props.post.comments ? Math.min(rootComments.length, 2) : 0;
         this.state = {
             showComments,
             dropdownOptions: false,
             comment: "",
+            rootComments,
+            showInc: Math.min(10,rootComments.length - showComments)
         }
-        this.showInc = Math.min(10,this.props.post.totalComments - this.state.comments)
+        
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleEditPost = this.handleEditPost.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleDeletePost = this.handleDeletePost.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCommentClick = this.handleCommentClick.bind(this);
+        this.handleShowMore = this.handleShowMore.bind(this);
     }
 
     handleClickOutside(e){
-        if(this.dropdownOptions && !this.dropdownOptions.contains(e.target))
+        if(this.dropdownOptions && !this.dropdownOptions.contains(e.target)){
             this.setState({
                 dropdownOptions: false
             })
+        }
     }
     componentDidMount(){
         document.addEventListener("mousedown",this.handleClickOutside)
     }
     componentWillUnmount(){
         document.removeEventListener("mousedown",this.handleClickOutside)
+    }
+    componentDidUpdate(prevProp,prevState){
+        if(prevProp.post.totalComments !== this.props.post.totalComments){
+            const rootComments = Object.values(this.props.post.comments).filter( comment => !comment.source);
+            const showComments = this.state.showComments + (rootComments.length - prevState.rootComments.length);
+            const showInc = Math.min(10,rootComments.length - showComments);
+            debugger;
+            this.setState({
+                rootComments,
+                showComments,
+                showInc
+            })
+        }else if(prevState.showComments !== this.state.showComments){
+            this.setState({
+                showInc: Math.min(10,this.state.rootComments.length - this.state.showComments)
+            })
+        }
+    }
+
+    handleShowMore(e){
+        e.preventDefault();
+        this.setState({
+            showComments: this.state.showComments + this.state.showInc
+        })
     }
 
     handleEditPost(e){
@@ -69,11 +97,12 @@ export default class PostItem extends React.Component{
         this.props.createComment({
             post_id: this.props.post.id,
             comment: this.state.comment,
+        }).then(() => {
+            this.setState({
+                comment: ""
+            })
         })
-        this.setState({
-            showComments: this.state.showComments +1,
-            comment: ""
-        })
+        
     }
     handleCommentClick(e){
         e.preventDefault();
@@ -81,14 +110,17 @@ export default class PostItem extends React.Component{
     }
     render(){
         const ownPost = this.props.currentUser.id === this.props.post.userId;
-        const allComments = this.props.post.comments ? Object.values(this.props.post.comments) : null;
+        // const allComments = this.props.post.comments ? Object.values(this.props.post.comments) : null;
+        const allComments = this.state.rootComments ? this.state.rootComments : null;
         const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;
         const commentsToRender = sortedComments ? sortedComments.slice(allComments.length-this.state.showComments,allComments.length) : null;
+        const allCommentsShown = !this.props.post.comments || (this.state.rootComments.length === this.state.showComments);
+
         return(
             <div className="post-container">
                     <div className="post-header">
                         <div className="profile-pic-icon">
-                            <i className="fas fa-user" />
+                            <img src={this.props.poster.pfp} />
                         </div>
                         <div className="post-technicals">
                             <div className="post-user">
@@ -163,13 +195,13 @@ export default class PostItem extends React.Component{
                             </div>
                         </div>
                     <div className="separator" />
+                    <div onClick={this.handleShowMore} className={allCommentsShown ? "hidden" : ""}> <p> {`Show ${this.state.showInc} more comments`} </p></div>
                     {<CommentSection  
                         comments={commentsToRender}
-                        showComments={this.state.showComments}
                     />}
                     <div className="comment-input-container">
                         <div className="profile-pic-icon">
-                            <i className="fas fa-user" />
+                            <img src={this.props.currentUser.pfp} />
                         </div>
                         <form onSubmit={this.handleSubmit}>
                             <input 

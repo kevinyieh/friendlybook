@@ -28,7 +28,7 @@ export default class RightNav extends React.Component {
                             return <div key={fullName} className="contact-container">
                                         <li className="contact">
                                             <div className="profile-pic-icon">
-                                                <i className="fas fa-user" />
+                                                <img src={friend.pfp} />
                                             </div>
                                                 
                                             <p> {fullName} </p>

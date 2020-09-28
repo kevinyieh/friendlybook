@@ -11,6 +11,7 @@ class Api::UsersController < ApplicationController
     def index 
         @users = User.select("users.*")
                     .where("users.id IN (?)",params[:users])
+                    .with_attached_pfp
         render :index
     end
     private

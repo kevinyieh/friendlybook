@@ -72,7 +72,7 @@ export default class CreatePostForm extends React.Component{
                         <div className="separator" />
                         <div className="create-post-user">
                             <div className="profile-pic-icon">
-                                <i className="fas fa-user" />
+                                <img src={this.props.currentUser.pfp} />
                             </div>
                             <p>{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</p>
                         </div>

@@ -15,14 +15,16 @@ document.addEventListener("DOMContentLoaded",() => {
             session: {
                 id: currentUser.id,
                 firstName: currentUser.firstName,
-                lastName: currentUser.lastName
+                lastName: currentUser.lastName,
+                pfp: currentUser.pfp
             },
             entities: {
                 users: {
                     [currentUser.id]:{
                         id: currentUser.id,
                         firstName: currentUser.firstName,
-                        lastName: currentUser.lastName
+                        lastName: currentUser.lastName,
+                        pfp: currentUser.pfp
                     }
                 }
             }

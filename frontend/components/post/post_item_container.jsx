@@ -8,7 +8,7 @@ const mSTP = (state,ownProps) => {
     return {
         currentUser: state.session,
         post: ownProps.post,
-        poster: ownProps.poster,
+        poster: Object.assign(state.entities.users[ownProps.poster.id], ownProps.poster),
         postee: ownProps.postee
     }   
 }

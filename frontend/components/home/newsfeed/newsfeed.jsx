@@ -64,13 +64,12 @@ export default class Newsfeed extends React.Component{
                 <div className="open-post-form-container">
                     <div className="open-post-form-main">
                         <div className="profile-pic-icon">
-                            <i className="fas fa-user" />
+                            <img src={this.props.currentUser.pfp}/>
                         </div>
                         <div onClick={this.handleOpenModal} className="open-post-form">
                             <p>{`What's on your mind, ${this.props.currentUser.firstName}?`}</p>
                         </div>
                     </div>
-                        
                 </div>
                 {this.props.posts.map(this.renderPostItem)}
             </div>

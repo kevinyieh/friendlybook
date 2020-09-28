@@ -18,6 +18,10 @@ class User < ApplicationRecord
         foreign_key: :user_id,
         class_name: :Comment,
         dependent: :destroy
+
+    has_one_attached :pfp
+
+    has_many_attached :photos
     
     def wall_posts()
         User.find_by_sql(["

@@ -12,6 +12,8 @@ class Post < ApplicationRecord
         class_name: :Comment,
         dependent: :destroy
     
+    # has_many_attached :photos
+
     def self.retrieve_post(post_id)
         Post.select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 

@@ -13,6 +13,7 @@ export default class Comment extends React.Component{
             showReplyInput: false,
             dropdownOptions: false,
             comment: "",
+            commenter
         }
         this.ownPost = this.props.posts[this.props.comment.postId].userId === this.props.currentUser.id;
         this.ownComment = this.props.comment.userId === this.props.currentUser.id;
@@ -27,7 +28,6 @@ export default class Comment extends React.Component{
         this.replyTracker = this.replyTracker.bind(this);
     }
     replyTracker(reply){
-        debugger;
         if (reply) this.reply = reply;
     }
     componentDidMount(){
@@ -107,7 +107,6 @@ export default class Comment extends React.Component{
 
     handleCreateReply(e){
         e.preventDefault();
-        debugger;
         const parentCommentId = this.reply ? this.reply : this.props.comment.id
         this.props.createComment({
             comment: this.state.comment,
@@ -137,6 +136,7 @@ export default class Comment extends React.Component{
                         commentInput={this.commentInput}
                         source={source}
                         replyTracker={this.replyTracker}
+                        commenter={this.state.commenter}
                     />
                 )
             })
@@ -153,7 +153,7 @@ export default class Comment extends React.Component{
             </div>
         )
     }
-    renderSubComments(subComments){
+    renderSubComments(subComments,commenter){
         let listState = this.state.showReply ? "" : "hidden";
         if (this.props.source) return null;
         return(
@@ -167,7 +167,7 @@ export default class Comment extends React.Component{
                     }
                     <div className="comment-input-container">
                         <div className="profile-pic-icon">
-                            <i className="fas fa-user" />
+                            <img src={this.props.currentUser.pfp} />
                         </div>
                         <form onSubmit={this.handleCreateReply}>
                             <input 
@@ -219,11 +219,12 @@ export default class Comment extends React.Component{
 
     render(){
         if (!this.state.fullName) return null;
+        const commenter = this.props.users[this.props.comment.userId]
         return(
             <div className="comment-chain">
                 <div className="comment-container">
                     <div className="profile-pic-icon">
-                        <i className="fas fa-user" />
+                        <img src={commenter.pfp} />
                     </div>
                     <div className="comment-details">
                         <div className="comment-main">
@@ -254,7 +255,7 @@ export default class Comment extends React.Component{
                         </div>
                     </div>
                 </div>
-                {this.renderSubComments(this.props.subComments)}
+                {this.renderSubComments(this.props.subComments,commenter)}
             </div>
                 
         )
