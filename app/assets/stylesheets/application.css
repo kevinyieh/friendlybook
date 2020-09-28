@@ -81,6 +81,6 @@ div, a, form, li, ul, input, label, button {
     bottom: 0;
     right: 0;
     left: 0;
-    background: rgba(236, 236, 236, 0.8);
+    background: rgba(251, 253, 255, 0.8);
     z-index: 10;
 }

@@ -8,7 +8,6 @@ export default function postsReducer(state=[],action){
         case RECEIVE_POST:
             return Object.assign({},state,{[action.post.id]: action.post})
         case REMOVE_POST:
-            debugger;
             let new_state = Object.assign({},state)
             delete new_state[action.id]
             return new_state

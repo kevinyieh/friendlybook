@@ -15,6 +15,28 @@ class Api::CommentsController < ApplicationController
         end
     end
 
+    def update
+        @comment = Comment.find_by(id: params[:id])
+        if @comment
+            @comment.update(comment_params)
+            @post = Post.retrieve_post(@comment.post_id)
+            redirect_to "/api/posts/#{@comment.post_id}"
+        else
+            render json: ["Comment not found"]
+        end
+    end
+
+    def destroy
+        @comment = Comment.find_by(id: params[:id])
+        if @comment 
+            @comment.destroy!
+            @post = Post.retrieve_post(@comment.post_id).first
+            render "/api/posts/show.json.jbuilder"
+        else
+            render json: ["Comment not found"]
+        end
+    end
+
     private
     def comment_params
         params.require(:comment).permit(:comment,:post_id,:parent_comment_id,:source)

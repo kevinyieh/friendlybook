@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :friends, only: [:index]
     resources :newsfeed, only: [:index]
     resources :posts, only: [:create,:destroy,:update,:show]
-    resources :comments, only: [:create]
+    resources :comments, only: [:create,:update,:destroy]
   end
 end

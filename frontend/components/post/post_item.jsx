@@ -24,7 +24,6 @@ export default class PostItem extends React.Component{
     }
 
     handleClickOutside(e){
-        // e.preventDefault();
         if(this.dropdownOptions && !this.dropdownOptions.contains(e.target))
             this.setState({
                 dropdownOptions: false

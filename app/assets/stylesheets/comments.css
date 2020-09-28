@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
 }
-.comment-chain ul {
+.comment-chain .sub-comments-container {
     margin-left: 28px;
 }
 .comment-container {
@@ -41,4 +41,96 @@
 .show-reply:hover p, .hide-reply:hover, .comment-container a:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+.comment-main {
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-main .meatball {
+    align-self: center;
+    opacity: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+.comment-container:hover .meatball {
+    opacity: 100;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-container:hover .meatball:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.comment-dropdown-container {
+    position: relative;
+    align-self: center;
+    margin-left: 25px;
+    z-index: 12;
+}
+
+.comment-options {
+    position: absolute;
+    height: 60px;
+    width: 300px;
+    top: 75px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5px;
+    z-index: 500;
+}
+
+.comment-options ul {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
+}
+
+.comment-options li {
+    height: 47%;
+    width: 100%;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 6px;
+}
+
+.comment-options li:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.comment-options li p {
+    font-size: 14px;
+    font-weight: 600;
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+}
+.comment-dropdown-carrot {
+    position: absolute;
+    top:-2px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 501;
 }

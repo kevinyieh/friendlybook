@@ -5,10 +5,10 @@
 .post-container{
     flex-direction: column;
     background-color: white;
+    filter: brightness(97%);
     border-radius: 10px;
     padding: 10px 13px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    position: relative;
 }
 .post-header {
     flex-direction: row;
