@@ -13,12 +13,10 @@ export default class Comment extends React.Component{
             showReplyInput: false,
             dropdownOptions: false,
             comment: "",
-            reply: null
         }
         this.ownPost = this.props.posts[this.props.comment.postId].userId === this.props.currentUser.id;
         this.ownComment = this.props.comment.userId === this.props.currentUser.id;
         this.handleLike = this.handleLike.bind(this);
-        this.handleReply = this.handleReply.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleDeleteComment = this.handleDeleteComment.bind(this);
@@ -26,8 +24,12 @@ export default class Comment extends React.Component{
         this.renderDropDown = this.renderDropDown.bind(this);
         this.handleCreateReply = this.handleCreateReply.bind(this);
         this.activateReplyInput = this.activateReplyInput.bind(this);
+        this.replyTracker = this.replyTracker.bind(this);
     }
-
+    replyTracker(reply){
+        debugger;
+        if (reply) this.reply = reply;
+    }
     componentDidMount(){
         document.addEventListener("mousedown",this.handleClickOutside);
     }
@@ -64,15 +66,16 @@ export default class Comment extends React.Component{
 
     activateReplyInput(e){
         e.preventDefault();
+        const commentInput = this.props.commentInput ? this.props.commentInput : this.commentInput;
+        if (this.props.replyTracker){
+            this.props.replyTracker(this.props.comment.id);
+        } 
         this.setState({
-            showReply: true
-        },() => this.commentInput.focus())
+            showReply: true,
+        },() => commentInput.focus())
     }
 
     handleLike(e){
-        e.preventDefault();
-    }
-    handleReply(e){
         e.preventDefault();
     }
 
@@ -88,7 +91,6 @@ export default class Comment extends React.Component{
     }
     handleDeleteComment(e){
         e.preventDefault();
-        debugger;
         this.setState({
             dropdownOptions: false
         })
@@ -105,13 +107,13 @@ export default class Comment extends React.Component{
 
     handleCreateReply(e){
         e.preventDefault();
-        const parentCommentId = this.state.reply ? this.state.reply : this.props.comment.id
-        
+        debugger;
+        const parentCommentId = this.reply ? this.reply : this.props.comment.id
         this.props.createComment({
             comment: this.state.comment,
             post_id: this.props.comment.postId,
             source: this.props.comment.id,
-            parentCommentId
+            parent_comment_id: parentCommentId
         })
         this.setState({
             comment: "",
@@ -121,6 +123,7 @@ export default class Comment extends React.Component{
 
     subCommentsRenderHelper(subComments){
         if (!subComments) return null;
+        const source = this.props.comment.source ? this.props.comment.source : this.props.comment.id;
         return (
             Object.values(subComments).map( subComment => {
                 return (
@@ -131,6 +134,9 @@ export default class Comment extends React.Component{
                         currentUser={this.props.currentUser}
                         posts={this.props.posts}
                         deleteComment={this.props.deleteComment}
+                        commentInput={this.commentInput}
+                        source={source}
+                        replyTracker={this.replyTracker}
                     />
                 )
             })
@@ -148,9 +154,8 @@ export default class Comment extends React.Component{
         )
     }
     renderSubComments(subComments){
-        // if(!subComments) return null;
         let listState = this.state.showReply ? "" : "hidden";
-        // let showReplyInput = this.state.showReplyInput ? "" : "hidden";
+        if (this.props.source) return null;
         return(
             <div>
                 {

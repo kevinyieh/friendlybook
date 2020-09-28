@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_032222) do
+ActiveRecord::Schema.define(version: 2020_09_28_140841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(version: 2020_09_26_032222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "source"
+    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["source"], name: "index_comments_on_source"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "friends", force: :cascade do |t|
@@ -31,7 +35,9 @@ ActiveRecord::Schema.define(version: 2020_09_26_032222) do
     t.boolean "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friends_on_friend_id"
     t.index ["user_id", "friend_id"], name: "index_friends_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -40,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_09_26_032222) do
     t.integer "wall_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["wall_id"], name: "index_posts_on_wall_id"
   end
 
   create_table "users", force: :cascade do |t|
