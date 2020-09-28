@@ -11,7 +11,9 @@ export default class Comment extends React.Component{
             subCommentInc: 7,
             showReply: false,
             showReplyInput: false,
-            dropdownOptions: false
+            dropdownOptions: false,
+            comment: "",
+            reply: null
         }
         this.ownPost = this.props.posts[this.props.comment.postId].userId === this.props.currentUser.id;
         this.ownComment = this.props.comment.userId === this.props.currentUser.id;
@@ -22,6 +24,7 @@ export default class Comment extends React.Component{
         this.handleDeleteComment = this.handleDeleteComment.bind(this);
         this.handleEditComment = this.handleEditComment.bind(this);
         this.renderDropDown = this.renderDropDown.bind(this);
+        this.handleCreateReply = this.handleCreateReply.bind(this);
     }
 
     componentDidMount(){
@@ -76,10 +79,35 @@ export default class Comment extends React.Component{
     }
     handleDeleteComment(e){
         e.preventDefault();
+        debugger;
         this.setState({
             dropdownOptions: false
         })
         this.props.deleteComment(this.props.comment.id);
+    }
+
+    update(field){
+        return e => {
+            return this.setState({
+                [field]: e.target.value
+            })
+        }
+    }
+
+    handleCreateReply(e){
+        e.preventDefault();
+        const parentCommentId = this.state.reply ? this.state.reply : this.props.comment.id
+        
+        this.props.createComment({
+            comment: this.state.comment,
+            post_id: this.props.comment.postId,
+            source: this.props.comment.id,
+            parentCommentId
+        })
+        this.setState({
+            comment: "",
+            reply: null
+        })
     }
 
     renderSubComments(subComments){
@@ -104,11 +132,24 @@ export default class Comment extends React.Component{
                                     users={this.props.users}
                                     currentUser={this.props.currentUser}
                                     posts={this.props.posts}
+                                    deleteComment={this.props.deleteComment}
                                 />
                             )
                         })
                     }
-                    <input className={`showReplyInput`} />
+                    <div className="comment-input-container">
+                        <div className="profile-pic-icon">
+                            <i className="fas fa-user" />
+                        </div>
+                        <form onSubmit={this.handleCreateReply}>
+                            <input 
+                                ref= { node => this.commentInput = node}
+                                onChange={this.update("comment")}
+                                value={this.state.comment}
+                                className="comment-input" 
+                                placeholder="Write a reply..."/>
+                        </form>
+                    </div>
                 </ul>
             </div>
 

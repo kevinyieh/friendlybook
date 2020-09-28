@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Comment from "./comment";
-import { deleteComment, editComment } from "../../actions/comment_actions";
+import { createComment, deleteComment, editComment } from "../../actions/comment_actions";
 const mSTP = (state, ownProps) => {
     return {
         posts: state.entities.posts,
@@ -14,7 +14,8 @@ const mSTP = (state, ownProps) => {
 const mDTP = dispatch => {
     return {
         deleteComment: id => dispatch(deleteComment(id)),
-        editComment: comment => dispatch(editComment(comment))
+        editComment: comment => dispatch(editComment(comment)),
+        createComment: comment => dispatch(createComment(comment))
     }
 }
 

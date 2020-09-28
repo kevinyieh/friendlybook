@@ -134,3 +134,7 @@
     transform: translate(-50%, -50%);
     z-index: 501;
 }
+
+.sub-comments-container .comment-input-container .profile-pic-icon{
+    font-size: 20px;
+}

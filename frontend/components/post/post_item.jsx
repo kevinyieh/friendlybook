@@ -152,14 +152,14 @@ export default class PostItem extends React.Component{
                                     <i className="far fa-thumbs-up" />
                                 </div>
                                 &nbsp;
-                                <p> Like </p>
+                                <p unselectable> Like </p>
                             </div>
                             <div onClick={this.handleCommentClick} className="comment"> 
                                 <div className="like-icon">
                                     <i className="far fa-comment-alt" />
                                 </div>
                                 &nbsp;
-                                <p> Comment </p>
+                                <p unselectable> Comment </p>
                             </div>
                         </div>
                     <div className="separator" />
