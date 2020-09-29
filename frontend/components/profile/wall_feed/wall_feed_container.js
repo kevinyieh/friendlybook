@@ -5,7 +5,7 @@ import { fetchUsers } from "../../../actions/user_actions";
 import { fetchWallFeed } from "../../../actions/post_actions"
 const mSTP = (state,ownProps) => {
     return {
-        posts: Object.values(state.entities.posts).sort( (post1,post2) => post1.createdAt > post2.createdAt ? -1 : 1),
+        posts: ownProps.posts,
         users: state.entities.users,
         currentUser: state.session,
         user: ownProps.user

@@ -18,7 +18,7 @@ class User < ApplicationRecord
         foreign_key: :user_id,
         class_name: :Comment,
         dependent: :destroy
-    has_many :friends_recs,
+    has_many :friends_reqs,
         primary_key: :id,
         foreign_key: :user_id,
         class_name: :Friend,
@@ -78,7 +78,7 @@ class User < ApplicationRecord
         #             users.id != ?
         #     ORDER BY users.id ASC", self.id,self.id,self.id])         
         User.with_attached_pfp
-            .left_outer_joins(:friends_recs)
+            .left_outer_joins(:friends_reqs)
             .left_outer_joins(:friends_backs)
             .where("((friends.friend_id = ? AND friends.pending = FALSE) OR 
                     (friends_backs_users.user_id = ? AND friends_backs_users.pending = FALSE)) AND 

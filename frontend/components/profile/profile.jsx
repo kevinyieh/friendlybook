@@ -5,10 +5,12 @@ import WallFeedContainer from "./wall_feed/wall_feed_container";
 import MiniPhotosContainer from "./photos/mini_photos";
 class Profile extends React.Component{
     componentDidMount(){
-        this.props.fetchUser(this.props.match.params.userId);
+        this.props.fetchWallFeed(this.props.userId).then(() => {
+            this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+        });        
     }
     componentDidUpdate(){
-        if(!this.props.user) this.props.fetchUser(this.props.match.params.userId);
+        if(!this.props.user) this.props.fetchUser(this.props.userId);
     }
     renderBackground(){
         if(this.props.currentUser.background){
@@ -17,13 +19,39 @@ class Profile extends React.Component{
             return <div className="default-background" />
         }
     }
+    renderNavbar(){
+        if(this.props.friendView) return null;
+        return (
+            <div>
+                    <NavBarContainer /> 
+                    <div className="spacer"/>
+            </div>
+        )
+    }
+    allUserIdsFromComments(posts){
+        debugger;
+        let allUsers = {};
+        posts.forEach( (post) => {
+            allUsers[post.userId] = true
+            if(post.comments){
+                Object.values(post.comments).forEach( (comment) => {
+                    if(comment.subComments){
+                        Object.values(comment.subComments).forEach( (subComment) => {
+                            allUsers[subComment.userId] = true;
+                        })
+                    }
+                    allUsers[comment.userId] = true;
+                })
+            }
+        })
+        return Object.keys(allUsers);
+    }
     render(){
         if(!this.props.user) return null;
         const pfp = this.props.user.pfp ? this.props.user.pfp : window.defaultPfp;
         return(
             <div className="profile-page-container">
-                <NavBarContainer /> 
-                <div className="spacer"/>
+                {this.renderNavbar()}
                 <div className="profile-page-header">
                     <div className="profile-background-image">
                         {this.renderBackground()}
@@ -44,7 +72,9 @@ class Profile extends React.Component{
                 <div className="profile-page-body">
                     <MiniPhotosContainer />
                     <WallFeedContainer 
-                        user={this.props.user}/>
+                        user={this.props.user}
+                        posts={this.props.posts}
+                        />
                 </div>
             </div>
         )

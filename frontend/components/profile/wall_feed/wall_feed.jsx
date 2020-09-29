@@ -25,11 +25,7 @@ export default class WallFeed extends React.Component{
         })
         return Object.keys(allUsers);
     }
-    // componentDidMount(){
-    //     this.props.fetchWallFeed(this.props.user.id).then(() => {
-    //         this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
-    //     });
-    // }
+
     componentDidUpdate(prevProps){
         if(prevProps.user.id !== this.props.user.id){
             this.props.fetchWallFeed(this.props.user.id).then(() => {
