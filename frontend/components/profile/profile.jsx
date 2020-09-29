@@ -8,11 +8,7 @@ class Profile extends React.Component{
         this.props.fetchUser(this.props.match.params.userId);
     }
     componentDidUpdate(){
-        if(!this.props.user) {
-            debugger;
-            this.props.fetchUser(this.props.match.params.userId);
-        }
-        this.props.fetchWallFeed(this.props.match.params.userId)
+        if(!this.props.user) this.props.fetchUser(this.props.match.params.userId);
     }
     renderBackground(){
         if(this.props.currentUser.background){

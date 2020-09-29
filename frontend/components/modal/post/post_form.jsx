@@ -9,6 +9,7 @@ export default class CreatePostForm extends React.Component{
             postId: this.props.postId
         }
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     update(field){
         return e => {

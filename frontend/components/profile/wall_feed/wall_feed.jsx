@@ -11,6 +11,7 @@ export default class WallFeed extends React.Component{
     allUserIdsFromComments(posts){
         let allUsers = {};
         posts.forEach( (post) => {
+            allUsers[post.userId] = true
             if(post.comments){
                 Object.values(post.comments).forEach( (comment) => {
                     if(comment.subComments){
@@ -24,10 +25,17 @@ export default class WallFeed extends React.Component{
         })
         return Object.keys(allUsers);
     }
-    componentDidMount(){
-        this.props.fetchNewsfeed().then(() => {
-            this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
-        });
+    // componentDidMount(){
+    //     this.props.fetchWallFeed(this.props.user.id).then(() => {
+    //         this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+    //     });
+    // }
+    componentDidUpdate(prevProps){
+        if(prevProps.user.id !== this.props.user.id){
+            this.props.fetchWallFeed(this.props.user.id).then(() => {
+                this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+            });
+        }
     }
     renderPostItem(post){
         if(this.props.users[post.userId] && this.props.users[post.wallId]){
@@ -54,7 +62,7 @@ export default class WallFeed extends React.Component{
     }
 
     renderInputPlaceholder(){
-        if(this.props.wallId === this.props.currentUser.id){
+        if(this.props.user.id === this.props.currentUser.id){
             return <p>{`What's on your mind, ${this.props.currentUser.firstName}?`}</p>
         }else{
             return <p>{`Write something to ${this.props.user.firstName}... `}</p>
