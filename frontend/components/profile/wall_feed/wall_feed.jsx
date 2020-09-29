@@ -2,7 +2,7 @@ import React from "react";
 import PostItemContainer from "../../post/post_item_container";
 import CreatPostFormContainer from "../../modal/post/post_form_container";
 
-export default class Newsfeed extends React.Component{
+export default class WallFeed extends React.Component{
     constructor(props){
         super(props)
         this.renderPostItem = this.renderPostItem.bind(this);
@@ -57,7 +57,7 @@ export default class Newsfeed extends React.Component{
         if(Object.values(this.props.users).length < 1) return null;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
-            <div className="newsfeed">
+            <div className="wallfeed">
                 <CreatPostFormContainer 
                     wallId={this.props.currentUser.id}
                 />

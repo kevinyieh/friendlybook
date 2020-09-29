@@ -59,7 +59,7 @@ export default class CreatePostForm extends React.Component{
         const postButton = this.props.modal === "create-post" ? "Post" : "Edit";
         const action = this.props.modal === "create-post" ? this.props.createPost : this.props.editPost;
         const fieldEmpty = !this.state.post;
-        
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return (
             <div className="modal-backdrop">
                 <div className="create-post-container">
@@ -72,7 +72,7 @@ export default class CreatePostForm extends React.Component{
                         <div className="separator" />
                         <div className="create-post-user">
                             <div className="profile-pic-icon">
-                                <img src={this.props.currentUser.pfp} />
+                                <img src={pfp} />
                             </div>
                             <p>{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</p>
                         </div>

@@ -15,6 +15,14 @@ class Api::UsersController < ApplicationController
                     .with_attached_pfp
         render :index
     end
+    def show
+        @user = User.find_by(id: params[:id])
+        if @user 
+            render :show
+        else
+            render json: ["User not found"]
+        end
+    end
     private
     def user_params
         params.require(:user).permit(:first_name,:last_name,:email,:password,:birthdate,:gender,:pronoun)

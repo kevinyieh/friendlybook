@@ -114,12 +114,13 @@ export default class PostItem extends React.Component{
         const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;
         const commentsToRender = sortedComments ? sortedComments.slice(allComments.length-this.state.showComments,allComments.length) : null;
         const allCommentsShown = !this.props.post.comments || (this.state.rootComments.length === this.state.showComments);
-
+        const posterPfp = this.props.poster.pfp ? this.props.poster.pfp : window.defaultPfp;
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
             <div className="post-container">
                     <div className="post-header">
                         <div className="profile-pic-icon">
-                            <img src={this.props.poster.pfp} />
+                            <img src={posterPfp} />
                         </div>
                         <div className="post-technicals">
                             <div className="post-user">
@@ -200,7 +201,7 @@ export default class PostItem extends React.Component{
                     />}
                     <div className="comment-input-container">
                         <div className="profile-pic-icon">
-                            <img src={this.props.currentUser.pfp} />
+                            <img src={pfp} />
                         </div>
                         <form onSubmit={this.handleSubmit}>
                             <input 

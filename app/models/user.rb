@@ -18,9 +18,20 @@ class User < ApplicationRecord
         foreign_key: :user_id,
         class_name: :Comment,
         dependent: :destroy
+    has_many :friends_recs,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :Friend,
+        dependent: :destroy
+
+    has_many :friends_backs,
+        primary_key: :id,
+        foreign_key: :friend_id,
+        class_name: :Friend,
+        dependent: :destroy
 
     has_one_attached :pfp
-
+    has_one_attached :background_image
     has_many_attached :photos
     
     def wall_posts()
@@ -46,7 +57,6 @@ class User < ApplicationRecord
             LIMIT ?", self.id,self.id,self.id,load])
         
         post_ids = posts.map { |post| post.id }
-        # debugger
         Post.select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
@@ -57,16 +67,24 @@ class User < ApplicationRecord
     end
 
     def friends()
-        User.find_by_sql(["
-            SELECT DISTINCT
-                users.*, f1.pending as f1pending, f2.pending as f2pending
-            FROM users
-            LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
-            LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
-            WHERE ((f1.friend_id = ? AND f1.pending = FALSE) OR 
-                    (f2.user_id = ? AND f2.pending = FALSE)) AND 
-                    users.id != ?
-            ORDER BY users.id ASC", self.id,self.id,self.id])         
+        # User.with_attached_pfp.find_by_sql(["
+        #     SELECT DISTINCT
+        #         users.*, f1.pending as f1pending, f2.pending as f2pending
+        #     FROM users
+        #     LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
+        #     LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
+        #     WHERE ((f1.friend_id = ? AND f1.pending = FALSE) OR 
+        #             (f2.user_id = ? AND f2.pending = FALSE)) AND 
+        #             users.id != ?
+        #     ORDER BY users.id ASC", self.id,self.id,self.id])         
+        User.with_attached_pfp
+            .left_outer_joins(:friends_recs)
+            .left_outer_joins(:friends_backs)
+            .where("((friends.friend_id = ? AND friends.pending = FALSE) OR 
+                    (friends_backs_users.user_id = ? AND friends_backs_users.pending = FALSE)) AND 
+                    users.id != ?",self.id,self.id,self.id)
+            .order("users.id ASC")
+            .select("DISTINCT users.*, friends.pending as f1pending, friends_backs_users.pending as f2pending")
     end
 
     def password=(pw)

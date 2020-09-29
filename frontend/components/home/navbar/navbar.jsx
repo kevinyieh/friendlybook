@@ -5,7 +5,7 @@ import MessengerDropdown from "./side-nav/messenger_dropdown";
 import CreateDropdown from "./side-nav/create_dropdown";
 import Search from "./search-nav/search-nav";
 import MainNav from "./main-nav/main_nav";
-
+import { Link } from "react-router-dom";
 const elementClickIsOutside = (allDropIcons,clicked) => {
     return !allDropIcons.some( element => element.contains(clicked))
 }
@@ -56,10 +56,14 @@ export default class NavBar extends React.Component{
     }
 
     render(){
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return (
             <div className="navbar">
                 <div className="search-nav">
-                    <img className="small-logo" src={window.smallLogoUrl}></img>
+                    <Link to="/">
+                        <img className="small-logo" src={window.smallLogoUrl}></img>
+                    </Link>
+                        
                     <Search />
                 </div>
     
@@ -68,11 +72,10 @@ export default class NavBar extends React.Component{
                 </div>
                 
                 <div className="side-nav">
-                    <div className="small-profile">
-                        <div>
-                            {this.props.currentUser.firstName}
-                        </div>
-                    </div>
+                    <Link to={`/users/${this.props.currentUser.id}`} className="small-profile">
+                            <img src={pfp}/>
+                            <p> {this.props.currentUser.firstName} </p>
+                    </Link>
                     <div className="create">
                         <div onClick={this.dropdown("create")} 
                             className={`drop-create ${this.state.drop === "create" ? "active-dropdown" : ""}`}
@@ -113,6 +116,7 @@ export default class NavBar extends React.Component{
                             <i className="fas fa-caret-down" />
                         </div>
                         <AccountDropdown 
+                                currentUser={this.props.currentUser}
                                 logout={this.props.logout} 
                                 drop={this.state.drop}
                                 ref={node => this.droplists["account"] = node}

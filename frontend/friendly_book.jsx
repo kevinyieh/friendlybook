@@ -9,6 +9,7 @@ import { fetchNewsfeed } from "./actions/post_actions";
 document.addEventListener("DOMContentLoaded",() => {
     const root = document.getElementById("root");
     const currentUser = window.currentUser;
+
     let store = null;
     if (currentUser){
         store = configureStore({

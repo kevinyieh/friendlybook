@@ -7,9 +7,28 @@
 .settings-dropdown {
     position: relative;
 }
-
+.small-profile {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    border-radius: 25px;
+    transition: background-color 0.2s;
+}
+.small-profile:hover {
+    background-color: #f2f2f2;
+}   
+.small-profile img {
+    height: 37px;
+    width: 37px;
+    border-radius: 50%;
+}
+.small-profile p {
+    margin-left: 5px;
+    font-weight: 600;
+}
 .small-logo:hover, [class^="drop-"]:hover {
     cursor: pointer;
+
 }
 div[class^="drop-"] {
     font-size: 17px;
@@ -76,6 +95,7 @@ div[class^="drop-"] {
     justify-content: space-evenly;
     /* box-sizing: border-box; */
     padding-left: 10px;
+    align-items: center;
 }
 
 .dropdown-list {
@@ -101,6 +121,7 @@ div[class^="drop-"] {
 }
 
 .dropdown-list .separator {
+    margin: 6px 0;
     width: 90%;
     align-self: center;
 }
@@ -138,4 +159,23 @@ div[class^="drop-"] {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.dropdown-profile{
+    padding: 8px;
+}
+.dropdown-profile a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbar-pfp {
+    height: 58px;
+    width: 58px;
+    border-radius: 50%;
+}
+
+.dropdown-profile p {
+    font-weight: 650;
+    margin-left: 15px;
 }

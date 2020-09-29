@@ -1,0 +1,9 @@
+.wallfeed {
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.wallfeed > .post-container, .open-post-form-container {
+    margin-top: 12px;
+}

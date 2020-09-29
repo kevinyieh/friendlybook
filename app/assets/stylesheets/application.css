@@ -92,3 +92,6 @@ div, a, form, li, ul, input, label, button {
     background: rgba(251, 253, 255, 0.8);
     z-index: 10;
 }
+img {
+    object-fit: cover;
+}

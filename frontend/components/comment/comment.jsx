@@ -155,6 +155,7 @@ export default class Comment extends React.Component{
     }
     renderSubComments(subComments,commenter){
         let listState = this.state.showReply ? "" : "hidden";
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         if (this.props.source) return null;
         return(
             <div>
@@ -167,7 +168,7 @@ export default class Comment extends React.Component{
                     }
                     <div className="comment-input-container">
                         <div className="profile-pic-icon">
-                            <img src={this.props.currentUser.pfp} />
+                            <img src={pfp} />
                         </div>
                         <form onSubmit={this.handleCreateReply}>
                             <input 
@@ -220,11 +221,12 @@ export default class Comment extends React.Component{
     render(){
         if (!this.state.fullName) return null;
         const commenter = this.props.users[this.props.comment.userId]
+        const pfp = commenter.pfp ? commenter.pfp : window.defaultPfp;
         return(
             <div className="comment-chain">
                 <div className="comment-container">
                     <div className="profile-pic-icon">
-                        <img src={commenter.pfp} />
+                        <img src={pfp} />
                     </div>
                     <div className="comment-details">
                         <div className="comment-main">

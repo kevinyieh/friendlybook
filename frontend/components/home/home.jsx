@@ -10,7 +10,6 @@ export default class Home extends React.Component{
             <div className="home">
                 <NavBarContainer /> 
                 <div className="spacer"/>
-
                 <div className="home-main">
                     <LeftNavContainer />
                     <div className="homepage">

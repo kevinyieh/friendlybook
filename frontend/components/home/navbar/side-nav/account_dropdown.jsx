@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class AccountDropdown extends React.Component {
     constructor(props){
@@ -12,12 +13,17 @@ export default class AccountDropdown extends React.Component {
         this.props.logout();
     }
     render(){
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return (
             <ul className={`${this.props.drop === this.name ? "" : "hidden"} dropdown-list account-drop-list`}
                 ref={node => this.dropdownList=node }>
                 <li className="dropdown-profile">
-                    PROFILE STUFF
+                    <Link to={`/users/${this.props.currentUser.id}`} >
+                        <img className="navbar-pfp" src={pfp} />
+                        <p> {`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`} </p>
+                    </Link>
                 </li>
+                    
 
                 <div className="separator" />
 

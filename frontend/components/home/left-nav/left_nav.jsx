@@ -25,10 +25,11 @@ export default class LeftNav extends React.Component {
 
     allRedirects(){
         const full_name = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`
+        const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return {    
                     [full_name]: {  url: `#/users/${this.props.currentUser.id}`,
                                 icon: <div className="profile-pic-icon">
-                                            <img src={this.props.currentUser.pfp} />
+                                            <img src={pfp} />
                                         </div>,
                                 newPage: false},
                     Friends: {  url: "#/friends",
