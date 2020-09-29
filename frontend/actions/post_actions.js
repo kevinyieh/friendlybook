@@ -28,6 +28,11 @@ export const fetchNewsfeed = () => dispatch => {
         .then( posts => dispatch(receivePosts(posts)))
 }
 
+export const fetchWallFeed = (id) => dispatch => {
+    return PostUtils.fetchWallFeed(id)
+        .then( posts => dispatch(receivePosts(posts)))
+}
+
 export const createPost = post => dispatch => {
     return PostUtils.createPost(post)
         .then( createdPost => dispatch(receivePost(createdPost)))

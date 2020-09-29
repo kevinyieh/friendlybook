@@ -23,5 +23,15 @@ class Post < ApplicationRecord
             .order("posts.created_at DESC")
             .where("posts.id = (?)",post_id).includes(comments: :sub_comments)
     end
+
+    def self.retrieve_posts(user_id)
+        Post.select("posts.id, posts.post, posts.user_id,
+            posts.wall_id, posts.created_at, 
+            COUNT(DISTINCT comments.id) as total_comments")
+            .left_outer_joins(:comments)
+            .group("posts.id")
+            .order("posts.created_at DESC")
+            .where("posts.wall_id = (?)",user_id).includes(comments: :sub_comments)
+    end
     
 end

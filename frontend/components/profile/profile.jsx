@@ -5,7 +5,14 @@ import WallFeedContainer from "./wall_feed/wall_feed_container";
 import MiniPhotosContainer from "./photos/mini_photos";
 class Profile extends React.Component{
     componentDidMount(){
-        // this.props
+        this.props.fetchUser(this.props.match.params.userId);
+    }
+    componentDidUpdate(){
+        if(!this.props.user) {
+            debugger;
+            this.props.fetchUser(this.props.match.params.userId);
+        }
+        this.props.fetchWallFeed(this.props.match.params.userId)
     }
     renderBackground(){
         if(this.props.currentUser.background){
@@ -40,7 +47,8 @@ class Profile extends React.Component{
                 </div>
                 <div className="profile-page-body">
                     <MiniPhotosContainer />
-                    <WallFeedContainer />
+                    <WallFeedContainer 
+                        user={this.props.user}/>
                 </div>
             </div>
         )

@@ -1,5 +1,7 @@
 import {connect} from "react-redux";
 import Profile from "./profile";
+import { fetchUser } from "../../actions/user_actions";
+import { fetchWallFeed } from "../../actions/post_actions";
 
 const mSTP = (state,ownProps) => {
     const user = state.entities.users[ownProps.match.params.userId]
@@ -12,7 +14,8 @@ const mSTP = (state,ownProps) => {
 
 const mDTP = dispatch => {
     return {
-        // fetchUser: id => 
+        fetchUser: id => fetchUser(id)(dispatch),
+        fetchWallFeed: id => dispatch(fetchWallFeed(id))
     }
 }
 

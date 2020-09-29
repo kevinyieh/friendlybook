@@ -5,6 +5,14 @@ export const fetchNewsfeed = () => {
     })
 }
 
+export const fetchWallFeed = (id) => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/posts",
+        data: {user_id: id}
+    })
+}
+
 export const createPost = (post) => {
     return $.ajax({
         method:"POST",

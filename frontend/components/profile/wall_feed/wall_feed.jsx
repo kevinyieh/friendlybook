@@ -53,13 +53,21 @@ export default class WallFeed extends React.Component{
         this.props.openModal({type: "create-post", post: ""});
     }
 
+    renderInputPlaceholder(){
+        if(this.props.wallId === this.props.currentUser.id){
+            return <p>{`What's on your mind, ${this.props.currentUser.firstName}?`}</p>
+        }else{
+            return <p>{`Write something to ${this.props.user.firstName}... `}</p>
+        }
+    }
+
     render(){
         if(Object.values(this.props.users).length < 1) return null;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
             <div className="wallfeed">
                 <CreatPostFormContainer 
-                    wallId={this.props.currentUser.id}
+                    wallId={this.props.user.id}
                 />
                 <div className="open-post-form-container">
                     <div className="open-post-form-main">
@@ -67,7 +75,7 @@ export default class WallFeed extends React.Component{
                             <img src={pfp}/>
                         </div>
                         <div onClick={this.handleOpenModal} className="open-post-form">
-                            <p>{`What's on your mind, ${this.props.currentUser.firstName}?`}</p>
+                            {this.renderInputPlaceholder()}
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,9 @@
 class Api::PostsController < ApplicationController
+    def index
+        @posts = Post.retrieve_posts(params[:user_id])
+        render partial: "/api/posts/index.json.jbuilder", locals: { feed: @posts }
+    end
+
     def create
         new_post_params = posts_params
         new_post_params[:user_id] = current_user.id
