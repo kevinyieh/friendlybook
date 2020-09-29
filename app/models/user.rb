@@ -38,13 +38,15 @@ class User < ApplicationRecord
             FROM posts
             LEFT OUTER JOIN friends as f1 ON f1.user_id =  posts.user_id
             LEFT OUTER JOIN friends as f2 ON f2.friend_id =  posts.user_id
-            WHERE (f1.friend_id = ? OR f2.user_id = ? OR posts.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
+            WHERE (f1.friend_id = ? AND f1.pending = FALSE) OR 
+                    (f2.user_id = ? AND f2.pending = FALSE)
+                    OR posts.user_id = ?
             GROUP BY posts.id
             ORDER BY posts.created_at DESC
             LIMIT ?", self.id,self.id,self.id,load])
         
         post_ids = posts.map { |post| post.id }
-
+        # debugger
         Post.select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
