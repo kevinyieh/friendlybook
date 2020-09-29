@@ -7,10 +7,12 @@ export default class Newsfeed extends React.Component{
         super(props)
         this.renderPostItem = this.renderPostItem.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.fetchAllUsers = this.fetchAllUsers.bind(this);
     }
     allUserIdsFromComments(posts){
         let allUsers = {};
         posts.forEach( (post) => {
+            allUsers[post.userId] = true;
             if(post.comments){
                 Object.values(post.comments).forEach( (comment) => {
                     if(comment.subComments){
@@ -24,10 +26,11 @@ export default class Newsfeed extends React.Component{
         })
         return Object.keys(allUsers);
     }
+    fetchAllUsers(){
+        this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+    }
     componentDidMount(){
-        this.props.fetchNewsfeed().then(() => {
-            this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
-        });
+        this.props.fetchNewsfeed().then(this.fetchAllUsers);
     }
     renderPostItem(post){
         if(this.props.users[post.userId] && this.props.users[post.wallId]){

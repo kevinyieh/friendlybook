@@ -29,7 +29,6 @@ class Profile extends React.Component{
         )
     }
     allUserIdsFromComments(posts){
-        debugger;
         let allUsers = {};
         posts.forEach( (post) => {
             allUsers[post.userId] = true

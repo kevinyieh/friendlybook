@@ -52,10 +52,10 @@ class User < ApplicationRecord
             WHERE (f1.friend_id = ? AND f1.pending = FALSE) OR 
                     (f2.user_id = ? AND f2.pending = FALSE)
                     OR posts.user_id = ?
+                    OR posts.wall_id = ?
             GROUP BY posts.id
             ORDER BY posts.created_at DESC
-            LIMIT ?", self.id,self.id,self.id,load])
-        
+            LIMIT ?", self.id,self.id,self.id,self.id,load])
         post_ids = posts.map { |post| post.id }
         Post.select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 

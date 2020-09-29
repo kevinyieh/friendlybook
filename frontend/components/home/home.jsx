@@ -5,6 +5,9 @@ import RightNavContainer from "./right-nav/right_nav_container";
 import NewsFeed from "./newsfeed/newsfeed_container";
 
 export default class Home extends React.Component{
+    componentDidMount(){
+        
+    }
     render(){
         return(
             <div className="home">

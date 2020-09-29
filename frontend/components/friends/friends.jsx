@@ -13,15 +13,19 @@ export default class Friends extends React.Component{
         this.handleMount = this.handleMount.bind(this);
         this.renderFriendRequests = this.renderFriendRequests.bind(this);
         this.renderFriendRequestsHelper = this.renderFriendRequestsHelper.bind(this);
+        this.updateProfileSelect = this.updateProfileSelect.bind(this);
     }
     handleMount(){
-        const requests = Object.values(this.props.friendRequests).filter( req => req.userId === this.props.currentUser.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
-        const receives = Object.values(this.props.friendRequests).filter( req => req.friendId === this.props.currentUser.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
-        this.setState({
-            profileSelected: receives[0].userId,
-            requests,
-            receives
-        })
+        debugger;
+        if(this.props.friendRequests){
+            const requests = Object.values(this.props.friendRequests).filter( req => req.userId === this.props.currentUser.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
+            const receives = Object.values(this.props.friendRequests).filter( req => req.friendId === this.props.currentUser.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
+            this.setState({
+                profileSelected: null,
+                requests,
+                receives
+            })
+        }
     }
     componentDidMount(){
         this.props.fetchFriendRequests().then(this.handleMount)
@@ -42,11 +46,12 @@ export default class Friends extends React.Component{
     updateProfileSelect(e){
         e.preventDefault();
         this.setState({
-            profileSelected: 1
+            profileSelected: parseInt(e.currentTarget.getAttribute("value"))
         })
     }
     renderProfile(){
-        if(this.state.receives.length < 1) return null;
+        if(!this.state.profileSelected) return null;
+        debugger;
         return(
             <div className="friends-profile">
                 <ProfileContainer 
@@ -62,7 +67,7 @@ export default class Friends extends React.Component{
         if(!user) return null;
         const pfp = user.pfp ? user.pfp : window.defaultPfp;
         return (
-                <li value={user.id} key={i}>  
+                <li onClick={this.updateProfileSelect} value={user.id} key={i}>  
                     <img className="friend-req-pfp" src={pfp} />
                     <div className="friend-req-description">
                         <p className="friend-req-name"> {`${user.firstName} ${user.lastName}`} </p>
@@ -83,7 +88,6 @@ export default class Friends extends React.Component{
     }
 
     render(){
-        if(this.state.receives.length < 1) return null;
         return(
             <div>
                 <NavBarContainer /> 
