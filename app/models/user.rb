@@ -58,15 +58,17 @@ class User < ApplicationRecord
 
     def friends()
         User.find_by_sql(["
-            SELECT
-                users.*
+            SELECT DISTINCT
+                users.*, f1.pending as f1pending, f2.pending as f2pending
             FROM users
             LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
             LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
-            WHERE (f1.friend_id = ? OR f2.user_id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE) AND users.id != ?
+            WHERE ((f1.friend_id = ? AND f1.pending = FALSE) OR 
+                    (f2.user_id = ? AND f2.pending = FALSE)) AND 
+                    users.id != ?
             ORDER BY users.id ASC", self.id,self.id,self.id])         
     end
-    
+
     def password=(pw)
         @password = pw
         self.password_digest = BCrypt::Password.create(pw)
