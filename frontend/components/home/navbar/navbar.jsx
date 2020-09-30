@@ -59,7 +59,6 @@ class NavBar extends React.Component{
 
     render(){
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
-        debugger;
         return (
             <div className="navbar">
                 <div className="search-nav">

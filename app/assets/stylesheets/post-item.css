@@ -138,3 +138,7 @@
 .show-comments:hover {
     cursor: pointer;
 }
+
+.post-photo {
+    width: 100%;
+}

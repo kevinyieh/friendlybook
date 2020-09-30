@@ -6,10 +6,12 @@ export default class CreatePostForm extends React.Component{
         this.state = {
             post: "",
             wallId: this.props.wallId,
-            postId: this.props.postId
+            postId: this.props.postId,
+            photo: null
         }
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.pushFile = this.pushFile.bind(this);
     }
     update(field){
         return e => {
@@ -35,23 +37,42 @@ export default class CreatePostForm extends React.Component{
             })
         }
     }
+    // handleSubmit(action){
+    //     return e => {
+    //         e.preventDefault();
+    //         if(!this.state.post) return;
+    //         const postParams = {
+    //             post: this.state.post,
+    //             wall_id: this.state.wallId,
+    //             id: this.state.postId
+    //         }
+    //         this.props.closeModal();
+    //         action(postParams);
+    //     }
+    // }
     handleSubmit(action){
         return e => {
             e.preventDefault();
-            if(!this.state.post) return;
-            const postParams = {
-                post: this.state.post,
-                wall_id: this.state.wallId,
-                id: this.state.postId
-            }
+            const formData = new FormData();
+            formData.append("post[post]",this.state.post);
+            formData.append("post[wall_id]",this.state.wallId);
+            formData.append("post[id]",this.state.postId);
+            if(this.state.photo) formData.append("post[photo]",this.state.photo);
             this.props.closeModal();
-            action(postParams);
+            action(formData);
         }
     }
 
     handleCloseModal(e){
         e.preventDefault();
         this.props.closeModal();
+    }
+
+    pushFile(e){
+        e.preventDefault();
+        this.setState({
+            photo: e.target.files[0]
+        },() => console.log(this.state.photo))
     }
 
     render(){
@@ -83,6 +104,7 @@ export default class CreatePostForm extends React.Component{
                         value={this.state.post} 
                         onChange={this.update("post")} 
                         placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
+                    <input onChange={this.pushFile} type="file" />
                     <button className={fieldEmpty ? "not-ready" : "ready"} onClick={this.handleSubmit(action)}> 
                         <p>{postButton}</p>
                     </button>

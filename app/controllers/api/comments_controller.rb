@@ -19,8 +19,7 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.find_by(id: params[:id])
         if @comment
             @comment.update(comment_params)
-            @post = Post.retrieve_post(@comment.post_id)
-            redirect_to "/api/posts/#{@comment.post_id}"
+            redirect_to "/api/posts/#{@comment.post_id}", status 303
         else
             render json: ["Comment not found"]
         end
@@ -30,7 +29,7 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.find_by(id: params[:id])
         if @comment 
             @comment.destroy!
-            @post = Post.retrieve_post(@comment.post_id).first
+            @post = Post.retrieve_post(@comment.post_id)
             render "/api/posts/show.json.jbuilder"
         else
             render json: ["Comment not found"]

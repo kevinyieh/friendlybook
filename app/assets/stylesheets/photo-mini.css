@@ -1,0 +1,43 @@
+.profile-photos-section {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    padding: 10px;
+}
+
+.profile-photos-section h2 {
+    height: 10%;
+}
+.mini-photos-container {
+    width: 100%;
+    height: 90%;
+}
+
+.small-photos-row {
+    height: 33.333%;
+    width: 100%;
+}
+.small-photos-list{
+    height: 100%;
+    width: 100%;
+}
+img[class^="small-photo"] {
+    width: 33.333%;
+    max-height: 125px;
+    min-height: 125px;
+    padding: 3px;
+    box-sizing: border-box;
+}
+.small-photo-0-0{
+    border-top-left-radius: 10px;
+}
+.small-photo-0-2{
+    border-top-right-radius: 10px;
+}
+.small-photo-2-0{
+    border-bottom-left-radius: 10px;
+}
+.small-photo-2-2{
+    border-bottom-right-radius: 10px;
+}

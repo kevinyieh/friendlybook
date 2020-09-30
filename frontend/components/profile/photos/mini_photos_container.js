@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import MiniPhotos from "./mini_photos";
 
-const mSTP = state => {
+const mSTP = (state,ownProps) => {
     return {
-
+        photos: ownProps.photos
     }
 }
 

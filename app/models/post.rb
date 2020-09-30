@@ -12,20 +12,23 @@ class Post < ApplicationRecord
         class_name: :Comment,
         dependent: :destroy
     
-    # has_many_attached :photos
+    has_one_attached :photo
 
     def self.retrieve_post(post_id)
-        Post.select("posts.id, posts.post, posts.user_id,
+        Post.with_attached_photo
+            .select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
             .left_outer_joins(:comments)
             .group("posts.id")
             .order("posts.created_at DESC")
             .where("posts.id = (?)",post_id).includes(comments: :sub_comments)
+            .first
     end
 
     def self.retrieve_posts(user_id)
-        Post.select("posts.id, posts.post, posts.user_id,
+        Post.with_attached_photo
+            .select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
             .left_outer_joins(:comments)

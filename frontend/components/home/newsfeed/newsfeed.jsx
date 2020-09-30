@@ -1,13 +1,16 @@
 import React from "react";
 import PostItemContainer from "../../post/post_item_container";
 import CreatPostFormContainer from "../../modal/post/post_form_container";
-
+import { Link } from "react-router-dom";
 export default class Newsfeed extends React.Component{
     constructor(props){
         super(props)
         this.renderPostItem = this.renderPostItem.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.fetchAllUsers = this.fetchAllUsers.bind(this);
+        this.state = {
+            loading: true
+        }
     }
     allUserIdsFromComments(posts){
         let allUsers = {};
@@ -28,10 +31,14 @@ export default class Newsfeed extends React.Component{
         return Object.keys(allUsers);
     }
     fetchAllUsers(){
-        this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+        return this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
     }
     componentDidMount(){
-        this.props.fetchNewsfeed().then(this.fetchAllUsers);
+        this.props.fetchNewsfeed().then(this.fetchAllUsers).then( () => {
+            this.setState({
+                loading: false
+            })
+        });
     }
     renderPostItem(post){
         if(this.props.users[post.userId] && this.props.users[post.wallId]){
@@ -59,6 +66,7 @@ export default class Newsfeed extends React.Component{
 
     render(){
         if(Object.values(this.props.users).length < 1) return null;
+        if(this.state.loading) return <div> LOADING </div>;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
             <div className="newsfeed">
@@ -67,9 +75,9 @@ export default class Newsfeed extends React.Component{
                 />
                 <div className="open-post-form-container">
                     <div className="open-post-form-main">
-                        <div className="profile-pic-icon">
+                        <Link to={`/users/${this.props.currentUser.id}`} className="profile-pic-icon">
                             <img src={pfp}/>
-                        </div>
+                        </Link>
                         <div onClick={this.handleOpenModal} className="open-post-form">
                             <p>{`What's on your mind, ${this.props.currentUser.firstName}?`}</p>
                         </div>

@@ -9,6 +9,7 @@ class Api::PostsController < ApplicationController
         new_post_params[:user_id] = current_user.id
         @post = Post.new(new_post_params)
         if @post.save 
+            current_user.photos.attach([new_post_params[:photo]])
             render :basic_show
         else
             render json: {post: @post.errors.messages}, status: 401
@@ -30,10 +31,11 @@ class Api::PostsController < ApplicationController
     end
 
     def update
-        @post = Post.find_by(id: params[:id])
+        @post = Post.find_by(id: posts_params[:id])
         if @post
             if current_user.id === @post.user_id
                 @post.update(posts_params)
+                @post = Post.retrieve_post(@post.id)
                 render :show
             else
                 render json: ["Unathorized user"]
@@ -44,7 +46,7 @@ class Api::PostsController < ApplicationController
     end
 
     def show 
-        @post = Post.retrieve_post(params[:id])[0]
+        @post = Post.retrieve_post(params[:id])
         if @post
             render :show
         else
@@ -54,6 +56,6 @@ class Api::PostsController < ApplicationController
 
     private
     def posts_params
-        params.require(:post).permit(:wall_id,:post)
+        params.require(:post).permit(:wall_id,:post,:photo,:id)
     end
 end

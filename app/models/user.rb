@@ -34,13 +34,13 @@ class User < ApplicationRecord
     has_one_attached :background_image
     has_many_attached :photos
     
-    def wall_posts()
-        User.find_by_sql(["
-            SELECT
-                posts.*
-            FROM posts
-            WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
-    end
+    # def wall_posts()
+    #     User.find_by_sql(["
+    #         SELECT
+    #             posts.*
+    #         FROM posts
+    #         WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
+    # end
 
     def news_feed_posts(load=25)  
         posts = Post.find_by_sql([" 
@@ -57,7 +57,8 @@ class User < ApplicationRecord
             ORDER BY posts.created_at DESC
             LIMIT ?", self.id,self.id,self.id,self.id,load])
         post_ids = posts.map { |post| post.id }
-        Post.select("posts.id, posts.post, posts.user_id,
+        Post.with_attached_photo
+            .select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
             .left_outer_joins(:comments)
@@ -78,6 +79,7 @@ class User < ApplicationRecord
         #             users.id != ?
         #     ORDER BY users.id ASC", self.id,self.id,self.id])         
         User.with_attached_pfp
+            .with_attached_photos
             .left_outer_joins(:friends_reqs)
             .left_outer_joins(:friends_backs)
             .where("((friends.friend_id = ? AND friends.pending = FALSE) OR 

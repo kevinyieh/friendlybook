@@ -27,7 +27,7 @@ body {
     background: #f2f2f2;
     z-index: -1;
 }
-h1,p {
+h1,h2,p {
     margin: 0;
     padding: 0;
 }

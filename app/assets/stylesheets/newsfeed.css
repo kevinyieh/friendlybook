@@ -1,5 +1,5 @@
 .newsfeed {
-    min-width: 600px;
+    width: 600px;
     height: 100vh;
     display: flex;
     flex-direction: column;

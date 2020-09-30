@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import NavBarContainer from "../home/navbar/navbar_container";
 import WallFeedContainer from "./wall_feed/wall_feed_container";
 import MiniPhotosContainer from "./photos/mini_photos";
+import MiniFriendsContainer from "./friends/mini_friends_container";
+
 class Profile extends React.Component{
     constructor(props){
         super(props);
@@ -129,7 +131,15 @@ class Profile extends React.Component{
                 </div>
                 {this.renderFriendRequestButton()}
                 <div className="profile-page-body">
-                    <MiniPhotosContainer />
+                    <div className="profile-photos-friends-container">
+                        <MiniPhotosContainer 
+                            photos={this.props.user.photos}
+                        />
+                        <MiniFriendsContainer
+                            user={this.props.user}
+                        />
+                    </div>
+                        
                     <WallFeedContainer 
                         user={this.props.user}
                         posts={this.props.posts}

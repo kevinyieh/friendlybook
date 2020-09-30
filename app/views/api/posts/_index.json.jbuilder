@@ -4,6 +4,7 @@ feed.each do |post|
         json.post post.post
         json.wallId post.wall_id
         json.userId post.user_id
+        json.photo post.photo.attached? ? url_for(post.photo) : ""
         json.createdAt post.created_at
         json.totalComments post.total_comments
         json.comments do 

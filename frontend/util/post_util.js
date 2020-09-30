@@ -13,25 +13,29 @@ export const fetchWallFeed = (id) => {
     })
 }
 
-export const createPost = (post) => {
+export const createPost = post => {
     return $.ajax({
         method:"POST",
         url:"/api/posts",
-        data: {post}
+        data: post,
+        contentType: false,
+        processData: false
     })
 }
 
-export const deletePost = (id) => {
+export const deletePost = id => {
     return $.ajax({
         method:"DELETE",
         url:`/api/posts/${id}`
     })
 }
 
-export const editPost = (post) => {
+export const editPost = post => {
     return $.ajax({
         method:"PUT",
-        url:`/api/posts/${post.id}`,
-        data: {post}
+        url:`/api/posts/${-1}`,
+        data: post,
+        contentType: false,
+        processData: false
     })
 }

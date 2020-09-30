@@ -1,5 +1,5 @@
 .main-nav {
-    min-width: 600px;
+    width: 600px;
 }
 .main-nav-list {
     display: flex;

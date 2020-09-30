@@ -107,9 +107,14 @@ export default class PostItem extends React.Component{
         e.preventDefault();
         this.commentInput.focus();
     }
+    renderPostPhoto(){
+        if(!this.props.post.photo) return null;
+        return (
+            <img className="post-photo" src={this.props.post.photo}/>
+        )
+    }
     render(){
         const ownPost = this.props.currentUser.id === this.props.post.userId;
-        // const allComments = this.props.post.comments ? Object.values(this.props.post.comments) : null;
         const allComments = this.state.rootComments ? this.state.rootComments : null;
         const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;
         const commentsToRender = sortedComments ? sortedComments.slice(allComments.length-this.state.showComments,allComments.length) : null;
@@ -171,6 +176,7 @@ export default class PostItem extends React.Component{
                     </div>
                     <div className="post-body">
                         {this.props.post.post}
+                        {this.renderPostPhoto()}
                     </div>
                     <div className="post-interactions">
                         <div className="total-likes"></div>

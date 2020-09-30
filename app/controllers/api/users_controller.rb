@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            @user.pfp.attach(io: File.open(Rails.root.join("app","assets","images","default_pfp.png").to_s), filename: "default_pfp.png")
+            # @user.pfp.attach(io: File.open(Rails.root.join("app","assets","images","default_pfp.png").to_s), filename: "default_pfp.png")
             login!(@user)
             render :show
         else
@@ -13,10 +13,13 @@ class Api::UsersController < ApplicationController
         @users = User.select("users.*")
                     .where("users.id IN (?)",params[:users])
                     .with_attached_pfp
+                    .with_attached_photos
         render :index
     end
     def show
-        @user = User.find_by(id: params[:id])
+        @user = User.with_attached_pfp
+                    .with_attached_photos
+                    .find_by(id: params[:id])
         if @user 
             render :show
         else
