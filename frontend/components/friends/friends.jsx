@@ -77,7 +77,6 @@ export default class Friends extends React.Component{
     }
 
     render(){
-        debugger;
         return(
             <div>
                 <NavBarContainer /> 

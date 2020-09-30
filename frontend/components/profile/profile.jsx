@@ -4,10 +4,21 @@ import NavBarContainer from "../home/navbar/navbar_container";
 import WallFeedContainer from "./wall_feed/wall_feed_container";
 import MiniPhotosContainer from "./photos/mini_photos";
 class Profile extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isFriend:this.props.isFriend,
+            reqId: null
+        }
+        this.handleCreateFriendRequest = this.handleCreateFriendRequest.bind(this);
+        this.handleAcceptFriendRequest = this.handleAcceptFriendRequest.bind(this);
+        this.handleRejectFriendRequest = this.handleRejectFriendRequest.bind(this);
+    }
     componentDidMount(){
         this.props.fetchWallFeed(this.props.userId).then(() => {
             this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
-        });        
+        });
+        this.props.fetchFriendRequests();        
     }
     componentDidUpdate(){
         if(!this.props.user) this.props.fetchUser(this.props.userId);
@@ -45,6 +56,51 @@ class Profile extends React.Component{
         })
         return Object.keys(allUsers);
     }
+    handleCreateFriendRequest(e){
+        e.preventDefault();
+        this.props.createFriendRequest(this.props.user.id);
+    }
+    handleRejectFriendRequest(e){
+        e.preventDefault();
+        this.props.rejectFriendRequest(this.props.reqId);
+    }
+    handleAcceptFriendRequest(e){
+        e.preventDefault();
+        this.props.acceptFriendRequest(this.props.reqId);
+    }
+    renderFriendRequestButton(){
+        const {rec,req} = this.props;
+        if(rec.length === 1){
+            return (
+                <div className="profile-friend-request-container">
+                    <h2> {`${this.props.user.firstName} sent you a friend request`} </h2>
+                    <div className="profile-confirm-delete-request">
+                        <button onClick={this.handleAcceptFriendRequest} className="profile-confirm-request"> Confrim Request </button>
+                        <button onClick={this.handleRejectFriendRequest} className="profile-delete-request"> Delete Request </button>
+                    </div>
+                </div>)
+        }else if(req.length === 1){
+            return (
+                <div className="profile-friend-request-container">
+                    <h2> {`You sent a friend request`} </h2>
+                    <div className="profile-confirm-delete-request">
+                        <button onClick={this.handleRejectFriendRequest} className="profile-delete-request"> Cancel Request </button>
+                    </div>
+                </div>
+            )
+        }
+    }
+    renderAddFriend(){
+        if(this.props.isFriend) return null;
+        return (
+            <button onClick={this.handleCreateFriendRequest} className="profile-add-friend"> 
+                <div className="add-friend-icon">
+                    <i className="fas fa-user-plus" />
+                </div>
+                <p>Add Friend </p>
+            </button>
+        )
+    }
     render(){
         if(!this.props.user) return null;
         const pfp = this.props.user.pfp ? this.props.user.pfp : window.defaultPfp;
@@ -60,7 +116,10 @@ class Profile extends React.Component{
                             <img src={pfp} />
                         </div>
                     </div>
-                    <h1 className="profile-name"> {`${this.props.user.firstName} ${this.props.user.lastName}`} </h1>
+                    <h1 className="profile-name"> 
+                        {`${this.props.user.firstName} ${this.props.user.lastName}`} 
+                        {this.renderAddFriend()}
+                    </h1>
                     <div className="separator" />
                     <ul className="profile-page-nav">
                         <li> <p>Timeline</p> </li>
@@ -68,6 +127,7 @@ class Profile extends React.Component{
                         <li> <p>Photos</p> </li>
                     </ul>
                 </div>
+                {this.renderFriendRequestButton()}
                 <div className="profile-page-body">
                     <MiniPhotosContainer />
                     <WallFeedContainer 

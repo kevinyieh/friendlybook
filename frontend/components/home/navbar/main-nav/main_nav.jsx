@@ -13,11 +13,11 @@ const links = {
                 icon: <i className="far fa-user" />}
     }
 
-export default function MainNav(){
+export default function MainNav( { pathName }){
     return (
         <ul className="main-nav-list">
             {Object.keys(links).map( (key,i) => {
-                return <a key={key} className={i===0 ? "selected" : "unselected"} href={links[key].url}>
+                return <a key={key} className={i===0 && pathName==="/" ? "selected" : "unselected"} href={links[key].url}>
                     {links[key].icon}
                 </a>
             })}

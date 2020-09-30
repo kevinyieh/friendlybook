@@ -4,14 +4,13 @@ import LeftNavContainer from "./left-nav/left_nav_container";
 import RightNavContainer from "./right-nav/right_nav_container";
 import NewsFeed from "./newsfeed/newsfeed_container";
 
-export default class Home extends React.Component{
-    componentDidMount(){
-        
-    }
+
+class Home extends React.Component{
     render(){
         return(
             <div className="home">
-                <NavBarContainer /> 
+                <NavBarContainer 
+                /> 
                 <div className="spacer"/>
                 <div className="home-main">
                     <LeftNavContainer />
@@ -25,3 +24,5 @@ export default class Home extends React.Component{
         )
     }
 }
+
+export default Home;

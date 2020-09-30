@@ -35,7 +35,7 @@
     height: 80px;
     transition: background-color 0.2s;
     padding: 6px;
-    margin-left: 8px;
+    margin-left: 5px;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
 }
@@ -60,4 +60,24 @@
 .friend-req-confirm-delete button{
     width: 48%;
     height: 100%;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-weight: 530;
+    font-size: 15px;
+    transition: filter 0.2s;
+    padding: 5px 7px;
+}
+
+.friend-req-confirm {
+    background-color: #1877f2;
+    color: white;
+}
+.friend-req-delete {
+    background-color: #d9d9d9;
+}
+
+.friend-req-confirm:hover, .friend-req-delete:hover {
+    filter: brightness(90%);
+    cursor: pointer;
 }

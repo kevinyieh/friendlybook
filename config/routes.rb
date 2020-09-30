@@ -10,6 +10,6 @@ Rails.application.routes.draw do
     resources :newsfeed, only: [:index]
     resources :posts, only: [:create,:destroy,:update,:show,:index]
     resources :comments, only: [:create,:update,:destroy]
-    resources :friend_requests, only:[:index,:destroy,:update]
+    resources :friend_requests, only:[:index,:destroy,:update,:create]
   end
 end

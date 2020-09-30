@@ -6,11 +6,13 @@ import CreateDropdown from "./side-nav/create_dropdown";
 import Search from "./search-nav/search-nav";
 import MainNav from "./main-nav/main_nav";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 const elementClickIsOutside = (allDropIcons,clicked) => {
     return !allDropIcons.some( element => element.contains(clicked))
 }
 
-export default class NavBar extends React.Component{
+class NavBar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -57,6 +59,7 @@ export default class NavBar extends React.Component{
 
     render(){
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
+        debugger;
         return (
             <div className="navbar">
                 <div className="search-nav">
@@ -68,7 +71,9 @@ export default class NavBar extends React.Component{
                 </div>
     
                 <div className="main-nav">
-                    <MainNav />
+                    <MainNav 
+                        pathName={this.props.location.pathname}
+                    />
                 </div>
                 
                 <div className="side-nav">
@@ -128,3 +133,5 @@ export default class NavBar extends React.Component{
     }
     
 }
+
+export default withRouter(NavBar)

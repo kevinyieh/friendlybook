@@ -13,6 +13,7 @@ export default class Newsfeed extends React.Component{
         let allUsers = {};
         posts.forEach( (post) => {
             allUsers[post.userId] = true;
+            allUsers[post.wallId] = true;
             if(post.comments){
                 Object.values(post.comments).forEach( (comment) => {
                     if(comment.subComments){

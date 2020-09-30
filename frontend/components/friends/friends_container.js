@@ -10,7 +10,7 @@ const mSTP = state => {
         requests = Object.values(state.entities.friendRequests).filter( req => req.userId === state.session.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
         receives = Object.values(state.entities.friendRequests).filter( req => req.friendId === state.session.id ).sort((r1,r2) => r1.createdAt > r2.createdAt ? -1 : 1);
     }
-    debugger;
+
     return {
         friendRequests: state.entities.friendRequests,
         currentUser: state.session,

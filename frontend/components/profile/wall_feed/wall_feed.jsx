@@ -11,7 +11,8 @@ export default class WallFeed extends React.Component{
     allUserIdsFromComments(posts){
         let allUsers = {};
         posts.forEach( (post) => {
-            allUsers[post.userId] = true
+            allUsers[post.userId] = true;
+            allUsers[post.wallId] = true;
             if(post.comments){
                 Object.values(post.comments).forEach( (comment) => {
                     if(comment.subComments){

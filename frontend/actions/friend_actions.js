@@ -27,6 +27,11 @@ export const fetchFriendRequests = () => dispatch => {
         .then(friendRequests => dispatch(receiveAllFriendRequests(friendRequests)))
 }
 
+export const createFriendRequest = (id) => dispatch => {
+    return FriendUtil.createFriendRequest(id)
+        .then(friendRequests => dispatch(receiveAllFriendRequests(friendRequests)))
+}
+
 export const acceptFriendRequest = id => dispatch => {
     return FriendUtil.acceptFriendRequest(id)
         .then(friendRequests => dispatch(receiveAllFriendRequests(friendRequests)))
