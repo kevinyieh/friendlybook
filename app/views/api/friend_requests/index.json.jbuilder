@@ -1,4 +1,4 @@
-@friendrequests.each do |req|
+@friend_requests.each do |req|
     json.set! req.id do
         json.id req.id
         json.userId req.user_id

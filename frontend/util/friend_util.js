@@ -12,3 +12,17 @@ export const fetchFriendRequests = () => {
         url: "/api/friend_requests"
     })
 }
+
+export const acceptFriendRequest = (id) => {
+    return $.ajax({
+        method:"PUT",
+        url:`/api/friend_requests/${id}`
+    })
+}
+
+export const rejectFriendRequest = (id) => {
+    return $.ajax({
+        method:"DELETE",
+        url:`/api/friend_requests/${id}`
+    })
+}
