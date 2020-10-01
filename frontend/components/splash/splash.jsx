@@ -22,6 +22,7 @@ export default function Splash({errors}) {
             <div className="etc-footer fine-print">
                 <div> English (US) </div>
                 <div className="separator" />
+                <div> This is a Facebook clone created by Kevin Yieh</div>
             </div>
         </div>
     )    
