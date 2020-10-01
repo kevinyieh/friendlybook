@@ -13,7 +13,8 @@ export default class Comment extends React.Component{
             showReplyInput: false,
             dropdownOptions: false,
             comment: "",
-            commenter
+            commenter,
+            isLiked: this.props.isLiked,
         }
         this.ownPost = this.props.posts[this.props.comment.postId].userId === this.props.currentUser.id;
         this.ownComment = this.props.comment.userId === this.props.currentUser.id;
@@ -26,6 +27,7 @@ export default class Comment extends React.Component{
         this.handleCreateReply = this.handleCreateReply.bind(this);
         this.activateReplyInput = this.activateReplyInput.bind(this);
         this.replyTracker = this.replyTracker.bind(this);
+        this.handleToggleLike = this.handleToggleLike.bind(this);
     }
     replyTracker(reply){
         if (reply) this.reply = reply;
@@ -45,7 +47,7 @@ export default class Comment extends React.Component{
     }
     componentDidUpdate(prevProps, prevState){
         const commenter = this.props.users[this.props.comment.userId]
-        const parentComment = this.props.comment.parentCommentId
+        // const parentComment = this.props.comment.parentCommentId
         if (!prevState.fullName){
             if (commenter){
                 this.setState({
@@ -218,10 +220,35 @@ export default class Comment extends React.Component{
         }
     }
 
+    renderLikes(likes){
+        if (!likes) return null;
+        return (
+            <div className="comment-like-icon">
+                <i className="far fa-thumbs-up" />
+                &nbsp;
+                <p> {likes} </p>
+            </div>
+        )
+    }
+
+    handleToggleLike(e){
+        e.preventDefault();
+        if(this.state.isLiked){
+            this.setState({ 
+                isLiked: false
+            },() => this.props.unlikeComment(this.props.comment.id))
+        }else{
+            this.setState({ 
+                isLiked: true,
+            },() => this.props.likeComment(this.props.comment.id))
+        }
+    }
+
     render(){
         if (!this.state.fullName) return null;
         const commenter = this.props.users[this.props.comment.userId]
         const pfp = commenter.pfp ? commenter.pfp : window.defaultPfp;
+        
         return(
             <div className="comment-chain">
                 <div className="comment-container">
@@ -233,6 +260,7 @@ export default class Comment extends React.Component{
                             <div className="comment-content-container">
                                 <Link to={`/users/${this.props.comment.userId}`}> <strong> {this.state.fullName} </strong> </Link>
                                 <div className="comment-content"> {this.props.comment.comment} </div>
+                                { this.renderLikes(this.props.likes)}
                             </div>
                             {
                                 this.renderDropDownContainer()
@@ -240,7 +268,9 @@ export default class Comment extends React.Component{
                         </div>
                             
                         <div className="comment-like-reply">
-                            <div className="comment-like">
+                            <div 
+                                onClick={this.handleToggleLike}
+                                className={"comment-like"}>
                                 <p>Like</p>
                             </div>
                             &nbsp;

@@ -22,6 +22,7 @@
     padding-right: 10px;
     background-color: #f2f2f2;
     border-radius: 6px;
+    position: relative;
 }
 
 .comment-like-reply {
@@ -139,6 +140,19 @@
     font-size: 20px;
 }
 
-.comment-reply:hover {
+.comment-reply:hover, .comment-like:hover {
     cursor: pointer;
+}
+
+.comment-like-icon {
+    display: flex;
+    font-size: 12px;
+    position: absolute;
+    right: -19px;
+    bottom: 5px;
+    min-width: 20px;
+    padding: 3px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    border-radius: 6px;
 }

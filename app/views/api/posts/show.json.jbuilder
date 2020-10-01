@@ -5,6 +5,14 @@ json.userId @post.user_id
 json.photo @post.photo.attached? ? url_for(@post.photo) : ""
 json.createdAt @post.created_at
 json.totalComments @post.total_comments
+json.likes do
+    @post.likes.each do |like|
+        json.set! like.id do
+            json.id like.id
+            json.userId like.user_id
+        end
+    end
+end
 json.comments do 
     @post.comments.each do |comment|
         next if comment.source 
@@ -25,6 +33,14 @@ json.comments do
                             json.parentCommentId sub_comment.parent_comment_id
                             json.createdAt sub_comment.created_at
                         end
+                end
+            end
+            json.likes do 
+                comment.likes.each do |like|
+                    json.set! like.id do
+                        json.id like.id
+                        json.userId like.user_id
+                    end
                 end
             end
         end

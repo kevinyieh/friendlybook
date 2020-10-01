@@ -9,6 +9,7 @@
     border-radius: 10px;
     padding: 10px 13px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
 }
 .post-header {
     flex-direction: row;
@@ -62,6 +63,26 @@
 .like-comment .like:hover, .like-comment .comment:hover {
     background-color: #f2f2f2;
     cursor: pointer;
+}
+
+.liked {
+    color: #1877f2;
+}
+
+.like-icon.just-liked {
+    animation: rotation 2s ease alternate;
+}
+
+@keyframes rotation {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: rotate(-75deg) scale(1.2,1.2);
+    }
+    100% {
+        transform: rotate(0deg) scale(1,1);
+    }
 }
 
 .post-header .meatball {
@@ -141,4 +162,20 @@
 
 .post-photo {
     width: 100%;
+}
+
+.post-interactions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+
+.total-comments {
+    border-bottom: 1px solid transparent;
+}
+
+.total-comments:hover{
+    cursor: pointer;
+    border-bottom: 1px solid black;
 }

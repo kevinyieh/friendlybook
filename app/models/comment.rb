@@ -36,11 +36,15 @@ class Comment < ApplicationRecord
         class_name: :Comment,
         optional: true
 
-    def get_comments(post_id,num_comments)
-        Post.find_by(id: post_id)
-            .comments
-            .limit(num_comments)
-            .includes(:sub_comments)
-            .select()
-    end
+    has_many :likes,
+        as: :likeable
+
+    # def get_comments(post_id,num_comments)
+    #     Post.find_by(id: post_id)
+    #         .comments
+    #         .limit(num_comments)
+    #         .includes(:sub_comments)
+    #         .includes(:likes)
+    #         .select()
+    # end
 end

@@ -13,8 +13,10 @@ export default class PostItem extends React.Component{
             showComments,
             dropdownOptions: false,
             comment: "",
-            rootComments,
-            showInc: Math.min(10,rootComments.length - showComments)
+            showInc: Math.min(10,rootComments.length - showComments),
+            commentsVisibile: true,
+            isLiked: this.props.isLiked,
+            justLiked: false
         }
         
         this.handleDropDown = this.handleDropDown.bind(this);
@@ -24,6 +26,8 @@ export default class PostItem extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCommentClick = this.handleCommentClick.bind(this);
         this.handleShowMore = this.handleShowMore.bind(this);
+        this.toggleCommentSection = this.toggleCommentSection.bind(this);
+        this.handleToggleLike = this.handleToggleLike.bind(this);
     }
 
     handleClickOutside(e){
@@ -113,14 +117,71 @@ export default class PostItem extends React.Component{
             <img className="post-photo" src={this.props.post.photo}/>
         )
     }
+
+    toggleCommentSection(e){
+        e.preventDefault();
+        this.setState({
+            commentsVisibile: !this.state.commentsVisibile
+        })
+    }
+    renderCommentInput(pfp){
+        return (
+            <div className="comment-input-container">
+                <div className="profile-pic-icon">
+                    <img src={pfp} />
+                </div>
+                <form onSubmit={this.handleSubmit}>
+                    <input 
+                        ref= { node => this.commentInput = node}
+                        onChange={this.update("comment")}
+                        value={this.state.comment}
+                        className="comment-input" 
+                        placeholder="Write a comment..."/>
+                </form>
+            </div>
+        )
+    }
+    renderShowMore(allCommentsShown){
+        return (
+            <div onClick={this.handleShowMore} 
+                className={allCommentsShown ? "hidden" : "show-comments"}> 
+                    <p> 
+                        {`Show ${this.state.showInc} more comments`} 
+                    </p>
+            </div>
+        )
+    }
+
+    handleToggleLike(e){
+        e.preventDefault();
+        // if(this.state.isLiked){
+        //     this.props.unlikePost(this.props.post.id).then(() => this.setState({ isLiked: false }))
+        // }else{
+        //     this.props.likePost(this.props.post.id).then(() => this.setState({ isLiked: true }))
+        // }
+        if(this.state.isLiked){
+            this.setState({ 
+                isLiked: false ,
+                justLiked: false
+            },() => this.props.unlikePost(this.props.post.id))
+        }else{
+            this.setState({ 
+                isLiked: true,
+                justLiked: true
+            },() => this.props.likePost(this.props.post.id))
+        }
+    }
+
     render(){
+        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
         const ownPost = this.props.currentUser.id === this.props.post.userId;
-        const allComments = this.state.rootComments ? this.state.rootComments : null;
+        const allComments = rootComments ? rootComments : null;
         const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;
         const commentsToRender = sortedComments ? sortedComments.slice(allComments.length-this.state.showComments,allComments.length) : null;
-        const allCommentsShown = !this.props.post.comments || (this.state.rootComments.length === this.state.showComments);
+        const allCommentsShown = !this.props.post.comments || (rootComments.length === this.state.showComments);
         const posterPfp = this.props.poster.pfp ? this.props.poster.pfp : window.defaultPfp;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
+        const likes = this.props.post.likes ? Object.values(this.props.post.likes) : null;
         return(
             <div className="post-container">
                     <div className="post-header">
@@ -179,14 +240,18 @@ export default class PostItem extends React.Component{
                         {this.renderPostPhoto()}
                     </div>
                     <div className="post-interactions">
-                        <div className="total-likes"></div>
-                        <div className="total-comments">{this.props.post.totalComments ? 
-                                `${this.props.post.totalComments} ${this.props.post.totalComments > 1 ? "Comments" : "Comment"}` : null}</div>
+                        <div className="total-likes">
+                                {likes ? 
+                                `${likes.length} ${likes.length > 1 ? "Likes" : "Like"}` : null}
+                        </div>
+                        <div onClick={this.toggleCommentSection} className="total-comments">{this.props.post.totalComments ? 
+                                `${this.props.post.totalComments} ${this.props.post.totalComments > 1 ? "Comments" : "Comment"}` : null}
+                        </div>
                     </div>
                     <div className="separator" />
                         <div className="like-comment">
-                            <div className="like"> 
-                                <div className="like-icon">
+                            <div onClick={this.handleToggleLike} className={`like ${this.state.isLiked ? "liked" : "not-liked"}`}> 
+                                <div className={`like-icon ${this.state.justLiked ? "just-liked" : ""}`}>
                                     <i className="far fa-thumbs-up" />
                                 </div>
                                 &nbsp;
@@ -201,23 +266,9 @@ export default class PostItem extends React.Component{
                             </div>
                         </div>
                     <div className="separator" />
-                    <div onClick={this.handleShowMore} className={allCommentsShown ? "hidden" : "show-comments"}> <p> {`Show ${this.state.showInc} more comments`} </p></div>
-                    {<CommentSection  
-                        comments={commentsToRender}
-                    />}
-                    <div className="comment-input-container">
-                        <div className="profile-pic-icon">
-                            <img src={pfp} />
-                        </div>
-                        <form onSubmit={this.handleSubmit}>
-                            <input 
-                                ref= { node => this.commentInput = node}
-                                onChange={this.update("comment")}
-                                value={this.state.comment}
-                                className="comment-input" 
-                                placeholder="Write a comment..."/>
-                        </form>
-                    </div>
+                    {this.state.commentsVisibile ? this.renderShowMore(allCommentsShown) : null}
+                    {this.state.commentsVisibile ? <CommentSection comments={commentsToRender}/> : null}
+                    {this.state.commentsVisibile ? this.renderCommentInput(pfp) : null}
             </div>
         )
     }

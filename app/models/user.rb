@@ -33,14 +33,6 @@ class User < ApplicationRecord
     has_one_attached :pfp
     has_one_attached :background_image
     has_many_attached :photos
-    
-    # def wall_posts()
-    #     User.find_by_sql(["
-    #         SELECT
-    #             posts.*
-    #         FROM posts
-    #         WHERE posts.user_id = ? OR posts.wall_id = ?", self.id, self.id])
-    # end
 
     def news_feed_posts(load=25)  
         posts = Post.find_by_sql([" 
@@ -58,13 +50,14 @@ class User < ApplicationRecord
             LIMIT ?", self.id,self.id,self.id,self.id,load])
         post_ids = posts.map { |post| post.id }
         Post.with_attached_photo
+            .includes(:likes)
             .select("posts.id, posts.post, posts.user_id,
             posts.wall_id, posts.created_at, 
             COUNT(DISTINCT comments.id) as total_comments")
             .left_outer_joins(:comments)
             .group("posts.id")
             .order("posts.created_at DESC")
-            .where("posts.id IN (?)",post_ids).includes(comments: :sub_comments)
+            .where("posts.id IN (?)",post_ids).includes(comments: [:sub_comments,:likes])
     end
 
     def friends()
@@ -116,19 +109,3 @@ class User < ApplicationRecord
     end
 
 end
-
-
-# def news_feed_posts(num_posts=10)  
-#     posts = Post.find_by_sql([" 
-#         SELECT DISTINCT
-#             posts.id, posts.post, posts.user_id, posts.wall_id, posts.created_at, 
-#             COUNT(DISTINCT comments.id) as total_comments
-#         FROM posts
-#         JOIN users ON users.id = posts.user_id
-#         LEFT OUTER JOIN friends as f1 ON f1.user_id = users.id
-#         LEFT OUTER JOIN friends as f2 ON f2.friend_id = users.id
-#         LEFT OUTER JOIN comments ON comments.post_id = posts.id
-#         WHERE (f1.friend_id = ? OR f2.user_id = ? OR users.id = ?) AND (f1.pending = FALSE OR f2.pending = FALSE)
-#         GROUP BY posts.id
-#         ORDER BY posts.created_at DESC
-#         LIMIT ?", self.id,self.id,self.id,num_posts])
