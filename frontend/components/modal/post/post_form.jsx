@@ -62,7 +62,7 @@ export default class CreatePostForm extends React.Component{
         e.preventDefault();
         this.setState({
             photo: e.target.files[0]
-        },() => console.log(this.state.photo))
+        })
     }
     removePhoto(e){
         e.preventDefault();
@@ -72,7 +72,6 @@ export default class CreatePostForm extends React.Component{
     }
     renderPhoto(){
         if(!this.state.photo) return null;
-        debugger;
         let fileUrl = null;
         try {
             fileUrl = URL.createObjectURL(this.state.photo);

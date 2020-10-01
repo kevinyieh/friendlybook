@@ -6,7 +6,6 @@ class Api::PostsController < ApplicationController
 
     def create
         new_post_params = posts_params
-        debugger
         new_post_params.delete(:id)
         new_post_params[:user_id] = current_user.id
         @post = Post.new(new_post_params)
