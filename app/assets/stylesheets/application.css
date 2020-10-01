@@ -95,3 +95,7 @@ div, a, form, li, ul, input, label, button {
 img {
     object-fit: cover;
 }
+
+input[type="file"] {
+    display: none;
+}

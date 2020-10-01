@@ -95,3 +95,49 @@
     box-shadow: inset 0px 0px 6px #cecccc;
     background-color: #6ea9f7;
 }
+
+.file-upload-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: green;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+.file-upload-input:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.image-preview {
+    width: 400px;
+    position: relative;
+}
+
+.image-preview img {
+    width: 100%;
+}
+
+.close-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: filter 0.2s;
+}
+
+.close-photo:hover{
+    filter: brightness(90%);
+    cursor: pointer;
+}
+

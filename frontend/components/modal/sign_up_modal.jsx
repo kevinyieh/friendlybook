@@ -83,7 +83,7 @@ export default class SignUpModal extends React.Component{
                                     <p>It's quick and easy.</p>
                                 </div>
                                 <div className="close-icon" onClick={this.closeModalEvent}> 
-                                    <i className="fas fa-times"></i>
+                                    <i className="fas fa-times" />
                                 </div>
                             </div>
                             <div className="separator" />

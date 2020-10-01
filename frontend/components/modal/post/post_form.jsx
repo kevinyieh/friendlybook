@@ -12,6 +12,7 @@ export default class CreatePostForm extends React.Component{
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.pushFile = this.pushFile.bind(this);
+        this.removePhoto = this.removePhoto.bind(this);
     }
     update(field){
         return e => {
@@ -28,7 +29,8 @@ export default class CreatePostForm extends React.Component{
         if(this.props.postId){
             this.setState({
                 post: this.props.posts[this.props.postId].post,
-                postId: this.props.postId
+                postId: this.props.postId,
+                photo: this.props.posts[this.props.postId].photo
             })
         }else{
             this.setState({
@@ -37,19 +39,7 @@ export default class CreatePostForm extends React.Component{
             })
         }
     }
-    // handleSubmit(action){
-    //     return e => {
-    //         e.preventDefault();
-    //         if(!this.state.post) return;
-    //         const postParams = {
-    //             post: this.state.post,
-    //             wall_id: this.state.wallId,
-    //             id: this.state.postId
-    //         }
-    //         this.props.closeModal();
-    //         action(postParams);
-    //     }
-    // }
+
     handleSubmit(action){
         return e => {
             e.preventDefault();
@@ -74,7 +64,28 @@ export default class CreatePostForm extends React.Component{
             photo: e.target.files[0]
         },() => console.log(this.state.photo))
     }
-
+    removePhoto(e){
+        e.preventDefault();
+        this.setState({
+            photo:null
+        })
+    }
+    renderPhoto(){
+        if(!this.state.photo) return null;
+        debugger;
+        let fileUrl = null;
+        try {
+            fileUrl = URL.createObjectURL(this.state.photo);
+        }catch(e1) {
+            fileUrl = this.state.photo
+        }
+        return (
+            <div className="image-preview" >
+                <img src={fileUrl} />
+                <div onClick={this.removePhoto} className="close-photo"> <i className="fas fa-times" /> </div>
+            </div>
+        )
+    }
     render(){
         if (!(this.props.modal === "create-post" || this.props.modal === "edit-post" )) return null;
         const postTitle = this.props.modal === "create-post" ? "Create Post" : "Edit Post";
@@ -104,7 +115,12 @@ export default class CreatePostForm extends React.Component{
                         value={this.state.post} 
                         onChange={this.update("post")} 
                         placeholder={`What's on your mind, ${this.props.currentUser.firstName}?`} />
-                    <input onChange={this.pushFile} type="file" />
+                    {this.renderPhoto()}
+                    <label className="file-upload-input">
+                        <input onChange={this.pushFile} type="file" />
+                        <i className="fas fa-images" />
+                    </label>
+                        
                     <button className={fieldEmpty ? "not-ready" : "ready"} onClick={this.handleSubmit(action)}> 
                         <p>{postButton}</p>
                     </button>
