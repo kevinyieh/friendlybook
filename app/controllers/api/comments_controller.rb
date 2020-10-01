@@ -19,7 +19,7 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.find_by(id: params[:id])
         if @comment
             @comment.update(comment_params)
-            redirect_to "/api/posts/#{@comment.post_id}", status 303
+            redirect_to "/api/posts/#{@comment.post_id}", status: 303
         else
             render json: ["Comment not found"]
         end
