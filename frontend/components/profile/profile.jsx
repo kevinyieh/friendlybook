@@ -9,8 +9,8 @@ class Profile extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isFriend:this.props.isFriend,
-            reqId: null
+            reqId: null,
+            friendsFetched: false
         }
         this.handleCreateFriendRequest = this.handleCreateFriendRequest.bind(this);
         this.handleAcceptFriendRequest = this.handleAcceptFriendRequest.bind(this);
@@ -20,10 +20,26 @@ class Profile extends React.Component{
         this.props.fetchWallFeed(this.props.userId).then(() => {
             this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
         });
-        this.props.fetchFriendRequests();        
+
+        this.props.fetchFriendRequests();  
+        this.props.fetchAllFriends({id: this.props.userId}).then( () => {
+            this.setState({
+                friendsFetched: true
+            })
+        });
     }
-    componentDidUpdate(){
+    componentDidUpdate(prevProps,prevState){
         if(!this.props.user) this.props.fetchUser(this.props.userId);
+
+        if(prevProps.match.params.userId !== this.props.match.params.userId){
+            this.setState({
+                friendsFetched: false
+            },() => this.props.fetchAllFriends({id: this.props.userId}).then( () => {
+                this.setState({
+                    friendsFetched: true
+                })
+            }))
+        }
     }
     renderBackground(){
         if(this.props.currentUser.background){
@@ -92,8 +108,8 @@ class Profile extends React.Component{
             )
         }
     }
-    renderAddFriend(){
-        if(this.props.isFriend) return null;
+    renderAddFriend(isFriend){
+        if(isFriend || !this.state.friendsFetched) return null;
         return (
             <button onClick={this.handleCreateFriendRequest} className="profile-add-friend"> 
                 <div className="add-friend-icon">
@@ -106,6 +122,11 @@ class Profile extends React.Component{
     render(){
         if(!this.props.user) return null;
         const pfp = this.props.user.pfp ? this.props.user.pfp : window.defaultPfp;
+        const isFriend = !!this.props.friends[this.props.currentUser.id] || 
+                            this.props.rec.length === 1 || 
+                            this.props.req.length === 1 || 
+                            this.props.userId === this.props.currentUser.id;
+        
         return(
             <div className="profile-page-container">
                 {this.renderNavbar()}
@@ -120,7 +141,7 @@ class Profile extends React.Component{
                     </div>
                     <h1 className="profile-name"> 
                         {`${this.props.user.firstName} ${this.props.user.lastName}`} 
-                        {this.renderAddFriend()}
+                        {this.renderAddFriend(isFriend)}
                     </h1>
                     <div className="separator" />
                     <ul className="profile-page-nav">
@@ -137,6 +158,8 @@ class Profile extends React.Component{
                         />
                         <MiniFriendsContainer
                             user={this.props.user}
+                            friends={this.props.friends}
+                            friendsFetched={this.state.friendsFetched}
                         />
                     </div>
                         

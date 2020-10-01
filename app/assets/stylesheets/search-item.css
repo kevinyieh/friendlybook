@@ -23,3 +23,9 @@
 .search-item a {
     width: 80%;
 }
+
+.search-content {
+    width: 100%;
+    text-align: left;
+    text-indent: 30px;
+}

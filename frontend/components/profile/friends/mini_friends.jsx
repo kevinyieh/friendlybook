@@ -5,12 +5,7 @@ export default class MiniFriends extends React.Component {
     constructor(props){
         super(props);
     }
-    componentDidMount(){
-        this.props.fetchAllFriends({id: this.props.user.id});
-    }
-    componentDidUpdate(prevProps){
-        if(prevProps.user.id !== this.props.user.id) this.props.fetchAllFriends({id: this.props.user.id});
-    }
+
     renderFriendsRow(row){
         return (
             <ul className="small-friends-list">
@@ -37,7 +32,7 @@ export default class MiniFriends extends React.Component {
         return (
             <div className="profile-friends-section">
                 <h2> Friends </h2>
-                {this.renderFriends(this.props.friends)}
+                {this.props.friendsFetched ? this.renderFriends(this.props.friends) : null}
             </div>
         )
     }

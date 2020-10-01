@@ -1,12 +1,16 @@
 import React from "react";
 import PostItemContainer from "../../post/post_item_container";
 import CreatPostFormContainer from "../../modal/post/post_form_container";
+import Loading from "../../ui/loading";
 
 export default class WallFeed extends React.Component{
     constructor(props){
         super(props)
         this.renderPostItem = this.renderPostItem.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.state = {
+            loading: true
+        };
     }
     allUserIdsFromComments(posts){
         let allUsers = {};
@@ -26,11 +30,23 @@ export default class WallFeed extends React.Component{
         })
         return Object.keys(allUsers);
     }
-
+    componentDidMount(){
+        this.props.fetchWallFeed(this.props.user.id).then(() => {
+            this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts)).then( () => {
+                this.setState({
+                    loading: false
+                })
+            })
+        });
+    }
     componentDidUpdate(prevProps){
         if(prevProps.user.id !== this.props.user.id){
             this.props.fetchWallFeed(this.props.user.id).then(() => {
-                this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts))
+                this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts)).then( () => {
+                    this.setState({
+                        loading: false
+                    })
+                })
             });
         }
     }
@@ -68,6 +84,7 @@ export default class WallFeed extends React.Component{
 
     render(){
         if(Object.values(this.props.users).length < 1) return null;
+        if(this.state.loading) return <div className="wallfeed"><Loading /></div>;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
             <div className="wallfeed">

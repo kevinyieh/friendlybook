@@ -5,7 +5,7 @@ class Api::FriendsController < ApplicationController
         if user
             render :index
         else
-            render json: ["User not found"]
+            render json: ["User not found"], status: 404
         end
     end
 

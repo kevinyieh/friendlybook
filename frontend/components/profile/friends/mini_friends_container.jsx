@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { fetchAllFriends } from "../../../actions/friend_actions"
 import MiniFriends from "./mini_friends";
 
 const mSTP = (state,ownProps) => {
@@ -11,7 +10,6 @@ const mSTP = (state,ownProps) => {
 
 const mDTP = dispatch => {
     return {
-        fetchAllFriends: id => fetchAllFriends(id)(dispatch)
     }
 }
 

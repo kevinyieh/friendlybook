@@ -2,6 +2,8 @@ import React from "react";
 import PostItemContainer from "../../post/post_item_container";
 import CreatPostFormContainer from "../../modal/post/post_form_container";
 import { Link } from "react-router-dom";
+import Loading from "../../ui/loading";
+
 export default class Newsfeed extends React.Component{
     constructor(props){
         super(props)
@@ -66,7 +68,7 @@ export default class Newsfeed extends React.Component{
 
     render(){
         if(Object.values(this.props.users).length < 1) return null;
-        if(this.state.loading) return <div> LOADING </div>;
+        if(this.state.loading) return <Loading />;
         const pfp = this.props.currentUser.pfp ? this.props.currentUser.pfp : window.defaultPfp;
         return(
             <div className="newsfeed">

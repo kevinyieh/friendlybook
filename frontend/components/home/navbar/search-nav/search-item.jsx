@@ -28,11 +28,10 @@ export default class SearchItem extends React.Component{
                 <div className="search-icon">
                     <i className="fas fa-search" />
                 </div>
-                <a href="#">
-                    <div className="search-content">
-                        {wordSplit.matching}<strong>{wordSplit.notMatching}</strong>
-                    </div>
-                </a>
+
+                <div className="search-content">
+                    {wordSplit.matching}<strong>{wordSplit.notMatching}</strong>
+                </div>
             </Link>
 
         )

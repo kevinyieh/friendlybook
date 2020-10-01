@@ -18,6 +18,7 @@ class User < ApplicationRecord
         foreign_key: :user_id,
         class_name: :Comment,
         dependent: :destroy
+
     has_many :friends_reqs,
         primary_key: :id,
         foreign_key: :user_id,
@@ -79,7 +80,7 @@ class User < ApplicationRecord
                     (friends_backs_users.user_id = ? AND friends_backs_users.pending = FALSE)) AND 
                     users.id != ?",self.id,self.id,self.id)
             .order("users.id ASC")
-            .select("DISTINCT users.*, friends.pending as f1pending, friends_backs_users.pending as f2pending")
+            .select("DISTINCT users.*")
     end
 
     def password=(pw)

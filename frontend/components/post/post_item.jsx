@@ -162,11 +162,6 @@ export default class PostItem extends React.Component{
 
     handleToggleLike(e){
         e.preventDefault();
-        // if(this.state.isLiked){
-        //     this.props.unlikePost(this.props.post.id).then(() => this.setState({ isLiked: false }))
-        // }else{
-        //     this.props.likePost(this.props.post.id).then(() => this.setState({ isLiked: true }))
-        // }
         if(this.state.isLiked){
             this.setState({ 
                 isLiked: false ,
@@ -193,9 +188,11 @@ export default class PostItem extends React.Component{
         return(
             <div className="post-container">
                     <div className="post-header">
-                        <div className="profile-pic-icon">
-                            <img src={posterPfp} />
-                        </div>
+                        <Link to={`/users/${this.props.poster.id}`}>
+                            <div className="profile-pic-icon">
+                                <img src={posterPfp} />
+                            </div>
+                        </Link>
                         <div className="post-technicals">
                             <div className="post-user">
                                 {this.props.poster.id !== this.props.postee.id ? 

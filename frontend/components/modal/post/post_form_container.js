@@ -7,7 +7,6 @@ const mSTP = (state, ownProps) => {
     const currentUser = state.session;
     const modal = state.ui.modal ? state.ui.modal.type : null;
     const postId = state.ui.modal ? state.ui.modal.postId : null;
-    debugger;
     return {
         modal,
         currentUser,

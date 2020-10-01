@@ -3,7 +3,6 @@ import MiniPhotos from "./mini_photos";
 
 const mSTP = (state,ownProps) => {
     return {
-        photos: ownProps.photos
     }
 }
 

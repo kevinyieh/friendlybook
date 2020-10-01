@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
         session[:session_token] = nil
     end
 
-
     def current_user
         return nil unless session[:session_token]
 

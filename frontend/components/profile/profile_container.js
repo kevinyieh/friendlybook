@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import Profile from "./profile";
 import { fetchUser,fetchUsers } from "../../actions/user_actions";
 import { fetchWallFeed } from "../../actions/post_actions";
-import { fetchFriendRequests, createFriendRequest, rejectFriendRequest, acceptFriendRequest } from "../../actions/friend_actions";
+import { fetchFriendRequests, createFriendRequest, rejectFriendRequest, acceptFriendRequest, fetchAllFriends } from "../../actions/friend_actions";
 
 const mSTP = (state,ownProps) => {
     const userId = ownProps.profileSelected ? ownProps.profileSelected : parseInt(ownProps.match.params.userId);
@@ -18,7 +18,7 @@ const mSTP = (state,ownProps) => {
         friendView,
         posts: Object.values(state.entities.posts).sort( (post1,post2) => post1.createdAt > post2.createdAt ? -1 : 1),
         friendRequests: state.entities.friendRequests,
-        isFriend: !!state.entities.friends[userId] || rec.length === 1 || req.length === 1 || userId === state.session.id,
+        friends: state.entities.friends,
         rec,
         req,
         reqId
@@ -31,6 +31,7 @@ const mDTP = dispatch => {
         fetchWallFeed: id => dispatch(fetchWallFeed(id)),
         fetchUsers: users => dispatch(fetchUsers(users)),
         fetchFriendRequests: () => fetchFriendRequests()(dispatch),
+        fetchAllFriends: (user) => fetchAllFriends(user)(dispatch),
         createFriendRequest: (id) => createFriendRequest(id)(dispatch),
         rejectFriendRequest: (id) => rejectFriendRequest(id)(dispatch),
         acceptFriendRequest: (id) => acceptFriendRequest(id)(dispatch)
