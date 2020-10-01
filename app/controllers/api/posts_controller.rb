@@ -10,7 +10,7 @@ class Api::PostsController < ApplicationController
         new_post_params[:user_id] = current_user.id
         @post = Post.new(new_post_params)
         if @post.save 
-            current_user.photos.attach([new_post_params[:photo]])
+            current_user.photos.attach([new_post_params[:photo]]) if new_post_params[:photo]
             render :basic_show
         else
             render json: {post: @post.errors.messages}, status: 401

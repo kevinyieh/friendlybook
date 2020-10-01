@@ -4,6 +4,7 @@ import { openModal } from "../../../actions/modal_actions";
 import { fetchUsers } from "../../../actions/user_actions";
 import { fetchWallFeed } from "../../../actions/post_actions"
 const mSTP = (state,ownProps) => {
+    debugger;
     return {
         posts: ownProps.posts,
         users: state.entities.users,

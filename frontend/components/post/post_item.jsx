@@ -7,10 +7,12 @@ import CommentSection from "../comment/comment_section";
 export default class PostItem extends React.Component{
     constructor(props){
         super(props);
-        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
+        // const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
+        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments) : [];
         const showComments = this.props.post.comments ? Math.min(rootComments.length, 2) : 0;
         this.state = {
             showComments,
+            rootComments,
             dropdownOptions: false,
             comment: "",
             showInc: Math.min(10,rootComments.length - showComments),
@@ -45,7 +47,7 @@ export default class PostItem extends React.Component{
     }
     componentDidUpdate(prevProp,prevState){
         if(prevProp.post.totalComments !== this.props.post.totalComments){
-            const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
+            const rootComments = this.props.post.comments ? Object.values(this.props.post.comments) : [];
             const showComments = this.state.showComments + (rootComments.length - prevState.rootComments.length);
             const showInc = Math.min(10,rootComments.length - showComments);
             this.setState({
@@ -109,7 +111,13 @@ export default class PostItem extends React.Component{
     }
     handleCommentClick(e){
         e.preventDefault();
-        this.commentInput.focus();
+        if(!this.state.commentsVisibile){
+            this.setState({
+                commentsVisibile: true
+            }, () => this.commentInput.focus())
+        }else {
+            this.commentInput.focus();
+        }
     }
     renderPostPhoto(){
         if(!this.props.post.photo) return null;
@@ -173,7 +181,7 @@ export default class PostItem extends React.Component{
     }
 
     render(){
-        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments).filter( comment => !comment.source) : [];
+        const rootComments = this.props.post.comments ? Object.values(this.props.post.comments) : [];
         const ownPost = this.props.currentUser.id === this.props.post.userId;
         const allComments = rootComments ? rootComments : null;
         const sortedComments = allComments ? allComments.sort((comment1,comment2) => comment1.createdAt > comment2.createdAt ? 1 : -1) : null;

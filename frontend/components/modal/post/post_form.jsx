@@ -41,14 +41,19 @@ export default class CreatePostForm extends React.Component{
     }
 
     handleSubmit(action){
+        const wallId = this.props.match.userId ? this.props.match.userId : this.state.wallId;
         return e => {
             e.preventDefault();
             const formData = new FormData();
             formData.append("post[post]",this.state.post);
-            formData.append("post[wall_id]",this.state.wallId);
+            formData.append("post[wall_id]",this.props.wallId);
             formData.append("post[id]",this.state.postId);
             if(this.state.photo) formData.append("post[photo]",this.state.photo);
             this.props.closeModal();
+            this.setState({
+                post: "",
+                photo: null
+            })
             action(formData);
         }
     }

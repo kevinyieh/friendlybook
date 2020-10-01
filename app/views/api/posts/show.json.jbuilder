@@ -32,6 +32,14 @@ json.comments do
                             json.userId sub_comment.user_id
                             json.parentCommentId sub_comment.parent_comment_id
                             json.createdAt sub_comment.created_at
+                            json.likes do 
+                                sub_comment.likes.each do |like|
+                                    json.set! like.id do
+                                        json.id like.id
+                                        json.userId like.user_id
+                                    end
+                                end
+                            end
                         end
                 end
             end

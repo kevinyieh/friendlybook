@@ -6,16 +6,16 @@ import { likeComment, unlikeComment } from "../../actions/like_actions";
 const mSTP = (state, ownProps) => {
     let isLiked = false;
     const likes = ownProps.comment.likes ? Object.values(ownProps.comment.likes).length : 0;
-    if(ownProps.comment.likes){
-        isLiked = Object.values(ownProps.comment.likes).map( like => like.userId).includes(state.session.id)
-    } 
+    // if(ownProps.comment.likes){
+    //     isLiked = Object.values(ownProps.comment.likes).map( like => like.userId).includes(state.session.id)
+    // } 
 
     return {
         posts: state.entities.posts,
         currentUser: state.session,
         users: state.entities.users,
-        isLiked,
-        likes
+        likes,
+        // isLiked
     }
 }
 

@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 export default class Comment extends React.Component{
     constructor(props){
         super(props);
-        const commenter = this.props.users[this.props.comment.userId]
-        const fullName = commenter ? `${commenter.firstName} ${commenter.lastName}` : ""
+        const commenter = this.props.users[this.props.comment.userId];
+        const fullName = commenter ? `${commenter.firstName} ${commenter.lastName}` : "";
+        let isLiked = false;
+        if(this.props.comment.likes){
+            isLiked = Object.values(this.props.comment.likes).map( like => like.userId).includes(this.props.currentUser.id)
+        } 
         this.state = {
             fullName,
             subCommentInc: 7,
@@ -14,7 +18,7 @@ export default class Comment extends React.Component{
             dropdownOptions: false,
             comment: "",
             commenter,
-            isLiked: this.props.isLiked,
+            isLiked
         }
         this.ownPost = this.props.posts[this.props.comment.postId].userId === this.props.currentUser.id;
         this.ownComment = this.props.comment.userId === this.props.currentUser.id;
@@ -127,6 +131,7 @@ export default class Comment extends React.Component{
         const source = this.props.comment.source ? this.props.comment.source : this.props.comment.id;
         return (
             Object.values(subComments).map( subComment => {
+                const likes = subComment.likes ? Object.values(subComment.likes).length : 0;
                 return (
                     <Comment 
                         key={`comment-${subComment.id}`} 
@@ -139,6 +144,9 @@ export default class Comment extends React.Component{
                         source={source}
                         replyTracker={this.replyTracker}
                         commenter={this.state.commenter}
+                        likeComment={this.props.likeComment}
+                        unlikeComment={this.props.unlikeComment}
+                        likes={likes}
                     />
                 )
             })
@@ -178,7 +186,8 @@ export default class Comment extends React.Component{
                                 onChange={this.update("comment")}
                                 value={this.state.comment}
                                 className="comment-input" 
-                                placeholder="Write a reply..."/>
+                                placeholder="Write a reply..."
+                                />
                         </form>
                     </div>
                 </ul>
@@ -270,7 +279,7 @@ export default class Comment extends React.Component{
                         <div className="comment-like-reply">
                             <div 
                                 onClick={this.handleToggleLike}
-                                className={"comment-like"}>
+                                className={`comment-like ${this.state.isLiked ? "comment-is-liked" : "comment-not-liked"}`}>
                                 <p>Like</p>
                             </div>
                             &nbsp;

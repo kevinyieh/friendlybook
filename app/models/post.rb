@@ -26,7 +26,7 @@ class Post < ApplicationRecord
             .left_outer_joins(:comments)
             .group("posts.id")
             .order("posts.created_at DESC")
-            .where("posts.id = (?)",post_id).includes(comments: [:sub_comments,:likes])
+            .where("posts.id = (?)",post_id).includes(comments: [{sub_comments: :likes},:likes])
             .first
     end
 
@@ -39,7 +39,7 @@ class Post < ApplicationRecord
             .left_outer_joins(:comments)
             .group("posts.id")
             .order("posts.created_at DESC")
-            .where("posts.wall_id = (?)",user_id).includes(comments: [:sub_comments,:likes])
+            .where("posts.wall_id = (?)",user_id).includes(comments: [{sub_comments: :likes},:likes])
     end
     
 end
