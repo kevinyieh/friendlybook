@@ -66,7 +66,7 @@ export default class SignUpModal extends React.Component{
     render(){
         const firstNameError = errorAndBlank(this.props.errors.firstName,this.state.firstName);
         const lastNameError = errorAndBlank(this.props.errors.lastName,this.state.lastName);
-        const emailError = this.props.errors.email ? this.props.errors.email[0] ==="has already been taken" : errorAndBlank(this.props.errors.email,this.state.email);
+        const emailError = this.props.errors.email ? this.props.errors.email[0] ==="has already been taken" ? true : errorAndBlank(this.props.errors.email,this.state.email) : false;
         const passwordError = this.props.errors.password ? this.state.password.length < 7 : errorAndBlank(this.props.errors.password,this.state.password);
         const genderError = errorAndBlank(this.props.errors.gender,this.state.gender);
         const pronounError = errorAndBlank(this.props.errors.pronoun,this.state.pronoun);
