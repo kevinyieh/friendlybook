@@ -32,7 +32,7 @@ class User < ApplicationRecord
         dependent: :destroy
 
     has_one_attached :pfp
-    has_one_attached :background_image
+    has_one_attached :wallpaper
     has_many_attached :photos
 
     def news_feed_posts(load=25)  
@@ -74,6 +74,7 @@ class User < ApplicationRecord
         #     ORDER BY users.id ASC", self.id,self.id,self.id])         
         User.with_attached_pfp
             .with_attached_photos
+            .with_attached_wallpaper
             .left_outer_joins(:friends_reqs)
             .left_outer_joins(:friends_backs)
             .where("((friends.friend_id = ? AND friends.pending = FALSE) OR 

@@ -14,11 +14,13 @@ class Api::UsersController < ApplicationController
                     .where("users.id IN (?)",params[:users])
                     .with_attached_pfp
                     .with_attached_photos
+                    .with_attached_wallpaper
         render :index
     end
     def show
         @user = User.with_attached_pfp
                     .with_attached_photos
+                    .with_attached_wallpaper
                     .find_by(id: params[:id])
         if @user 
             render :show

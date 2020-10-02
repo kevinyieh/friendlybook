@@ -15,6 +15,8 @@ class Profile extends React.Component{
         this.handleCreateFriendRequest = this.handleCreateFriendRequest.bind(this);
         this.handleAcceptFriendRequest = this.handleAcceptFriendRequest.bind(this);
         this.handleRejectFriendRequest = this.handleRejectFriendRequest.bind(this);
+        this.handlePfpChange = this.handlePfpChange.bind(this);
+        this.handleWallpaperChange = this.handleWallpaperChange.bind(this);
     }
     componentDidMount(){
         this.props.fetchWallFeed(this.props.userId).then(() => {
@@ -42,8 +44,8 @@ class Profile extends React.Component{
         }
     }
     renderBackground(){
-        if(this.props.currentUser.background){
-            return <img src={this.props.user.background} />
+        if(this.props.user.wallpaper){
+            return <img src={this.props.user.wallpaper} />
         }else{
             return <div className="default-background" />
         }
@@ -119,6 +121,46 @@ class Profile extends React.Component{
             </button>
         )
     }
+    handlePfpChange(e){
+        e.preventDefault();
+        if(e.target.files[0]){
+            const formData = new FormData();
+            formData.append("pfp",e.target.files[0]);
+            return this.props.uploadPfp(formData);
+        }
+    }
+    handleWallpaperChange(e){
+        e.preventDefault();
+        if(e.target.files[0]){
+            const formData = new FormData();
+            formData.append("wallpaper",e.target.files[0]);
+            return this.props.uploadWallpaper(formData);
+        }
+    }
+
+    renderEditPfp(){
+        if(this.props.userId !== this.props.currentUser.id) return null;
+        if(!this.state.friendsFetched) return null;
+        return(
+            <label className="pfp-upload-input">
+                <input onChange={this.handlePfpChange} type="file" />
+                <i className="fas fa-camera-retro" />
+            </label>    
+        )
+    }
+    renderEditWallpaper(){
+        if(this.props.userId !== this.props.currentUser.id) return null;
+        if(!this.state.friendsFetched) return null;
+        return(
+            <label className="wallpaper-upload-input">
+                <input onChange={this.handleWallpaperChange} type="file" />
+                <i className="fas fa-camera-retro" />
+                <p>Edit Cover Photo</p>
+            </label>
+        )
+    }
+
+
     render(){
         if(!this.props.user) return null;
         const pfp = this.props.user.pfp ? this.props.user.pfp : window.defaultPfp;
@@ -133,10 +175,12 @@ class Profile extends React.Component{
                 <div className="profile-page-header">
                     <div className="profile-background-image">
                         {this.renderBackground()}
+                        {this.renderEditWallpaper()}
                     </div>
                     <div className="profile-page-pfp-container">
                         <div className="profile-page-pfp">
                             <img src={pfp} />
+                            {this.renderEditPfp()}
                         </div>
                     </div>
                     <h1 className="profile-name"> 

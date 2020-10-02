@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded",() => {
                 firstName: currentUser.firstName,
                 lastName: currentUser.lastName,
                 pfp: currentUser.pfp,
-                photos: currentUser.photos
+                photos: currentUser.photos,
+                wallpaper: currentUser.wallpaper
             },
             entities: {
                 users: {
@@ -27,7 +28,8 @@ document.addEventListener("DOMContentLoaded",() => {
                         firstName: currentUser.firstName,
                         lastName: currentUser.lastName,
                         pfp: currentUser.pfp,
-                        photos: currentUser.photos
+                        photos: currentUser.photos,
+                        wallpaper: currentUser.wallpaper
                     }
                 }
             }

@@ -13,14 +13,6 @@
     position: relative;
     background-color: white;
 }
-.default-background {
-    background-color: #f2f2f2;
-    height: 340px;
-    width: 950px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    /* margin-bottom: 100px; */
-}
 
 .profile-page-pfp {
     position: absolute;
@@ -147,4 +139,67 @@ h1 button:hover{
     margin: 12px 12px 12px 0;
     display: flex;
     flex-direction: column;
+}
+.profile-background-image{
+    position: relative;
+}
+.profile-background-image img{
+        height: 355px;
+        width: 950px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+}
+
+.default-background {
+    background-color: #f2f2f2;
+    height: 355px;
+    width: 950px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pfp-upload-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: black;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    position: absolute;
+    bottom: 10px;
+    right: 3px;
+    background-color: #f2f2f2;
+    transition: filter 0.2s;
+}
+
+.pfp-upload-input:hover, .wallpaper-upload-input:hover {
+    cursor: pointer;
+    filter: brightness(94%);
+}
+
+.wallpaper-upload-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 16px;
+    color: black;
+    height: 40px;
+    width: 150px;
+    margin-bottom: 5px;
+    position: absolute;
+    border-radius: 6px;
+    bottom: 10px;
+    right: 10px;
+    background-color: #f2f2f2;
+    padding: 5px;
+    transition: filter 0.2s;
+}
+
+.wallpaper-upload-input p{
+    font-size: 13px;
+    font-weight: 600;
 }

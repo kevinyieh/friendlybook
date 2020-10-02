@@ -2,6 +2,7 @@ import React from "react";
 import PostItemContainer from "../../post/post_item_container";
 import CreatPostFormContainer from "../../modal/post/post_form_container";
 import Loading from "../../ui/loading";
+import { Link } from "react-router-dom";
 
 export default class WallFeed extends React.Component{
     constructor(props){
@@ -41,6 +42,9 @@ export default class WallFeed extends React.Component{
     }
     componentDidUpdate(prevProps){
         if(prevProps.user.id !== this.props.user.id){
+            this.setState({
+                loading: true
+            });
             this.props.fetchWallFeed(this.props.user.id).then(() => {
                 this.props.fetchUsers(this.allUserIdsFromComments(this.props.posts)).then( () => {
                     this.setState({
@@ -93,9 +97,11 @@ export default class WallFeed extends React.Component{
                 />
                 <div className="open-post-form-container">
                     <div className="open-post-form-main">
-                        <div className="profile-pic-icon">
-                            <img src={pfp}/>
-                        </div>
+                        <Link to={`/users/${this.props.currentUser.id}`}>
+                            <div className="profile-pic-icon">
+                                <img src={pfp}/>
+                            </div>
+                        </Link>
                         <div onClick={this.handleOpenModal} className="open-post-form">
                             {this.renderInputPlaceholder()}
                         </div>

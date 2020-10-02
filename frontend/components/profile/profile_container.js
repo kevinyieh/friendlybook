@@ -3,6 +3,7 @@ import Profile from "./profile";
 import { fetchUser,fetchUsers } from "../../actions/user_actions";
 import { fetchWallFeed } from "../../actions/post_actions";
 import { fetchFriendRequests, createFriendRequest, rejectFriendRequest, acceptFriendRequest, fetchAllFriends } from "../../actions/friend_actions";
+import { uploadPfp, uploadWallpaper } from "../../actions/profile_actions";
 
 const mSTP = (state,ownProps) => {
     const userId = ownProps.profileSelected ? ownProps.profileSelected : parseInt(ownProps.match.params.userId);
@@ -34,7 +35,9 @@ const mDTP = dispatch => {
         fetchAllFriends: (user) => fetchAllFriends(user)(dispatch),
         createFriendRequest: (id) => createFriendRequest(id)(dispatch),
         rejectFriendRequest: (id) => rejectFriendRequest(id)(dispatch),
-        acceptFriendRequest: (id) => acceptFriendRequest(id)(dispatch)
+        acceptFriendRequest: (id) => acceptFriendRequest(id)(dispatch),
+        uploadPfp: (FormData) => uploadPfp(FormData)(dispatch),
+        uploadWallpaper: (FormData) => uploadWallpaper(FormData)(dispatch),
     }
 }
 

@@ -30,6 +30,7 @@
     flex-direction: row;
     padding-left: 6px;
     font-size: 11px;
+    font-weight: 600;
 }
 .show-reply {
     display: flex;
@@ -148,11 +149,15 @@
     display: flex;
     font-size: 12px;
     position: absolute;
-    right: -19px;
+    right: -25px;
     bottom: 5px;
     min-width: 20px;
     padding: 3px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
     border-radius: 6px;
+}
+
+.comment-is-liked {
+    color: #1877f2;
 }

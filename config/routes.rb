@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create,:update,:destroy]
     resources :friend_requests, only:[:index,:destroy,:update,:create]
     resources :likes, only:[:create,:destroy]
+    resources :profile_pics, only:[:create,:destroy]
+    resources :wallpapers, only:[:create,:destroy]
   end
 end
