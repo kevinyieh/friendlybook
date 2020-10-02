@@ -1,7 +1,6 @@
 class Api::SessionsController < ApplicationController
     def create
         @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
-        user_id = @user.id
         if @user.nil?
             if !User.find_by(email: params[:user][:email])
                 render json: {login: {email: "The email you've entered doesn't match any account."}, signup: {}}, status: 401
@@ -12,7 +11,7 @@ class Api::SessionsController < ApplicationController
             @user = User.with_attached_pfp
                         .with_attached_photos
                         .with_attached_wallpaper
-                        .find(user_id)
+                        .find(@user.id)
             login!(@user)
             render "/api/users/show"
         end
