@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded",() => {
     }
     // window.fetchAllFriends = fetchAllFriends;
     // window.fetchNewsfeed = fetchNewsfeed;
-    // window.getState = store.getState;
+    window.getState = store.getState;
     // window.fetchSearch = SearchUtil.fetchSearch;
     // window.dispatch = store.dispatch;
     delete window.currentUser;

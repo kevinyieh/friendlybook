@@ -11,7 +11,8 @@ export default class Newsfeed extends React.Component{
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.fetchAllUsers = this.fetchAllUsers.bind(this);
         this.state = {
-            loading: true
+            loading: true,
+            wallId: this.props.currentUser.id
         }
     }
     allUserIdsFromComments(posts){

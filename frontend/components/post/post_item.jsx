@@ -74,7 +74,7 @@ export default class PostItem extends React.Component{
         this.setState({
             dropdownOptions: false
         })
-        this.props.openModal({type:"edit-post",postId:this.props.post.id});
+        this.props.openModal({type:"edit-post",postId:this.props.post.id, wallId:this.props.post.wallId});
     }
     handleDropDown(e){
         e.preventDefault();

@@ -41,7 +41,6 @@ export default class CreatePostForm extends React.Component{
     }
 
     handleSubmit(action){
-        const wallId = this.props.match.userId ? this.props.match.userId : this.state.wallId;
         return e => {
             e.preventDefault();
             const formData = new FormData();

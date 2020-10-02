@@ -7,11 +7,12 @@ const mSTP = (state, ownProps) => {
     const currentUser = state.session;
     const modal = state.ui.modal ? state.ui.modal.type : null;
     const postId = state.ui.modal ? state.ui.modal.postId : null;
+    const wallId = state.ui.modal ? state.ui.modal.wallId : null;
     return {
         modal,
         currentUser,
         postId,
-        wallId: ownProps.wallId,
+        wallId: wallId ? wallId : ownProps.wallId,
         posts: state.entities.posts,
     }
 }
