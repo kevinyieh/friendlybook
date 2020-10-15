@@ -43,7 +43,7 @@ export const timeRender = (createDate) => {
     const postDate = new Date(createDate);
     const msDiff = Math.abs(now - postDate);
     if(msToDays(msDiff) > 1){
-        return `${months[postDate.getMonth()]} ${postDate.getDay()} at ${convertToTime(postDate.getHours(),postDate.getMinutes())}}`
+        return `${months[postDate.getMonth()]} ${postDate.getDay()} at ${convertToTime(postDate.getHours(),postDate.getMinutes())}`
     }else if(msToDays(msDiff) == 1){
         return `Yesterday at ${convertToTime(postDate.getHours(),postDate.getMinutes())}`;
     }else if(msToHours(msDiff) >= 1){
