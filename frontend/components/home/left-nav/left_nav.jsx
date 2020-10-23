@@ -38,13 +38,13 @@ export default class LeftNav extends React.Component {
                     Github: {url: "//github.com/kevinyieh/friendlybook",
                                 icon: <i className="fab fa-github" />,
                                 newPage: true},
-                    LinkedIn: {url: "#",
+                    LinkedIn: {url: "//www.linkedin.com/in/kevin-yieh",
                                 icon: <i className="fab fa-linkedin-in" />,
                                 newPage: true},
-                    Angel: {url: "#",
+                    Angel: {url: "https://angel.co/u/kevin-yieh",
                                 icon: <i className="fab fa-angellist" />,
                                 newPage: true},
-                    GithubIO: {url: "#",
+                    GithubIO: {url: "https://kevinyieh.github.io/",
                                 icon: <i className="far fa-user" />,
                                 newPage: true}
                         }

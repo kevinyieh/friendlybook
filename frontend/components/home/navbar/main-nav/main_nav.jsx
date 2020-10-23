@@ -5,11 +5,11 @@ const links = {
             icon: <i className="fas fa-home" />},
     github: {url: "//github.com/kevinyieh/friendlybook",
             icon: <i className="fab fa-github" /> },
-    linkedIn: {url: "#",
+    linkedIn: {url: "//www.linkedin.com/in/kevin-yieh",
             icon: <i className="fab fa-linkedin-in" />},
-    angel: {url: "#",
+    angel: {url: "https://angel.co/u/kevin-yieh",
             icon: <i className="fab fa-angellist" />},
-    githubIO: {url: "#",
+    githubIO: {url: "https://kevinyieh.github.io/",
                 icon: <i className="far fa-user" />}
     }
 
