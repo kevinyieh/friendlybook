@@ -15,6 +15,7 @@ class Profile extends React.Component{
         this.handleCreateFriendRequest = this.handleCreateFriendRequest.bind(this);
         this.handleAcceptFriendRequest = this.handleAcceptFriendRequest.bind(this);
         this.handleRejectFriendRequest = this.handleRejectFriendRequest.bind(this);
+        this.handleDeleteFriend = this.handleDeleteFriend.bind(this);
         this.handlePfpChange = this.handlePfpChange.bind(this);
         this.handleWallpaperChange = this.handleWallpaperChange.bind(this);
     }
@@ -88,6 +89,10 @@ class Profile extends React.Component{
         e.preventDefault();
         this.props.acceptFriendRequest(this.props.reqId);
     }
+    handleDeleteFriend(e) {
+        e.preventDefault();
+        this.props.deleteFriend(this.props.userId);
+    }
     renderFriendRequestButton(){
         const {rec,req} = this.props;
         if(rec.length === 1){
@@ -111,7 +116,18 @@ class Profile extends React.Component{
         }
     }
     renderAddFriend(isFriend){
-        if(isFriend || !this.state.friendsFetched) return null;
+        if(!this.state.friendsFetched) return null;
+        if(this.props.rec.length === 1 || this.props.req.length === 1) return null;
+        if (isFriend) {
+            return (
+                <button onClick={this.handleDeleteFriend} className="profile-add-friend"> 
+                    <div className="add-friend-icon">
+                        <i className="fas fa-user-minus" />
+                    </div>
+                    <p> Unfriend </p>
+                </button>
+            )
+        }
         return (
             <button onClick={this.handleCreateFriendRequest} className="profile-add-friend"> 
                 <div className="add-friend-icon">

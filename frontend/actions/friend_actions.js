@@ -41,3 +41,8 @@ export const rejectFriendRequest = id => dispatch => {
     return FriendUtil.rejectFriendRequest(id)
         .then(friendRequests => dispatch(receiveAllFriendRequests(friendRequests)))
 }
+
+export const deleteFriend = id => dispatch => {
+    return FriendUtil.deleteFriend(id)
+        .then((friends) => dispatch(receiveAllFriends(friends)))
+}

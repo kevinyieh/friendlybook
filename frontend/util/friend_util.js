@@ -37,3 +37,10 @@ export const rejectFriendRequest = (id) => {
         url:`/api/friend_requests/${id}`
     })
 }
+
+export const deleteFriend = (id) => {
+    return $.ajax({
+        method:"DELETE",
+        url:`/api/friends/${id}`
+    })
+}
