@@ -12,3 +12,16 @@ Friendlybook was implemented with React, Redux, Ruby on Rails, PostgreSQL, Herok
 ## Key Features
 
 - Users are required to be logged in to access the Friendbook's main application.
+![Login Demo](https://github.com/kevinyieh/friendlybook/blob/master/app/assets/images/login-demo.gif)
+
+- Users can signup for an account.
+![Sign Up Demo](https://github.com/kevinyieh/friendlybook/blob/master/app/assets/images/sign-up-demo.gif)
+
+- Users have access to their own personal newsfeed that is populated with their friends' posts
+![Newsfeed Demo](https://github.com/kevinyieh/friendlybook/blob/master/app/assets/images/newsfeed-demo.gif)
+
+- Users can create posts and upload a photo along with it
+![Posting Demo](https://github.com/kevinyieh/friendlybook/blob/master/app/assets/images/posting-demo.gif)
+
+- Users can comment and like on posts and comments
+![Likes Comments Demo](https://github.com/kevinyieh/friendlybook/blob/master/app/assets/images/likes-comments-demo.gif)
