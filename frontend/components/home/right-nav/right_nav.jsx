@@ -26,7 +26,7 @@ export default class RightNav extends React.Component {
                         this.props.friends.map( friend => {
                             const fullName = `${friend.firstName} ${friend.lastName}`;
                             const pfp = friend.pfp ? friend.pfp : window.defaultPfp;
-                            return <div key={fullName} className="contact-container">
+                            return <Link to={`/users/${friend.id}`} key={fullName} className="contact-container">
                                         <li className="contact">
                                             <div className="profile-pic-icon">
                                                 <img src={pfp} />
@@ -38,7 +38,7 @@ export default class RightNav extends React.Component {
                                             <i className="fas fa-user" />
                                             <p> {fullName} </p>
                                         </div>
-                                    </div>
+                                    </Link>
                         })
                     }
                 </ul>
