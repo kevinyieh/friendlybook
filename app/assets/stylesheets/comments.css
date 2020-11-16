@@ -24,6 +24,10 @@
     border-radius: 6px;
     position: relative;
 }
+.comment-content {
+    overflow-wrap: break-word;
+    max-width: 450px;
+}
 
 .comment-like-reply {
     display: flex;
@@ -94,6 +98,9 @@
     padding: 5px;
     z-index: 500;
 }
+.comment-options.non-commenter {
+    height: 40px;
+}
 
 .comment-options ul {
     height: 100%;
@@ -104,7 +111,7 @@
 }
 
 .comment-options li {
-    height: 47%;
+    height: 100%;
     width: 100%;
     border-radius: 6px;
     display: flex;

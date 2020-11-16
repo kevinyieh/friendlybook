@@ -227,6 +227,20 @@ export default class Comment extends React.Component{
                 </div>
             )
         }
+        else if( this.ownPost ){
+            return (
+                <div className={`${this.state.dropdownOptions ? "" : "hidden"} `}>
+                    <div className="comment-options non-commenter">
+                        <ul className={`${this.state.dropdownOptions ? "" : "hidden" }`}>
+                            <li onClick={this.handleDeleteComment} className="delete-comment">
+                                <p> Delete </p>
+                            </li>
+                        </ul>
+                        <div className="arrow-up comment-dropdown-carrot" />
+                    </div>
+                </div>
+            )
+        }
     }
 
     renderLikes(likes){
