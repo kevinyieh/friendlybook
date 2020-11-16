@@ -43,7 +43,9 @@ export default class Comment extends React.Component{
         document.removeEventListener("mousedown",this.handleClickOutside);
     }
     handleClickOutside(e){
-        if(this.dropdown && !this.dropdown.contains(e.target)){
+        if(this.dropdown && !this.dropdown.contains(e.target)
+            && this.meatball && !this.meatball.contains(e.target)
+        ){
             this.setState({
                 dropdownOptions: false
             })
@@ -86,7 +88,7 @@ export default class Comment extends React.Component{
     }
 
     handleDropDown(e){
-        e.preventDefault();
+        // e.preventDefault();
         this.setState({
             dropdownOptions: !this.state.dropdownOptions
         })
@@ -200,9 +202,6 @@ export default class Comment extends React.Component{
         if(this.ownPost || this.ownComment){
             return (
                 <div className="comment-dropdown-container" ref={node => this.dropdown = node}>
-                    <div onClick={this.handleDropDown} className="meatball">
-                            <i className="fas fa-ellipsis-h" />
-                    </div>
                     { this.renderDropDown() }
                 </div>
             )
@@ -212,8 +211,7 @@ export default class Comment extends React.Component{
     renderDropDown(){
         if( this.ownComment ){
             return (
-                <div className={`${this.state.dropdownOptions ? "" : "hidden"} `}>
-                    <div className="comment-options">
+                    <div className={`${this.state.dropdownOptions ? "comment-options" : "hidden"} `}>
                         <ul className={`${this.state.dropdownOptions ? "" : "hidden" }`}>
                             <li onClick={this.handleEditComment} className="edit-comment">
                                 <p> Edit </p>
@@ -224,13 +222,11 @@ export default class Comment extends React.Component{
                         </ul>
                         <div className="arrow-up comment-dropdown-carrot" />
                     </div>
-                </div>
             )
         }
         else if( this.ownPost ){
             return (
-                <div className={`${this.state.dropdownOptions ? "" : "hidden"} `}>
-                    <div className="comment-options non-commenter">
+                    <div className={`${this.state.dropdownOptions ? "comment-options non-commenter" : "hidden"} `}>
                         <ul className={`${this.state.dropdownOptions ? "" : "hidden" }`}>
                             <li onClick={this.handleDeleteComment} className="delete-comment">
                                 <p> Delete </p>
@@ -238,7 +234,6 @@ export default class Comment extends React.Component{
                         </ul>
                         <div className="arrow-up comment-dropdown-carrot" />
                     </div>
-                </div>
             )
         }
     }
@@ -284,6 +279,9 @@ export default class Comment extends React.Component{
                                 <Link to={`/users/${this.props.comment.userId}`}> <strong> {this.state.fullName} </strong> </Link>
                                 <div className="comment-content"> {this.props.comment.comment} </div>
                                 { this.renderLikes(this.props.likes)}
+                            </div>
+                            <div onClick={this.handleDropDown} className="meatball" ref={ node => this.meatball = node}>
+                                <i className="fas fa-ellipsis-h" />
                             </div>
                             {
                                 this.renderDropDownContainer()
