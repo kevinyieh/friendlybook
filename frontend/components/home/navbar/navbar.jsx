@@ -12,6 +12,19 @@ const elementClickIsOutside = (allDropIcons,clicked) => {
     return !allDropIcons.some( element => element.contains(clicked))
 }
 
+const links = {
+    home: { url: "/#/",
+            icon: <i className="fas fa-home" />},
+    github: {url: "//github.com/kevinyieh/friendlybook",
+            icon: <i className="fab fa-github" /> },
+    linkedIn: {url: "//www.linkedin.com/in/kevin-yieh",
+            icon: <i className="fab fa-linkedin-in" />},
+    angel: {url: "https://angel.co/u/kevin-yieh",
+            icon: <i className="fab fa-angellist" />},
+    githubIO: {url: "https://kevinyieh.github.io/",
+                icon: <i className="far fa-user" />}
+    }
+
 class NavBar extends React.Component{
     constructor(props){
         super(props);
@@ -81,7 +94,13 @@ class NavBar extends React.Component{
                             <p> {this.props.currentUser.firstName} </p>
                     </Link>
                     <div className="create">
-                        <div onClick={this.dropdown("create")} 
+                        <a href="https://github.com/kevinyieh">
+                            <div className="drop-github">
+                                <i className="fab fa-github" /> 
+                            </div>
+                        </a>
+                        
+                        {/* <div onClick={this.dropdown("create")} 
                             className={`drop-create ${this.state.drop === "create" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["create"] = node}>
                             <i className="fas fa-plus"></i>
@@ -89,10 +108,15 @@ class NavBar extends React.Component{
                         <CreateDropdown
                             drop={this.state.drop}
                             ref={node => this.droplists["create"] = node}
-                        />
+                        /> */}
                     </div>
                     <div className="messenger">
-                        <div onClick={this.dropdown("messenger")} 
+                        <a href="//www.linkedin.com/in/kevin-yieh">
+                            <div className="drop-linkedin">
+                                <i className="fab fa-linkedin-in" /> 
+                            </div>
+                        </a>
+                        {/* <div onClick={this.dropdown("messenger")} 
                             className={`drop-messenger ${this.state.drop === "messenger" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["messenger"] = node}>
                             <i className="fas fa-comment-dots" />
@@ -100,10 +124,15 @@ class NavBar extends React.Component{
                         <MessengerDropdown 
                             drop={this.state.drop}
                             ref={node => this.droplists["messenger"] = node}
-                        />
+                        /> */}
                     </div>
                     <div className="notifications">
-                        <div onClick={this.dropdown("notifications")} 
+                        <a href="https://kevinyieh.github.io/">
+                            <div className="drop-github">
+                                <i className="far fa-user" /> 
+                            </div>
+                        </a>
+                        {/* <div onClick={this.dropdown("notifications")} 
                             className={`drop-bell ${this.state.drop === "notifications" ? "active-dropdown" : ""}`}
                             ref={node => this.allDropIcons["notifications"] = node}>
                             <i className="fas fa-bell" />
@@ -111,7 +140,7 @@ class NavBar extends React.Component{
                         <NotificationsDropdown 
                             drop={this.state.drop}
                             ref={node => this.droplists["notifications"] = node}
-                        />
+                        /> */}
                     </div>
                     <div className="account">
                         <div onClick={this.dropdown("account")} 
