@@ -33,6 +33,7 @@ const msToYears = ms => {
 const convertToTime = (hours,minutes) => {
     const suffix = hours > 12 ? "PM" : "AM";
     minutes = minutes < 10 ? `0${minutes}` : minutes;
+    if (hours == 0) hours = 12;
     if(hours > 12){
         return `${hours-12}:${minutes} ${suffix}`
     }else{
